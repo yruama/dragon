@@ -1,0 +1,10 @@
+@import "../../../styles/variables.scss";
+
+.menu {
+    font-size: 2rem;
+}
+
+.menu:hover {
+    cursor: pointer;
+    color: $primary;
+}

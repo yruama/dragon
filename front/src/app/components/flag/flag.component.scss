@@ -1,0 +1,17 @@
+@import '../../../styles/variables.scss';
+
+.flag {
+    img {
+        width: 2rem;
+        margin: 1rem 1rem 0 0;
+    }
+
+    .active {
+        border: 1px solid $primary;
+        border-radius: 50%;
+    }
+
+    img:hover {
+        cursor: pointer;
+    }
+}

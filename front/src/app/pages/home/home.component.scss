@@ -1,0 +1,14 @@
+@import "../../../styles/variables.scss";
+
+.logo {
+    font-family: pokemon-h;
+    font-size: 10rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        max-width: 50vw;
+    }
+}
