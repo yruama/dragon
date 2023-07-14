@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  ID              Int           @id @default(autoincrement())
+  POKEMON_ID      Int
+  NAME            String
+  GENERATION_ID   Int
+  INFORMATIONS_ID Int
+  SPRITES_ID      Int
+  STATISTICS      String
+  EVOLUTION       Int?          @default(-1)
+  CREATED_AT      DateTime      @default(now())
+  UPDATED_AT      DateTime      @updatedAt
+}
+
+model Generation {
+  ID          Int     @id @default(autoincrement())
+  NAME        String
+  DESCIPTION  String
+}
+
+model Informations {
+  ID        Int     @id @default(autoincrement())
+  HEIGHT    String
+  CATEGORY  String
+  TALENT    String
+  WEIGHT    String
+  SEXE      String
+}
+
+model Sprites {
+  ID  Int     @id @default(autoincrement())
+  URL String
+}
