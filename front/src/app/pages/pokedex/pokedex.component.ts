@@ -8,11 +8,16 @@ import { PokeapiService } from 'src/app/services/pokeapi/pokeapi.service';
 })
 export class PokedexComponent implements OnInit {
 
+  pokemonId = 1;
+
   constructor(private _pokeapi: PokeapiService) {}
 
   ngOnInit(): void {
-    this._pokeapi.getAllPokemon();
-    this._pokeapi.getTest();
+    
+  }
+
+  getPokemon() {
+    this._pokeapi.getPokemon(this.pokemonId);
   }
 
 }

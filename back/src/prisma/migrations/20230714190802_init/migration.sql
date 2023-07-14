@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Pokemon` MODIFY `STATISTICS` TEXT NOT NULL;

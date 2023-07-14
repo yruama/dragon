@@ -12,12 +12,11 @@ datasource db {
 
 model Pokemon {
   ID              Int           @id @default(autoincrement())
-  POKEMON_ID      Int
-  NAME            String
-  GENERATION_ID   Int
-  INFORMATIONS_ID Int
-  SPRITES_ID      Int
-  STATISTICS      String
+  POKEMON_ID      Int           @unique
+  NAME            Json
+  GENERATION      Int
+  INFORMATIONS    Json
+  STATISTICS      Json
   EVOLUTION       Int?          @default(-1)
   CREATED_AT      DateTime      @default(now())
   UPDATED_AT      DateTime      @updatedAt
@@ -33,9 +32,8 @@ model Informations {
   ID        Int     @id @default(autoincrement())
   HEIGHT    String
   CATEGORY  String
-  TALENT    String
   WEIGHT    String
-  SEXE      String
+  TYPE      String
 }
 
 model Sprites {
