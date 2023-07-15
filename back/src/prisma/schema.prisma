@@ -40,3 +40,13 @@ model Sprites {
   ID  Int     @id @default(autoincrement())
   URL String
 }
+
+model User {
+  ID        Int     @id @default(autoincrement())
+  LASTNAME  String
+  FIRSTNAME String
+  EMAIL     String
+  PASSWORD  String
+  USERNAME  String
+  UUID      String
+}

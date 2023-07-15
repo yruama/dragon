@@ -3,16 +3,35 @@ import fastify from 'fastify';
 import blippPlugin from "fastify-blipp";
 dotenv.config();
 import cors from '@fastify/cors'
-
+import path from "path";
 
 const port = "3000";
-const app = fastify({
+export const app = fastify({
   logger: true
 })
 
 
+app.register(require("@fastify/jwt"), {
+  secret: "supersecret"
+})
+
+app.decorate("authenticate", async function(request: any, reply: any) {
+  try {
+    console.log("===== authenticate =====")
+    await request.jwtVerify()
+  } catch (err) {
+    reply.send(err)
+  }
+})
+
+app.register(require('@fastify/static'), {
+  root: path.join(__dirname, 'assets'),
+  prefix: '/assets/', // optional: default '/'
+})
+
 app.register(blippPlugin)
 app.register(import('./routes/pokemon.routes'), { prefix: 'api/v1/pokemon' })
+app.register(import('./routes/user.routes'), { prefix: 'api/v1/user' })
 app.register(cors, { 
   // put your options here
 })

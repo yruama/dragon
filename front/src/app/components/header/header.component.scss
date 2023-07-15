@@ -1,10 +1,12 @@
 @import "../../../styles/variables.scss";
 
-.menu {
-    font-size: 2rem;
+.card {
+    height: 100px;
 }
 
-.menu:hover {
-    cursor: pointer;
-    color: $primary;
+.header {
+    z-index: 2;
+    position: fixed;
+    width: 100%;
+    top: 0; /* required */
 }

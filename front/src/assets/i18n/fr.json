@@ -1,5 +1,48 @@
 {
-    "home": "acceuil",
-    "pokedex": "pokédex",
-    "about": "à propos"
+    "GENERAL": {
+        "home": "acceuil",
+        "pokedex": "pokédex",
+        "about": "à propos",
+        "all": "Toutes"
+    },
+    "POKEDEX": {
+        "1gen": "1ère génération",
+        "2gen": "2ème génération",
+        "3gen": "3ème génération",
+        "4gen": "4ème génération",
+        "5gen": "5ème génération",
+        "6gen": "6ème génération",
+        "7gen": "7ème génération",
+        "8gen": "8ème génération",
+        "9gen": "9ème génération"
+    },
+    "TYPE": {
+        "grass": "Plante",
+        "poison": "Poison",
+        "fire": "Feu",
+        "steel": "Acier",
+        "bug": "Insecte",
+        "water": "Eau",
+        "dark": "Ténèbre",
+        "psychic": "Psy",
+        "dragon": "Dragon",
+        "fairy": "Fée",
+        "normal": "Normal",
+        "ground": "Sol",
+        "fighting": "Combat",
+        "flying": "Vol",
+        "electric": "Électrique",
+        "rock": "Roche",
+        "ice": "Glace",
+        "ghost": "Fantôme"
+    },
+    "USER": {
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "email": "Email",
+        "username": "Username",
+        "password": "Mot de passe",
+        "signup": "Inscription",
+        "signin": "Connexion"
+    }
 }

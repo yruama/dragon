@@ -14,30 +14,55 @@ export default class Core_Pokemon {
 
     async addPokemon(pokemon: Pokemon) {
 
-        this._utils.downloadImage(pokemon.sprite, pokemon.id + '.jpg');
+        try {
+            this._utils.downloadImage(pokemon.sprite, pokemon.id + '.jpg');
 
-    console.log("Add pokemon : ", pokemon.id)
+            await prisma.pokemon.create({
+                data: {
+                    POKEMON_ID:      parseInt(pokemon.id as any),
+                    NAME:            JSON.parse(pokemon.name),
+                    GENERATION:      pokemon.generation,
+                    STATISTICS:      JSON.parse(pokemon.statistics),
+                    INFORMATIONS:    pokemon.informations
+                },
+            });
 
-        await prisma.pokemon.create({
-            data: {
-                POKEMON_ID:      parseInt(pokemon.id as any),
-                NAME:            JSON.parse(pokemon.name),
-                GENERATION:      pokemon.generation,
-                STATISTICS:      JSON.parse(pokemon.statistics),
-                INFORMATIONS:    pokemon.informations
-            },
-          });
+            return true;
+        } catch (error) {
+            throw error;
+        }
+
     }
 
     async getPokemon(id: number) {
-        const pokemon = await prisma.pokemon.findMany({
-            where: { POKEMON_ID: id },
-        })
+        try {
+            const pokemon = await prisma.pokemon.findMany({
+                where: { POKEMON_ID: id },
+            })
 
-        return pokemon;
+            if (pokemon && pokemon.length > 0) return pokemon[0];
+            else throw "No pokemon found with this id : " + id;
+        } catch (error) {
+            throw error;
+        }
+
     }
 
-    async getPokemonsWithPagination() {
+    async getPokemonsWithPagination(offset: number, limit: number) {
+        try {
+            const pokemon = await prisma.pokemon.findMany({
+                skip: offset,
+                take: limit,
+                orderBy: {
+                    POKEMON_ID: 'asc'
+                }
+            })
+
+            if (pokemon && pokemon.length > 0) return pokemon;
+            else throw "No pokemon found";
+        } catch (error) {
+            throw error;
+        }
 
     }
 }

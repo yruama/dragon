@@ -14,4 +14,19 @@ export default class Core_Utils {
             if (err) throw err;
         });
     }
+
+    successFormat(result: any) {
+        return {
+            status: 'success',
+            result
+        }
+    }
+
+    errorFormat(message: string, code: any = -1) {
+        return {
+            status: 'error',
+            message,
+            code
+        }
+    }
 }

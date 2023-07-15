@@ -1,0 +1,22 @@
+<div class="container">
+    <div *ngFor="let pokemon of pokemons" class="pokemon-block">
+        <div class="pokemon-img">
+            <img src='{{ "http://localhost:3000/assets/" + pokemon.POKEMON_ID + ".jpg" }}' alt="">
+        </div>
+        <div class="info">
+            {{ pokemon.NAME[0].name }} - #{{ pokemon.POKEMON_ID }}
+        </div>
+
+        <div class="types">
+            <div class="type" *ngFor="let type of pokemon.INFORMATIONS.type">
+                <img pTooltip="{{ 'TYPE.' + type.name  | translate }}" src="{{ 'assets/imgs/types/' + type.name + '.png' }}" alt="">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<button *ngIf="offset < max" (click)="loadMorePokemons()">
+    charger plus
+</button>

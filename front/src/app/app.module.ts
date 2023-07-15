@@ -15,6 +15,11 @@ import { FlagComponent } from './components/flag/flag.component';
 import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule } from '@angular/forms';
+import { MenubarModule } from 'primeng/menubar';
+import { PokemonsListComponent } from './components/pokemons-list/pokemons-list.component';
+import { TooltipModule } from 'primeng/tooltip';
+import { AuthComponent } from './pages/auth/auth.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -26,7 +31,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HomeComponent,
     FlagComponent,
     PokedexComponent,
-    HeaderComponent
+    HeaderComponent,
+    PokemonsListComponent,
+    AuthComponent
   ],
   imports: [
     HttpClientModule,
@@ -42,7 +49,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppRoutingModule,
     ButtonModule,
     RippleModule,
-    FormsModule
+    FormsModule,
+    MenubarModule,
+    TooltipModule,
+    InputTextModule
   ],
   providers: [],
   bootstrap: [AppComponent]

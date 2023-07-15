@@ -1,6 +1,8 @@
 @import './styles/fonts.scss';
 @import './styles/variables.scss';
+@import "primeicons/primeicons.css";
 
-  body {
-    font-family: glacial;
-  }
+body {
+  font-family: glacial;
+  margin: 0;
+}

@@ -1,11 +1,9 @@
-<div class="header my-5">
+<div class="card">
+    <p-menubar class="header" [model]="items">
+        <ng-template pTemplate="start">
+            <img src="assets/imgs/evoli_logo.png" height="40" class="mr-2" />
+        </ng-template>
 
-    <div class="card flex justify-content-center">
-
-        <div [routerLink]="[ '/']" class="menu"> {{ 'home' | translate | titlecase }} </div>
-        <div [routerLink]="[ '/pokedex']"  class="menu mx-8">  {{ 'pokedex' | translate | titlecase }} </div>
-        <div class="menu">  {{ 'about' | translate | titlecase }} </div>
-
-    </div>
-
+        <p>Login</p>
+    </p-menubar>
 </div>

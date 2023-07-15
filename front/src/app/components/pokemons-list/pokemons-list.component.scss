@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    width: 80%;
+    margin: auto;
+}
+
+.pokemon-block {
+    border-radius: 8px;
+    background: #1f2d40;
+    margin: 8px;
+    flex: 0 1 calc(20% - 16px);
+    position: relative;
+    padding: 1rem;
+    img {
+        max-width:100%;
+    }
+}
+
+.pokemon-block:hover {
+    cursor: pointer;
+    box-shadow: 0 0px 16px #1f2d40;
+}
+
+.types {
+    display: flex;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.type {
+    width: 32px;
+    margin-right: 0.5rem;
+}
