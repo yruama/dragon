@@ -21,9 +21,12 @@
         <tr>
             <td>{{ pokemon.POKEMON_ID.toString().padStart(4, '0') }}</td>
             <td>
-                <div class="mini" style="width: 40px; height: 40px; overflow: visible;">
-                    <img style="max-width: 65px " src='{{ "http://localhost:3000/assets/miniature/" + pokemon.POKEMON_ID + ".png" }}' alt="">
+                <div class="flex justify-content-center align-items-center">
+                    <div class="mini" style="width: 40px; height: 40px; overflow: visible;">
+                        <img style="max-width: 65px " src='{{ "http://localhost:3000/assets/miniature/" + pokemon.POKEMON_ID + ".png" }}' alt="">
+                    </div>
                 </div>
+                
             </td>
             <td>{{ pokemon.NAME[0].name }}</td>
             <td>
@@ -34,8 +37,8 @@
                 </div>
 
             </td>
-            <td>{{ pokemon.GENERATION }}</td>
-            <td> <p-inputSwitch [(ngModel)]="pokelistData[i].OWNED"></p-inputSwitch> </td>
+            <td><div class="flex justify-content-center align-items-center">{{ pokemon.GENERATION }}</div></td>
+            <td><div class="flex justify-content-center align-items-center"> <p-inputSwitch [(ngModel)]="pokelistData[i].OWNED"></p-inputSwitch></div> </td>
             <td></td>
         </tr>
     </ng-template>
