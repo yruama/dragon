@@ -1,0 +1,52 @@
+<div>
+    <p-table
+    id="pokemon"
+    [value]="pokemons"
+    styleClass="p-datatable-gridlines"
+    [scrollable]="true"
+    scrollHeight="calc(100vh - 200px)">
+    <ng-template pTemplate="caption"> Nom liste Pokémon 1 </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 1px">No</th>
+            <th style="width: 1px">Name</th>
+            <th style="width: 1px">Sprite</th>
+            <th style="width: 1px">Type</th>
+            <th style="width: 1px">Générations</th>
+            <th style="width: 1px">Status</th>
+            <th>Note</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pokemon>
+        <tr>
+            <td>{{ pokemon.POKEMON_ID.toString().padStart(4, '0') }}</td>
+            <td>
+                <div class="mini" style="width: 40px; height: 40px; overflow: visible;">
+                    <img style="max-width: 65px " src='{{ "http://localhost:3000/assets/miniature/" + pokemon.POKEMON_ID + ".png" }}' alt="">
+                </div>
+            </td>
+            <td>{{ pokemon.NAME[0].name }}</td>
+            <td>
+                <div class="flex">
+                    <div class="type" *ngFor="let type of pokemon.INFORMATIONS.type">
+                        <img style="max-width: 32px; margin-right: 1rem;" pTooltip="{{ 'TYPE.' + type.name  | translate }}" src="{{ 'http://localhost:3000/assets/types/' + type.name + '.png' }}" alt="">
+                    </div>
+                </div>
+
+            </td>
+            <td>{{ pokemon.GENERATION }}</td>
+            <td> none </td>
+            <td></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer"> <tr>
+        <td style="width: 1px">No</td>
+        <td style="width: 1px">Name</td>
+        <td style="width: 1px">Sprite</td>
+        <td style="width: 1px">Type</td>
+        <td style="width: 1px">Générations</td>
+        <td style="width: 1px">Status</td>
+        <td>Note</td>
+    </tr> </ng-template>
+</p-table>
+</div>

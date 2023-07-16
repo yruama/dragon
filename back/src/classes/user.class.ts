@@ -20,10 +20,10 @@ export default class Class_User {
                 if (_bcrypt.compareSync(user.PASSWORD, userData.PASSWORD)) {
                     console.log({ email: user.EMAIL, id: userData.ID })
                     const token = app.jwt.sign({ email: userData.EMAIL, id: userData.ID })
-                    user.token = token;
-                    user.PASSWORD = '';
+                    userData.token = token;
+                    userData.PASSWORD = '';
 
-                    console.log("User : ", user)
+                    console.log("userData : ", userData)
 
                     return userData;
                 } else {

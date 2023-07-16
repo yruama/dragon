@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/types/user';
 import { APIResult } from 'src/app/types/utils.types';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable({
@@ -9,7 +10,8 @@ import { APIResult } from 'src/app/types/utils.types';
 })
 export class UserService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient,
+              public jwtHelper: JwtHelperService) { }
 
   signUp(user: User) {
     return new Promise<APIResult>((resolve, reject) => {
@@ -49,7 +51,7 @@ export class UserService {
     return new Promise<APIResult>((resolve, reject) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtYXVyeWxhcm96ZUBnbWFpbC5jb20iLCJpZCI6MSwiaWF0IjoxNjg5NDU3MDY3fQ.XBt0pF2Q9gGJbFoEOl6Mi_tbjr2xHFdgRg78nuTAW8k`
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
 
       this._http.post('http://localhost:3000/api/v1/user/test', { toto: "toto" }, { headers }).subscribe(
@@ -61,6 +63,16 @@ export class UserService {
         }
       );
     })
+  }
+
+  public isAuthenticated(): boolean {
+    try {
+      const token = localStorage.getItem('token');
+      return !this.jwtHelper.isTokenExpired(token);
+    } catch (error) {
+      return false
+    }
+    
   }
 
 }

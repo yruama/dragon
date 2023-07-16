@@ -19,17 +19,29 @@ export class AuthComponent {
   constructor(private _user: UserService) {}
 
   async signUp() {
-    console.log("Inscription => ", this.user);
-    const userData = await this._user.signUp(this.user);
+    try {
+      console.log("Inscription => ", this.user);
+      const userData = await this._user.signUp(this.user);
 
-    console.log(userData);
+      console.log(userData);
+    } catch (error) {
+
+    }
+
   }
 
   async signIn() {
-    console.log("Connexion => ", this.user);
-    const userData = await this._user.signIn(this.user);
-
+    try {
+      console.log("Connexion => ", this.user);
+      const userData = await this._user.signIn(this.user);
+    if (userData.status === 'success') {
+      localStorage.setItem('token', userData.result.token);
+    }
     console.log(userData);
+    } catch (error) {
+
+    }
+
   }
 
   async test() {

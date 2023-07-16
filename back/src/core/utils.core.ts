@@ -8,10 +8,14 @@ export default class Core_Utils {
     }
 
     async downloadImage(url: string, filename: string) {
+        console.log("'./src/assets/' + filename => ", './src/assets/' + filename)
         const response = await axios.get(url, { responseType: 'arraybuffer' });
+
+        
 
         fs.writeFile('./src/assets/' + filename, response.data, (err) => {
             if (err) throw err;
+            else return true;
         });
     }
 

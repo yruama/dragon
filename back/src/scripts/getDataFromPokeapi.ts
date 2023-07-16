@@ -12,13 +12,13 @@ async function start() {
 
     //await prisma.pokemon.deleteMany({})
     getPokemonsFromFile()
-    //getXPokemon(152, 251);
+    //getXPokemon(906, 105);
     //updatePokemonFromFile(0)
 
 }
 
 function updatePokemonFromFile(id: number) {
-    fs.readFile('./mynewfile1.txt', 'utf8', (err, data) => {
+    fs.readFile('./mynewfile1.txt', 'utf8', async (err, data) => {
         let pokemons = JSON.parse(data);
         const corePokemon = new Core_Pokemon();
 
@@ -28,7 +28,8 @@ function updatePokemonFromFile(id: number) {
         const formatedPokemon: Pokemon = {
             id          : pokemon.id,
             name        : pokemon.name,
-            sprite      : pokemon.sprite,
+            artwork     : pokemon.artwork,
+            miniature   : pokemon.miniature,
             statistics  : pokemon.statistics,
             generation  : pokemon.generation,
             informations: {
@@ -39,7 +40,7 @@ function updatePokemonFromFile(id: number) {
             }
         }
 
-        corePokemon.addPokemon(formatedPokemon);
+        await corePokemon.addPokemon(formatedPokemon);
 
 
     });
@@ -57,7 +58,8 @@ function getPokemonsFromFile() {
             const formatedPokemon: Pokemon = {
                 id          : pokemon.id,
                 name        : pokemon.name,
-                sprite      : pokemon.sprite,
+                artwork     : pokemon.artwork,
+                miniature   : pokemon.miniature,
                 statistics  : pokemon.statistics,
                 generation  : pokemon.generation,
                 informations: {
@@ -105,7 +107,8 @@ async function getOnePokemonAndFormatIt(i: string): Promise<string> {
             const generation    = getGeneration(pokemonSpecies.generation.name.split('-')[1]);
             const statistics    = pokemon.stats.map((_stats: any) => { return { value: _stats.base_stat, name: _stats.stat.name }})
             const types         = pokemon.types.map((_type: any) => { return { name: _type.type.name }});
-            const srpite        = pokemon.sprites.other['official-artwork'].front_default;
+            const artwork       = pokemon.sprites.other['official-artwork'].front_default;
+            const miniature     = pokemon.sprites.front_default;
             const category      = pokemonSpecies.genera.filter((_genera: any) => _genera.language.name === 'fr' || _genera.language.name === 'en')
                                                         .map((_category: any) => { return { name: _category.genus, language: _category.language.name }});
             const id            = pokemonSpecies.pokedex_numbers[0].entry_number;
@@ -115,7 +118,8 @@ async function getOnePokemonAndFormatIt(i: string): Promise<string> {
                 name        : name,
                 height      : height,
                 weight      : weight,
-                sprite      : srpite,
+                artwork     : artwork,
+                miniature   : miniature,
                 types       : types,
                 statistics  : JSON.stringify(statistics),
                 generation  : generation,

@@ -1,1 +1,10 @@
-<app-pokemons-list [min]="1" [max]="252"></app-pokemons-list>
+<div class="title"> {{ 'POKEDEX.' + generation + 'gen' | translate }} </div>
+<div class="subTitle"> {{ generationValue[generation].from + 1 }} - {{ generationValue[generation].to }} </div>
+
+<br>
+
+<app-pokemons-list
+    [min]="generationValue[generation].from"
+    [max]="generationValue[generation].to"
+    [events]="reloadData.asObservable()">
+</app-pokemons-list>

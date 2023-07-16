@@ -2,15 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { PokedexComponent } from './pages/pokedex/pokedex.component';
+
 import { AuthComponent } from './pages/auth/auth.component';
+import { PokelistComponent } from './pages/pokelist/pokelist.component';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'pokedex', component: PokedexComponent },
   { path: 'pokedex/:id', component: PokedexComponent },
-  { path: 'auth/sign-in', component: AuthComponent},
-  { path: 'auth/sign-up', component: AuthComponent},
-  { path: 'auth/sign-off', component: AuthComponent}
+  { path: 'auth/sign-in', component: AuthComponent },
+  { path: 'auth/sign-up', component: AuthComponent },
+  { path: 'auth/sign-off', component: AuthComponent },
+  { path: 'pokelist', component: PokelistComponent, canActivate: [AuthGuardService] },
+  { path: 'pokelist/:id', component: PokelistComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({

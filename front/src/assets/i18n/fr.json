@@ -3,18 +3,20 @@
         "home": "acceuil",
         "pokedex": "pokédex",
         "about": "à propos",
-        "all": "Toutes"
+        "all": "Toutes",
+        "load_more": "Chager plus de Pokémon"
     },
     "POKEDEX": {
-        "1gen": "1ère génération",
-        "2gen": "2ème génération",
-        "3gen": "3ème génération",
-        "4gen": "4ème génération",
-        "5gen": "5ème génération",
-        "6gen": "6ème génération",
-        "7gen": "7ème génération",
-        "8gen": "8ème génération",
-        "9gen": "9ème génération"
+        "0gen": "Toutes les générations",
+        "1gen": "1ère Génération",
+        "2gen": "2ème Génération",
+        "3gen": "3ème Génération",
+        "4gen": "4ème Génération",
+        "5gen": "5ème Génération",
+        "6gen": "6ème Génération",
+        "7gen": "7ème Génération",
+        "8gen": "8ème Génération",
+        "9gen": "9ème Génération"
     },
     "TYPE": {
         "grass": "Plante",

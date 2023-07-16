@@ -8,7 +8,8 @@ export interface PokeInfos {
 export interface Pokemon {
     id          : number,
     name        : string,
-    sprite      : spring,
+    artwork     : string,
+    miniature   : spring,
     statistics  : string,
     generation  : string,
     informations: PokeInfos

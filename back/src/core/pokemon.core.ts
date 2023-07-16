@@ -15,7 +15,8 @@ export default class Core_Pokemon {
     async addPokemon(pokemon: Pokemon) {
 
         try {
-            this._utils.downloadImage(pokemon.sprite, pokemon.id + '.jpg');
+            await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');
+            await this._utils.downloadImage(pokemon.miniature, 'miniature/' + pokemon.id + '.png');
 
             await prisma.pokemon.create({
                 data: {

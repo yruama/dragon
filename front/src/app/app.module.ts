@@ -20,6 +20,13 @@ import { PokemonsListComponent } from './components/pokemons-list/pokemons-list.
 import { TooltipModule } from 'primeng/tooltip';
 import { AuthComponent } from './pages/auth/auth.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ForNumberPipe } from './pipe/forNumber/for-number.pipe';
+import { TableModule } from 'primeng/table';
+import { PokelistComponent } from './pages/pokelist/pokelist.component';
+import { PokemonsUserListComponent } from './components/pokemons-user-list/pokemons-user-list.component';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -33,7 +40,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     PokedexComponent,
     HeaderComponent,
     PokemonsListComponent,
-    AuthComponent
+    AuthComponent,
+    ForNumberPipe,
+    PokelistComponent,
+    PokemonsUserListComponent
   ],
   imports: [
     HttpClientModule,
@@ -52,9 +62,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     MenubarModule,
     TooltipModule,
-    InputTextModule
+    InputTextModule,
+    SkeletonModule,
+    TableModule
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
