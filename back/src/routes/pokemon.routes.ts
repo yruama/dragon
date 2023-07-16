@@ -21,6 +21,15 @@ async function routes (fastify: FastifyInstance, options: RequestRouteOptions) {
 
   })
 
+  fastify.post('/getMany', async (request: any, reply: any) => {
+    try {
+      const pokemon = await corePokemon.getManyPokemon(request.body.pokemonIds);
+      reply.send(coreUtils.successFormat(pokemon));
+    } catch (error: any) {
+        reply.send(coreUtils.errorFormat(error))
+    }
+  })
+
   fastify.get('/:id', async (request: FastifyRequest, reply: FastifyReply) => {
     const id = request.params.id;
 
@@ -28,6 +37,8 @@ async function routes (fastify: FastifyInstance, options: RequestRouteOptions) {
 
     reply.send(pokemon)
   })
+
+  
 
 }
 

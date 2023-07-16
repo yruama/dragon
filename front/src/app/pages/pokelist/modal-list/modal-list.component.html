@@ -20,6 +20,6 @@
 
     <br>
 
-    <p-button label="{{ 'GENERAL.create' | translate }}" (click)="createList()"></p-button>
+    <p-button [loading]="loading" label="{{ 'GENERAL.create' | translate }}" (click)="createList()"></p-button>
 
 </div>

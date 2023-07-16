@@ -12,7 +12,13 @@
         "name": "Nom de la liste",
         "génération": "Génération de la liste",
         "image": "Image",
-        "create_list": "Créer une liste"
+        "create_list": "Créer une liste",
+        "owned": "Possédés",
+        "pokemon_name": "Nom",
+        "sprite": "Sprite",
+        "type": "Type",
+        "note": "Note",
+        "gen": "Gen"
     },
     "POKEDEX": {
         "0gen": "Toutes les générations",

@@ -3,16 +3,19 @@ import Core_Pokelist from "../core/pokelist.core";
 import _bcrypt from 'bcrypt';
 import { app } from "../app";
 import Core_Generation from "../core/generation.core";
+import Core_Pokemon from "../core/pokemon.core";
 
 export default class Class_Pokelist {
 
     private _pokelist: Core_Pokelist
+    private _pokemon: Core_Pokemon;
     private _generations: Core_Generation;
 
     constructor() {
         console.log("Core_Pokemon constructor");
         this._pokelist = new Core_Pokelist();
         this._generations = new Core_Generation();
+        this._pokemon = new Core_Pokemon();
     }
 
     async addPokelist(pokelist: Pokelist) {
@@ -40,6 +43,26 @@ export default class Class_Pokelist {
         }
     }
 
+    async getPokeList(id: string, userId: number) {
+        try {
+            //1. On récupère lesdonnées de la liste
+            const pokelist = await this._pokelist.getPokelist(id, userId);
 
+            //2 On récupère les pokémons lié à cette liste
+            const pokelistData = await this._pokelist.getPokemonOfList(id, userId)
+
+            //3. On récupère les premiers pokémons
+            const pokemonsIds = pokelistData.map((_pokemon: PokelistData) => _pokemon.POKEMON_ID)
+            const pokemon = await this._pokemon.getManyPokemon(pokemonsIds.slice(0, 25));
+
+            return {
+                pokelist: pokelist,
+                pokelistData: pokelistData,
+                pokemon: pokemon
+            }
+        } catch (error) {
+            throw error
+        }
+    }
 
 }

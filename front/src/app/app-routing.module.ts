@@ -6,6 +6,7 @@ import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { PokelistComponent } from './pages/pokelist/pokelist.component';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { PokemonsUserListComponent } from './pages/pokelist/pokemons-user-list/pokemons-user-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'auth/sign-up', component: AuthComponent },
   { path: 'auth/sign-off', component: AuthComponent },
   { path: 'pokelist', component: PokelistComponent, canActivate: [AuthGuardService] },
-  { path: 'pokelist/:id', component: PokelistComponent, canActivate: [AuthGuardService] }
+  { path: 'pokelist/:id', component: PokemonsUserListComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({

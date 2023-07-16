@@ -7,3 +7,12 @@ export interface Pokelist {
     user?: any;
     generation?: any;
 }
+
+export interface PokelistData {
+    ID?: number,
+    POKEMON_ID: number,
+    USER_ID: number,
+    POKELIST_ID: number,
+    OWNED: number,
+    NOTE?: string
+}

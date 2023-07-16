@@ -33,10 +33,12 @@ export default class Core_Pokelist {
 
     }
 
-    async getPokelist(id: number, userId: number) {
+    async getPokelist(id: string, userId: number) {
         try {
             const pokelist = await prisma.pokelist.findMany({
-                where: { ID: id, USER_ID: userId },
+                where: { ID: parseInt(id), USER_ID: userId },
+            }).catch((err: any) => {
+                console.error(err)
             })
 
             if (pokelist && pokelist.length > 0) return pokelist[0];
@@ -79,6 +81,24 @@ export default class Core_Pokelist {
             })
 
             return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getPokemonOfList(id: string, userId: number) {
+        try {
+            const pokelist = await prisma.pokelistData.findMany({
+                where: { USER_ID: userId, POKELIST_ID: parseInt(id) },
+                orderBy: {
+                    ID: 'asc'
+                }
+            }).catch((err: any) => {
+                console.error(err)
+            })
+
+            if (pokelist && pokelist.length > 0) return pokelist;
+            else throw "No pokelistdata found";
         } catch (error) {
             throw error;
         }

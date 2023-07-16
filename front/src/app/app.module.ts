@@ -31,6 +31,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ModalListComponent } from './pages/pokelist/modal-list/modal-list.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { FieldsetModule } from 'primeng/fieldset';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -72,7 +74,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TableModule,
     DialogModule,
     MultiSelectModule,
-    DropdownModule
+    DropdownModule,
+    FieldsetModule,
+    InputSwitchModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

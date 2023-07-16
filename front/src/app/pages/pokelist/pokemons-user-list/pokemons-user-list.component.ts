@@ -1,5 +1,8 @@
 import { Component, HostListener, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PokelistService } from 'src/app/services/pokelist/pokelist.service';
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { Pokelist, PokelistData } from 'src/app/types/pokelist.types';
 import { Pokemon } from 'src/app/types/pokemons.types';
 
 @Component({
@@ -13,20 +16,34 @@ export class PokemonsUserListComponent {
   @Input() max: number = 151;
 
   pokemons: Pokemon[] = [];
+  pokelistData: PokelistData[] = [];
+  //@ts-ignore
+  pokelist: Pokelist;
 
   offset = 0;
-  limit = 100;
+  limit = 50;
 
   canLoadMoreData = true;
 
 
-  constructor(private _pokemonService: PokemonService) {}
+  constructor(private _pokemonService: PokemonService,
+              private _pokelistService: PokelistService,
+              private _aRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.offset = this.min;
+  async ngOnInit() {
+    const list = await this._pokelistService.getPokeList(this._aRoute.snapshot.paramMap.get('id')!)
+    
+    if (list.status === "success") {
+      this.pokelistData = list.result.pokelistData;
+      this.pokemons = list.result.pokemon;
+      this.pokelist = list.result.pokelist;
+    }
+
+    console.log("LIST => ", list)
+   /* this.offset = this.min;
     this.getPokemons();
 
-    this.loadMorePokemons()
+    this.loadMorePokemons()*/
   }
 
   async getPokemons() {

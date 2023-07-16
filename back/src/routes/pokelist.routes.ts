@@ -40,6 +40,17 @@ async function routes (fastify: any, options: RequestRouteOptions) {
         }
     })
 
+    fastify.get('/:id', { onRequest: [fastify.authenticate] }, async (request: any, reply: FastifyReply) => {
+
+        try {
+            console.log("><(((°>")
+            const pokelistData = await classPokelist.getPokeList(request.params.id, request.user.ID);
+            reply.send(coreUtils.successFormat(pokelistData));
+        } catch (error: any) {
+            reply.send(coreUtils.errorFormat(error))
+        }
+    })
+
 }
 
 export default routes;

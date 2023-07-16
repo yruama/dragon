@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GenerationService } from 'src/app/services/generation/generation.service';
 import { PokelistService } from 'src/app/services/pokelist/pokelist.service';
 import { Pokelist } from 'src/app/types/pokelist.types';
@@ -9,6 +9,7 @@ import { Pokelist } from 'src/app/types/pokelist.types';
   styleUrls: ['./modal-list.component.scss']
 })
 export class ModalListComponent implements OnInit {
+  @Output() reloadData = new EventEmitter();
 
   pokelist: Pokelist = {
     NAME: '',
@@ -16,6 +17,7 @@ export class ModalListComponent implements OnInit {
     GENERATION_ID: 0,
   }
 
+  loading = false;
   generations: any = [];
 
   constructor(private _generation: GenerationService,
@@ -35,9 +37,16 @@ export class ModalListComponent implements OnInit {
     }
   }
 
-  createList() {
-    this._pokelist.addPokeList(this.pokelist);
-    console.log("Pokelist : ", this.pokelist)
+  async createList() {
+    if (this.loading === false) {
+      this.loading = true;
+      const pokelistData = await this._pokelist.addPokeList(this.pokelist);
+  
+      if (pokelistData.status === 'success') {
+        this.loading = false;
+        this.reloadData.emit(true);
+      }
+    }
   }
 
 }

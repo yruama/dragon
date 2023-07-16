@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PokelistService } from 'src/app/services/pokelist/pokelist.service';
+import { Pokelist } from 'src/app/types/pokelist.types';
 
 @Component({
   selector: 'app-pokelist',
@@ -9,13 +11,30 @@ import { PokelistService } from 'src/app/services/pokelist/pokelist.service';
 export class PokelistComponent implements OnInit {
   visible = false;
 
-  constructor(private _pokelist: PokelistService) {}
+  pokelist: Pokelist[] = [];
 
-  async ngOnInit() {
+  constructor(private _pokelist: PokelistService,
+              private _router: Router) {}
+
+  ngOnInit() {
+    this.getPokelist();
+  }
+
+  async getPokelist() {
     const pokelistData = await this._pokelist.getPokeLists();
 
+    console.log("pokelistData => ", pokelistData)
     if (pokelistData.status === 'success') {
-      console.log(pokelistData.result)
+      this.pokelist = pokelistData.result;
     }
+  }
+
+  viewList(list: Pokelist) {
+    this._router.navigate(['/pokelist/' + list.ID]);
+  }
+
+  reloadData(event: any) {
+    this.visible = false;
+    if (event) this.getPokelist();
   }
 }

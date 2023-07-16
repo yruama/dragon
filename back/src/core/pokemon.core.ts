@@ -66,4 +66,25 @@ export default class Core_Pokemon {
         }
 
     }
+
+    async getManyPokemon(pokemonIds: number[]) {
+        try {
+            console.log("Get many : ", pokemonIds)
+            const pokemon = await prisma.pokemon.findMany({
+                where: { POKEMON_ID: { in: pokemonIds } },
+                orderBy: {
+                    POKEMON_ID: 'asc'
+                }
+            }).catch((err: any) => {
+                console.error(err)
+            })
+
+            console.log("POKEMON => ", pokemon)
+
+            if (pokemon && pokemon.length > 0) return pokemon;
+            else throw "No pokemon found";
+        } catch (error) {
+            throw error;
+        }
+    }
 }
