@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,8 @@ import { MenuItem } from 'primeng/api';
 export class HeaderComponent implements OnInit {
   items: MenuItem[] | undefined;
 
-  constructor(private _translate: TranslateService) {}
+  constructor(private _translate: TranslateService,
+              public _user: UserService) {}
 
   async ngOnInit() {
     await new Promise(resolve => setTimeout(resolve, 150)); // Pour attendre l'initialisation des traductions
@@ -32,11 +34,14 @@ export class HeaderComponent implements OnInit {
 
     this.items = [
       {
-          label: this._translate.instant('pokedex'),
-          icon: 'pi pi-fw pi-map-marker',
-          items: generationItems
-
-      },
+        label: this._translate.instant('pokedex'),
+        icon: 'pi pi-fw pi-map-marker',
+        items: generationItems
+      }, {
+        label: this._translate.instant('pokelist'),
+        icon: 'pi pi-fw ',
+        routerLink: '/pokelist/'
+      }
     ];
    
   }

@@ -11,10 +11,6 @@ export class PokemonsUserListComponent {
 
   @Input() min: number = 0;
   @Input() max: number = 151;
-  // @ts-ignore
-  @Input() events: Observable<void>;
-  // @ts-ignore
-  private eventsSubscription: Subscription;
 
   pokemons: Pokemon[] = [];
 
@@ -68,10 +64,6 @@ export class PokemonsUserListComponent {
       }
     });
 
-  }
-
-  ngOnDestroy() {
-    this.eventsSubscription.unsubscribe();
   }
 
 }

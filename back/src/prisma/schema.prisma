@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider      = "mysql"
+  url           = env("DATABASE_URL")
+  relationMode  = "prisma"
 }
 
 model Pokemon {
@@ -20,12 +21,7 @@ model Pokemon {
   EVOLUTION       Int?          @default(-1)
   CREATED_AT      DateTime      @default(now())
   UPDATED_AT      DateTime      @updatedAt
-}
-
-model Generation {
-  ID          Int     @id @default(autoincrement())
-  NAME        String
-  DESCIPTION  String
+  POKELISTDATA    PokelistData[]
 }
 
 model Informations {
@@ -49,4 +45,34 @@ model User {
   PASSWORD  String
   USERNAME  String
   UUID      String
+  POKELIST     Pokelist[]
+}
+
+model Generation {
+  ID          Int     @id @default(autoincrement())
+  NAME        String
+  DESCRIPTION String
+  MIN         Int     @default(0)
+  MAX         Int     @default(1010)
+  POKELIST    Pokelist[]
+}
+
+model Pokelist {
+  ID            Int         @id @default(autoincrement())
+  NAME          String
+  IMAGE         String
+  GENERATION    Generation  @relation(fields: [GENERATION_ID], references: [ID])
+  GENERATION_ID Int
+  USER          User        @relation(fields: [USER_ID], references: [ID])
+  USER_ID       Int
+}
+
+model PokelistData {
+  ID            Int     @id @default(autoincrement())
+  POKEMON       Pokemon @relation(fields: [POKEMON_ID], references: [POKEMON_ID])
+  POKEMON_ID    Int
+  USER_ID       Int
+  POKELIST_ID   Int
+  OWNED         Int
+  NOTE          String
 }

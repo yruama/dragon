@@ -4,6 +4,13 @@
             <img src="assets/imgs/evoli_logo.png" height="40" class="mr-2" />
         </ng-template>
 
-        <p>Login</p>
+        <div *ngIf="_user.isAuthenticated(); else auth">
+            Profil
+        </div>
+        <ng-template #auth>
+            <p>Login</p>
+            <p>Inscription</p>
+        </ng-template>
+        
     </p-menubar>
 </div>

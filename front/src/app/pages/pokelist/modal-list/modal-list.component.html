@@ -1,0 +1,25 @@
+<div class="flex flex-column forms">
+
+    <div class="input">
+        <span class="p-float-label">
+            <input pInputText id="name" [(ngModel)]="pokelist.NAME" />
+            <label htmlFor="name">{{ 'POKELIST.name' | translate }}</label>
+        </span>
+    </div>
+
+    <span class="p-float-label">
+        <p-dropdown
+            [options]="generations"
+            [(ngModel)]="pokelist.GENERATION_ID"
+            optionLabel="NAME"
+            optionValue="ID"
+            inputId="float-label">
+        </p-dropdown>
+        <label for="float-label">{{ 'GENERAL.generation' | translate }}</label>
+    </span>
+
+    <br>
+
+    <p-button label="{{ 'GENERAL.create' | translate }}" (click)="createList()"></p-button>
+
+</div>

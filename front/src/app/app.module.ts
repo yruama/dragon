@@ -24,9 +24,13 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { ForNumberPipe } from './pipe/forNumber/for-number.pipe';
 import { TableModule } from 'primeng/table';
 import { PokelistComponent } from './pages/pokelist/pokelist.component';
-import { PokemonsUserListComponent } from './components/pokemons-user-list/pokemons-user-list.component';
+import { PokemonsUserListComponent } from './pages/pokelist/pokemons-user-list/pokemons-user-list.component';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { DialogModule } from 'primeng/dialog';
+import { ModalListComponent } from './pages/pokelist/modal-list/modal-list.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -43,7 +47,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AuthComponent,
     ForNumberPipe,
     PokelistComponent,
-    PokemonsUserListComponent
+    PokemonsUserListComponent,
+    ModalListComponent
   ],
   imports: [
     HttpClientModule,
@@ -64,7 +69,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TooltipModule,
     InputTextModule,
     SkeletonModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    MultiSelectModule,
+    DropdownModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

@@ -1,1 +1,8 @@
+<p-button (click)="visible = true" icon="pi pi-external-link" label="Show"></p-button>
+
 <app-pokemons-user-list></app-pokemons-user-list>
+
+
+<p-dialog header="{{ 'POKELIST.create_list' | translate }}" [modal]="true" [(visible)]="visible" [style]="{width: '50vw'}" [dismissableMask]="true">
+    <app-modal-list></app-modal-list>
+</p-dialog>
