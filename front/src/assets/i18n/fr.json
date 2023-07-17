@@ -59,6 +59,15 @@
         "username": "Username",
         "password": "Mot de passe",
         "signup": "Inscription",
-        "signin": "Connexion"
+        "signin": "Connexion",
+        "signoff": "Déconnexion",
+        "profile": "Profil",
+        "my_pokedex": "Mon pokédex"
+    },
+    "TOAST": {
+        "connexion_success": "Connexion réussi",
+        "connexion_error": "Connexion impossible",
+        "register_success": "Inscription réussi",
+        "register_error": "Inscription impossible"
     }
 }

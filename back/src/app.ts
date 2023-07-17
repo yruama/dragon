@@ -17,7 +17,6 @@ app.register(require("@fastify/jwt"), {
 
 app.decorate("authenticate", async function(request: any, reply: any) {
   try {
-    console.log("===== authenticate =====")
     await request.jwtVerify()
   } catch (err) {
     reply.send(err)

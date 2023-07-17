@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
 import { UserService } from 'src/app/services/user/user.service';
@@ -10,13 +11,24 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HeaderComponent implements OnInit {
   items: MenuItem[] | undefined;
+  pofileItems: MenuItem[] = [{
+    label: this._translate.instant('USER.signoff'),
+    command: () => this.signOff()
+  }, {
+    label: this._translate.instant('USER.profile'),
+    routerLink: '/profile'
+  }, {
+    label: this._translate.instant('USER.my_pokedex'),
+    routerLink: '/profile/pokedex'
+  }]
 
   constructor(private _translate: TranslateService,
-              public _user: UserService) {}
+              public _user: UserService,
+              private _router: Router) {}
 
   async ngOnInit() {
     await new Promise(resolve => setTimeout(resolve, 150)); // Pour attendre l'initialisation des traductions
-    const generationItems: MenuItem[] = [];
+    const generationItems: MenuItem[] = []; 
 
     generationItems.push({
       label: this._translate.instant('GENERAL.all'),
@@ -44,6 +56,11 @@ export class HeaderComponent implements OnInit {
       }
     ];
    
+  }
+
+  signOff() {
+    localStorage.removeItem('token');
+    this._router.navigate(['/']);
   }
 
 

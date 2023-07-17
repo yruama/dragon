@@ -1,17 +1,16 @@
 export interface Pokelist {
     ID?: number,
     NAME: string,
-    IMAGE: string,
+    DESCRIPTION: string,
     USER_ID: number,
-    user?: any,
-    generation?: any
+    FILTER: string,
+    TOTAL: string
 }
 
-export interface PokelistData {
+export interface Pokemon_Owned {
     ID?: number,
     POKEMON_ID: number,
     USER_ID: number,
-    POKELIST_ID: number,
     OWNED: number,
     NOTE?: string
 }

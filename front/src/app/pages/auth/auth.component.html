@@ -1,4 +1,4 @@
-<div class="flex flex-column forms">
+<div *ngIf="currentPage === 'sign-up'; else signin" class="flex flex-column forms">
 
     <div class="title">{{ 'USER.signup' | translate }}</div>
 
@@ -35,37 +35,32 @@
         </span>
     </div>
 
-    <p-button label="{{ 'USER.signup' | translate }}" (click)="signUp()"></p-button>
+    <p-button [loading]="buttonLoading" label="{{ 'USER.signup' | translate }}" (click)="signUp()"></p-button>
 
 </div>
 
-<br>
-<br>
+<ng-template #signin>
+    <div class="flex flex-column forms">
 
-<div class="flex flex-column forms">
+        <div class="title">{{ 'USER.signin' | translate }}</div>
 
-    <div class="title">{{ 'USER.signin' | translate }}</div>
+        <div class="input">
+            <span class="p-float-label">
+                <input pInputText id="email" [(ngModel)]="user.EMAIL" />
+                <label htmlFor="email">{{ 'USER.email' | translate }}</label>
+            </span>
+        </div>
 
-    <div class="input">
-        <span class="p-float-label">
-            <input pInputText id="email" [(ngModel)]="user.EMAIL" />
-            <label htmlFor="email">{{ 'USER.email' | translate }}</label>
-        </span>
+        <div class="input">
+            <span class="p-float-label">
+                <input pInputText id="password" [(ngModel)]="user.PASSWORD" />
+                <label htmlFor="password">{{ 'USER.password' | translate }}</label>
+            </span>
+        </div>
+
+        <p-button [loading]="buttonLoading" label="{{ 'USER.signin' | translate }}" (click)="signIn()"></p-button>
+
     </div>
+</ng-template>
 
-    <div class="input">
-        <span class="p-float-label">
-            <input pInputText id="password" [(ngModel)]="user.PASSWORD" />
-            <label htmlFor="password">{{ 'USER.password' | translate }}</label>
-        </span>
-    </div>
 
-    <p-button label="{{ 'USER.signin' | translate }}" (click)="signIn()"></p-button>
-
-</div>
-
-<div class="flex flex-column forms">
-
-    <p-button label="{{ 'USER.signin' | translate }}" (click)="test()"></p-button>
-
-</div>

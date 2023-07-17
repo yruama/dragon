@@ -12,14 +12,14 @@ export default class Core_Generation {
         this._utils = new Core_Utils();
     }
 
-    async getGeneration(id: number) {
+    async getGeneration(no: number) {
         try {
-            const generation = await prisma.generation.findMany({
-                where: { ID: id },
+            const generation = await prisma.GENERATION.findMany({
+                where: { GENERATION_NO: no },
             })
 
             if (generation && generation.length > 0) return generation[0];
-            else throw "No generation found with this id : " + id;
+            else throw "No generation found with this id : " + no;
         } catch (error) {
             throw error;
         }

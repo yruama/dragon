@@ -33,6 +33,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { ProfilePokedexComponent } from './pages/profile/profile-pokedex/profile-pokedex.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -50,7 +56,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ForNumberPipe,
     PokelistComponent,
     PokemonsUserListComponent,
-    ModalListComponent
+    ModalListComponent,
+    ProfilePokedexComponent,
+    ProfileComponent
   ],
   imports: [
     HttpClientModule,
@@ -76,12 +84,16 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MultiSelectModule,
     DropdownModule,
     FieldsetModule,
-    InputSwitchModule
+    InputSwitchModule,
+    ToastModule,
+    MessagesModule,
+    MenuModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
-    AuthGuardService
+    AuthGuardService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

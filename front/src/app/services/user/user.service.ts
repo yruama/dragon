@@ -14,37 +14,19 @@ export class UserService {
               public jwtHelper: JwtHelperService) { }
 
   signUp(user: User) {
-    return new Promise<APIResult>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
-      });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
 
-      this._http.post('http://localhost:3000/api/v1/user/sign-up', { user }, { headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
+    return this._http.post('http://localhost:3000/api/v1/user/sign-up', { user }, { headers })
   }
 
   signIn(user: User) {
-    return new Promise<APIResult>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
-      });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
 
-      this._http.post('http://localhost:3000/api/v1/user/sign-in', { user }, { headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
+    return this._http.post('http://localhost:3000/api/v1/user/sign-in', { user }, { headers });
   }
 
   test() {

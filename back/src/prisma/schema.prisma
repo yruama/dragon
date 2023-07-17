@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,7 +7,7 @@ datasource db {
   url           = env("DATABASE_URL")
 }
 
-model Pokemon {
+model POKEMON {
   ID              Int           @id @default(autoincrement())
   POKEMON_ID      Int           @unique
   NAME            Json
@@ -20,23 +17,10 @@ model Pokemon {
   EVOLUTION       Int?          @default(-1)
   CREATED_AT      DateTime      @default(now())
   UPDATED_AT      DateTime      @updatedAt
-  POKELISTDATA    PokelistData[] @relation("pokemonpokelistdataRelation")
+  POKELISTDATA    POKEMON_OWNED[]
 }
 
-model Informations {
-  ID        Int     @id @default(autoincrement())
-  HEIGHT    String
-  CATEGORY  String
-  WEIGHT    String
-  TYPE      String
-}
-
-model Sprites {
-  ID  Int     @id @default(autoincrement())
-  URL String
-}
-
-model User {
+model USER {
   ID        Int     @id @default(autoincrement())
   LASTNAME  String
   FIRSTNAME String
@@ -44,41 +28,40 @@ model User {
   PASSWORD  String
   USERNAME  String
   UUID      String
-  POKELIST     Pokelist[]
-  POKELISTDATA PokelistData[] @relation("userpokelistdataRelation")
+  POKELIST     POKELIST[]
+  POKELISTDATA POKEMON_OWNED[]
 }
 
-model Generation {
-  ID          Int     @id @default(autoincrement())
-  NAME        String
-  DESCRIPTION String
-  MIN         Int     @default(0)
-  MAX         Int     @default(1010)
+model GENERATION {
+  ID            Int     @id @default(autoincrement())
+  GENERATION_NO Int
+  NAME          String
+  DESCRIPTION   String
+  MIN           Int     @default(0)
+  MAX           Int     @default(1010)
 }
 
-model Pokelist {
+model POKELIST {
   ID            Int         @id @default(autoincrement())
   NAME          String
-  IMAGE         String
-  USER          User        @relation(fields: [USER_ID], references: [ID])
+  DESCRIPTION   String
+  USER          USER        @relation(fields: [USER_ID], references: [ID])
   USER_ID       Int
-  POKELISTDATA  PokelistData[]
+  FILTER        String
+  TOTAL         Int
 
   @@index([USER_ID])
 }
 
-model PokelistData {
+model POKEMON_OWNED {
   ID            Int       @id @default(autoincrement())
-  POKEMON       Pokemon   @relation(fields: [POKEMON_ID], references: [POKEMON_ID], name: "pokemonpokelistdataRelation")
+  POKEMON       POKEMON   @relation(fields: [POKEMON_ID], references: [POKEMON_ID])
   POKEMON_ID    Int
-  USER          User      @relation(fields: [USER_ID], references: [ID], name: "userpokelistdataRelation")
+  USER          USER      @relation(fields: [USER_ID], references: [ID])
   USER_ID       Int
-  POKELIST_ID   Int
-  POKELIST      Pokelist  @relation(fields: [POKELIST_ID], references: [ID], onDelete: Cascade)
   OWNED         Int
   NOTE          String
 
   @@index([POKEMON_ID])
   @@index([USER_ID])
-  @@index([POKELIST_ID])
 }

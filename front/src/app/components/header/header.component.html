@@ -5,11 +5,14 @@
         </ng-template>
 
         <div *ngIf="_user.isAuthenticated(); else auth">
-            Profil
+            <p-menu #menu [model]="pofileItems" [popup]="true"></p-menu>
+            <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button>
         </div>
         <ng-template #auth>
-            <p>Login</p>
-            <p>Inscription</p>
+            <div class="auth">
+                <p-button routerLink="/auth/sign-up"> {{ 'USER.signup' | translate }} </p-button>
+                <p-button class="ml-4" styleClass="p-button-warning" routerLink="/auth/sign-in"> {{ 'USER.signin' | translate }} </p-button>
+            </div>
         </ng-template>
         
     </p-menubar>

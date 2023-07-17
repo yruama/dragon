@@ -1,3 +1,6 @@
+
+import { Generation } from "../types/generation";
+import { Pokemon_Owned } from "../types/pokelist";
 import { User } from "../types/user";
 import Core_Utils from "./utils.core";
 const { PrismaClient } = require('@prisma/client')
@@ -14,7 +17,7 @@ export default class Core_User {
 
     async getUser(email: string) {
         try {
-            const user = await prisma.user.findMany({
+            const user = await prisma.USER.findMany({
                 where: { EMAIL: email },
             })
 
@@ -28,9 +31,8 @@ export default class Core_User {
     }
 
     async addUser(user: User) {
-
         try {
-            await prisma.user.create({
+            const userCreated = await prisma.USER.create({
                 data: {
                     FIRSTNAME:  user.FIRSTNAME,
                     LASTNAME:   user.LASTNAME,
@@ -39,9 +41,11 @@ export default class Core_User {
                     PASSWORD:   user.PASSWORD,
                     UUID:       Math.floor(Math.random() * 9000 + 1000).toString(),
                 },
+            }).catch((err: any) => {
+                console.log("Error => ", err)
             });
 
-            return true;
+            return userCreated;
 
         } catch (error) {
             throw error;
@@ -51,12 +55,39 @@ export default class Core_User {
 
     async userExisting(email: string) {
         try {
-            const user = await prisma.user.findMany({
+            const user = await prisma.USER.findMany({
                 where: { EMAIL: email },
-            })
+            }).catch((err: any) => { console.log("Error => ", err)})
 
             if (user && user.length > 0) return true;
             else return false;
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async addUserPokedex(userId: number, generation: Generation) {
+        try {
+
+            const data: Pokemon_Owned[] = [];
+
+            for (let i = generation.MIN; i < generation.MAX + 1; i++) {
+                data.push({
+                    POKEMON_ID: i,
+                    USER_ID: userId,
+                    OWNED: 0,
+                    NOTE: ''
+                })
+            }
+
+            await prisma.POKEMON_OWNED.createMany({
+                data: data,
+            }).catch((err: any) => {
+                console.log("Error => ", err)
+            });
+
+            return true;
 
         } catch (error) {
             throw error;
