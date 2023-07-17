@@ -34,7 +34,7 @@ app.register(import('./routes/pokemon.routes'), { prefix: 'api/v1/pokemon' })
 app.register(import('./routes/user.routes'), { prefix: 'api/v1/user' })
 app.register(import('./routes/pokelist.routes'), { prefix: 'api/v1/pokelist' })
 app.register(import('./routes/generation.routes'), { prefix: 'api/v1/generation' })
-app.register(cors, { 
+app.register(cors, {
   // put your options here
 })
 

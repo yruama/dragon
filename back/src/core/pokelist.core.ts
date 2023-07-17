@@ -1,6 +1,6 @@
 import { Pokelist, PokelistData } from "../types/pokelist";
 import Core_Utils from "./utils.core";
-const { PrismaClient } = require('@prisma/client')
+import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export default class Core_Pokelist {
@@ -19,7 +19,6 @@ export default class Core_Pokelist {
                 data: {
                     NAME:           pokelist.NAME,
                     IMAGE:          pokelist.IMAGE,
-                    GENERATION_ID:  pokelist.GENERATION_ID,
                     USER_ID:        pokelist.USER_ID
                 },
             }) .catch((err: any) => {
@@ -47,6 +46,21 @@ export default class Core_Pokelist {
             throw error;
         }
 
+    }
+
+    async deletePokelist(id: string, userId: number) {
+        try {
+            console.log("ID : ", parseInt(id), "userId : ", userId)
+
+            const pokelist = await prisma.pokelist.delete({
+                where: { ID: parseInt(id), USER_ID: userId }
+            })
+
+            return pokelist;
+        } catch (error) {
+            console.log("Error => ", error)
+            throw error;
+        }
     }
 
     async getPokelists(userId: number) {
