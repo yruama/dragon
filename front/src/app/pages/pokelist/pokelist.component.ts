@@ -17,10 +17,10 @@ export class PokelistComponent implements OnInit {
               private _router: Router) {}
 
   ngOnInit() {
-    this.getPokelist();
+    this.getPokeList();
   }
 
-  async getPokelist() {
+  async getPokeList() {
     const pokelistData = await this._pokelist.getPokeLists();
 
     console.log("pokelistData => ", pokelistData)
@@ -35,6 +35,12 @@ export class PokelistComponent implements OnInit {
 
   reloadData(event: any) {
     this.visible = false;
-    if (event) this.getPokelist();
+    if (event) this.getPokeList();
+  }
+
+  deletePokeList(id: number) {
+    console.log("Delete : ", id)
+    this._pokelist.deletePokeList(id);
+    this.getPokeList();
   }
 }

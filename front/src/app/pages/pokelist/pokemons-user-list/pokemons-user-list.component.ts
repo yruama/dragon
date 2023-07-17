@@ -31,8 +31,16 @@ export class PokemonsUserListComponent {
               private _aRoute: ActivatedRoute) {}
 
   async ngOnInit() {
+    this.getPokeList();
+   /* this.offset = this.min;
+    this.getPokemons();
+
+    this.loadMorePokemons()*/
+  }
+
+  async getPokeList() {
     const list = await this._pokelistService.getPokeList(this._aRoute.snapshot.paramMap.get('id')!)
-    
+
     if (list.status === "success") {
       this.pokelistData = list.result.pokelistData;
       this.pokemons = list.result.pokemon;
@@ -40,14 +48,10 @@ export class PokemonsUserListComponent {
     }
 
     console.log("LIST => ", list)
-   /* this.offset = this.min;
-    this.getPokemons();
-
-    this.loadMorePokemons()*/
   }
 
   async getPokemons() {
-    
+
     if (this.offset > this.max) this.offset = this.max;
     const limit: number = this.offset + this.limit > this.max ? this.max - this.offset : this.limit;
 

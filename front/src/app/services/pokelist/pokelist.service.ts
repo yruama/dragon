@@ -64,14 +64,14 @@ export class PokelistService {
     })
   }
 
-  getPokemonOfPokeList(id: number, offset: number, limit: number) {
+  deletePokeList(id: number) {
     return new Promise<APIResult>((resolve, reject) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
 
-      this._http.get(`http://localhost:3000/api/v1/pokelist/${id}/pokemon?offset=${offset}&limit=${limit}`,  {headers: headers }).subscribe(
+      this._http.delete(`http://localhost:3000/api/v1/pokelist/${id}`,  {headers: headers }).subscribe(
         res => {
           resolve(res as APIResult);
         }, error => {

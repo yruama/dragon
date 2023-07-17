@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider      = "mysql"
   url           = env("DATABASE_URL")
-  relationMode  = "prisma"
 }
 
 model Pokemon {
@@ -21,7 +20,7 @@ model Pokemon {
   EVOLUTION       Int?          @default(-1)
   CREATED_AT      DateTime      @default(now())
   UPDATED_AT      DateTime      @updatedAt
-  POKELISTDATA    PokelistData[]
+  POKELISTDATA    PokelistData[] @relation("pokemonpokelistdataRelation")
 }
 
 model Informations {
@@ -46,6 +45,7 @@ model User {
   USERNAME  String
   UUID      String
   POKELIST     Pokelist[]
+  POKELISTDATA PokelistData[] @relation("userpokelistdataRelation")
 }
 
 model Generation {
@@ -54,25 +54,31 @@ model Generation {
   DESCRIPTION String
   MIN         Int     @default(0)
   MAX         Int     @default(1010)
-  POKELIST    Pokelist[]
 }
 
 model Pokelist {
   ID            Int         @id @default(autoincrement())
   NAME          String
   IMAGE         String
-  GENERATION    Generation  @relation(fields: [GENERATION_ID], references: [ID])
-  GENERATION_ID Int
   USER          User        @relation(fields: [USER_ID], references: [ID])
   USER_ID       Int
+  POKELISTDATA  PokelistData[]
+
+  @@index([USER_ID])
 }
 
 model PokelistData {
-  ID            Int     @id @default(autoincrement())
-  POKEMON       Pokemon @relation(fields: [POKEMON_ID], references: [POKEMON_ID])
+  ID            Int       @id @default(autoincrement())
+  POKEMON       Pokemon   @relation(fields: [POKEMON_ID], references: [POKEMON_ID], name: "pokemonpokelistdataRelation")
   POKEMON_ID    Int
+  USER          User      @relation(fields: [USER_ID], references: [ID], name: "userpokelistdataRelation")
   USER_ID       Int
   POKELIST_ID   Int
+  POKELIST      Pokelist  @relation(fields: [POKELIST_ID], references: [ID], onDelete: Cascade)
   OWNED         Int
   NOTE          String
+
+  @@index([POKEMON_ID])
+  @@index([USER_ID])
+  @@index([POKELIST_ID])
 }
