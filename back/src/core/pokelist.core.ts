@@ -1,7 +1,6 @@
-import { Pokelist, PokelistData } from "../types/pokelist";
+import { Pokelist } from "../types/pokelist";
 import Core_Utils from "./utils.core";
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import { knex } from "../app";
 
 export default class Core_Pokelist {
 
@@ -12,17 +11,15 @@ export default class Core_Pokelist {
         this._utils = new Core_Utils();
     }
 
-    async addPokelist(pokelist: Pokelist) {
+    async addPokelist(pokelist: Pokelist, total: number) {
 
         try {
-            const newPokelist = await prisma.pokelist.create({
-                data: {
-                    NAME:           pokelist.NAME,
-                    IMAGE:          pokelist.IMAGE,
-                    USER_ID:        pokelist.USER_ID
-                },
-            }) .catch((err: any) => {
-                console.log(err)
+            const newPokelist = await knex.insert({
+                NAME:           pokelist.NAME,
+                IMAGE:          pokelist.DESCRIPTION,
+                USER_ID:        pokelist.USER_ID,
+                FILTER:         pokelist.FILTER,
+                TOTAL:          total
             })
 
             return newPokelist;
@@ -32,13 +29,12 @@ export default class Core_Pokelist {
 
     }
 
-    async getPokelist(id: string, userId: number) {
+    async getPokelist(id: number, userId: number) {
         try {
-            const pokelist = await prisma.pokelist.findMany({
-                where: { ID: parseInt(id), USER_ID: userId },
-            }).catch((err: any) => {
-                console.error(err)
-            })
+            const pokelist = await knex.select('*')
+                                        .from('POKELIST')
+                                        .where('ID', id)
+                                        .andWhere('USER_ID', userId)
 
             if (pokelist && pokelist.length > 0) return pokelist[0];
             else throw "No pokelist found with this id : " + id;
@@ -48,13 +44,13 @@ export default class Core_Pokelist {
 
     }
 
-    async deletePokelist(id: string, userId: number) {
+    async deletePokelist(id: number, userId: number) {
         try {
-            console.log("ID : ", parseInt(id), "userId : ", userId)
 
-            const pokelist = await prisma.pokelist.delete({
-                where: { ID: parseInt(id), USER_ID: userId }
-            })
+            const pokelist = await knex('POKELIST')
+                                        .where('ID', id)
+                                        .andWhere('USER_ID', userId)
+                                        .del()
 
             return pokelist;
         } catch (error) {
@@ -65,12 +61,9 @@ export default class Core_Pokelist {
 
     async getPokelists(userId: number) {
         try {
-            const pokelist = await prisma.pokelist.findMany({
-                where: { USER_ID: userId },
-                orderBy: {
-                    ID: 'asc'
-                }
-            })
+            const pokelist = await knex.select('*')
+                                        .from('POKELIST')
+                                        .where('USER_ID', userId)
 
             if (pokelist && pokelist.length > 0) return pokelist;
             else throw "No pokelist found";
@@ -80,41 +73,4 @@ export default class Core_Pokelist {
 
     }
 
-    async addPokelistData(pokelistData: PokelistData) {
-        try {
-            await prisma.pokelistData.create({
-                data: {
-                    POKELIST_ID: pokelistData.POKELIST_ID,
-                    POKEMON_ID: pokelistData.POKEMON_ID,
-                    USER_ID: pokelistData.USER_ID,
-                    OWNED: 0,
-                    NOTE: ""
-                },
-            }).catch((err: any) => {
-                console.log(err)
-            })
-
-            return true;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async getPokemonOfList(id: string, userId: number) {
-        try {
-            const pokelist = await prisma.pokelistData.findMany({
-                where: { USER_ID: userId, POKELIST_ID: parseInt(id) },
-                orderBy: {
-                    ID: 'asc'
-                }
-            }).catch((err: any) => {
-                console.error(err)
-            })
-
-            if (pokelist && pokelist.length > 0) return pokelist;
-            else throw "No pokelistdata found";
-        } catch (error) {
-            throw error;
-        }
-    }
 }

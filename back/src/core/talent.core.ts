@@ -1,7 +1,6 @@
 import { Talent } from "../types/talent";
 import Core_Utils from "./utils.core";
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import { knex } from "../app";
 
 export default class Core_Talent {
 
@@ -13,16 +12,11 @@ export default class Core_Talent {
 
     async addTalent(talent: Talent) {
         try {
-            const talentCreated = await prisma.TALENT.create({
-                data: {
-                    NAME_FR: talent.NAME_FR,
-                    NAME_EN: talent.NAME_EN,
-                    DESCRIPTION_FR: talent.DESCRIPTION_FR,
-                    DESCRIPTION_EN: talent.DESCRIPTION_EN
-                },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
+            const talentCreated =  await knex('TALENT').insert({
+                NAME_FR: talent.NAME_FR,
+                NAME_EN: talent.NAME_EN,
+                DESCRIPTION_FR: talent.DESCRIPTION_FR,
+                DESCRIPTION_EN: talent.DESCRIPTION_EN
             });
 
             return talentCreated;
@@ -35,12 +29,9 @@ export default class Core_Talent {
 
     async getTalentByEnglishName(name: string) {
         try {
-            const talent = await prisma.TALENT.findMany({
-                where: { NAME_EN: name },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const talent = await knex.select('*')
+                                     .from('TALENT')
+                                     .where('NAME_EN', name)
 
             if (talent && talent.length > 0) return talent[0];
             else throw "No talent found with this name : " + name;
@@ -52,12 +43,9 @@ export default class Core_Talent {
 
     async getTalent(id: number) {
         try {
-            const talent = await prisma.TALENT.findMany({
-                where: { ID: id },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const talent = await knex.select('*')
+                                     .from('TALENT')
+                                     .where('ID', id)
 
             if (talent && talent.length > 0) return talent[0];
             else throw "No talent found with this id : " + id;
@@ -70,14 +58,8 @@ export default class Core_Talent {
 
     async getTalents() {
         try {
-            const talent = await prisma.talent.findMany({
-                orderBy: {
-                    ID: 'asc'
-                }
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const talent = await knex.select('*')
+                                     .from('TALENT')
 
             if (talent && talent.length > 0) return talent;
             else throw "No talent found";

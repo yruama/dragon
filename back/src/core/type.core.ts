@@ -1,7 +1,6 @@
 import { Type } from "../types/type";
 import Core_Utils from "./utils.core";
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import { knex } from "../app";
 
 export default class Core_Type {
 
@@ -13,16 +12,12 @@ export default class Core_Type {
 
     async addType(type: Type) {
         try {
-            const userCreated = await prisma.TYPE.create({
-                data: {
-                    NAME: type.NAME
-                },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
+            const typeCreated = await knex('TYPE').insert({
+                NAME: type.NAME
             });
 
-            return userCreated;
+
+            return typeCreated;
 
         } catch (error) {
             console.error("Error => ", error)
@@ -32,12 +27,9 @@ export default class Core_Type {
 
     async getType(id: number) {
         try {
-            const type = await prisma.TYPE.findMany({
-                where: { ID: id },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const type = await knex.select('*')
+                                    .from('TYPE')
+                                    .where('ID', id)
 
             if (type && type.length > 0) return type[0];
             else throw "No type found with this id : " + id;
@@ -50,12 +42,9 @@ export default class Core_Type {
 
     async getTypeByEnglishName(name: string) {
         try {
-            const type = await prisma.TYPE.findMany({
-                where: { NAME: { search: name } },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const type = await knex.select('*')
+                                    .from('TYPE')
+                                    .where('NAME', name)
 
             if (type && type.length > 0) return type[0];
             else throw "No type found with this name : " + name;
@@ -67,14 +56,8 @@ export default class Core_Type {
 
     async getTypes() {
         try {
-            const type = await prisma.type.findMany({
-                orderBy: {
-                    ID: 'asc'
-                }
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const type = await knex.select('*')
+                                    .from('TYPE')
 
             if (type && type.length > 0) return type;
             else throw "No type found";

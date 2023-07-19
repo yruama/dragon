@@ -19,6 +19,7 @@ export class ProfilePokedexComponent implements OnInit {
 
     this._pokemonService.getUserPokedex().subscribe({
       next: (userPokedexData: any) => {
+        console.log("userPokedexData : ", userPokedexData)
         this.pokemonsOwned = userPokedexData.result.map((_pokemon: any) => _pokemon.POKEMON_ID);
 
         this._pokemonService.getPokemons(0, 1010).subscribe({

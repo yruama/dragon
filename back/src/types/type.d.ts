@@ -1,4 +1,4 @@
-export interface Generation {
+export interface Type {
     ID?: number,
     NAME: string
 }

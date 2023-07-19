@@ -4,6 +4,19 @@ import blippPlugin from "fastify-blipp";
 dotenv.config();
 import cors from '@fastify/cors'
 import path from "path";
+import * as Knex from 'knex';
+
+
+export const knex = Knex.knex({
+  client: 'mysql',
+  connection: {
+    host : '192.168.1.84',
+    port : 3306,
+    user : 'yruamamac',
+    password : 'link2407al',
+    database : 'pokedex'
+  }
+});
 
 const port = "3000";
 export const app = fastify({

@@ -1,7 +1,6 @@
 import { Shape } from "../types/shape";
 import Core_Utils from "./utils.core";
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import { knex } from "../app";
 
 export default class Core_Shape {
 
@@ -13,16 +12,11 @@ export default class Core_Shape {
 
     async addShape(shape: Shape) {
         try {
-            const userCreated = await prisma.SHAPE.create({
-                data: {
-                    NAME: shape.NAME
-                },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const shapeCreated = await knex('POKEMON').insert({
+                NAME: shape.NAME
+             });
 
-            return userCreated;
+            return shapeCreated;
 
         } catch (error) {
             console.error("Error => ", error)
@@ -32,12 +26,9 @@ export default class Core_Shape {
 
     async getShape(id: number) {
         try {
-            const shape = await prisma.SHAPE.findMany({
-                where: { ID: id },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const shape = await knex.select('*')
+                                    .from('SHAPE')
+                                    .where('ID', id)
 
             if (shape && shape.length > 0) return shape[0];
             else throw "No shape found with this id : " + id;
@@ -50,12 +41,9 @@ export default class Core_Shape {
 
     async getShapeByEnglishName(name: string) {
         try {
-            const shape = await prisma.SHAPE.findMany({
-                where: { NAME: { search: name } },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const shape = await knex.select('*')
+                                    .from('SHAPE')
+                                    .where('NAME', name)
 
             if (shape && shape.length > 0) return shape[0];
             else throw "No shape found with this name : " + name;
@@ -68,14 +56,8 @@ export default class Core_Shape {
 
     async getShapes() {
         try {
-            const shape = await prisma.shape.findMany({
-                orderBy: {
-                    ID: 'asc'
-                }
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const shape = await knex.select('*')
+                                    .from('SHAPE')
 
             if (shape && shape.length > 0) return shape;
             else throw "No shape found";

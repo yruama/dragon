@@ -3,8 +3,7 @@ import { Generation } from "../types/generation";
 import { Pokemon_Owned } from "../types/pokelist";
 import { User } from "../types/user";
 import Core_Utils from "./utils.core";
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import { knex } from "../app";
 
 export default class Core_User {
 
@@ -16,14 +15,14 @@ export default class Core_User {
 
     async getUser(email: string) {
         try {
-            const user = await prisma.USER.findMany({
-                where: { EMAIL: email },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
-            });
+            const user =  await knex.select('*')
+                                    .from('USER')
+                                    .where('EMAIL', email)
 
-            if (user && user.length > 0) return user[0];
+            if (user && user.length > 0) {
+                user[0].PASSWORD = '';
+                return user[0];
+            }
             else throw "No user found with this email : " + email;
 
         } catch (error) {
@@ -35,18 +34,13 @@ export default class Core_User {
 
     async addUser(user: User) {
         try {
-            const userCreated = await prisma.USER.create({
-                data: {
-                    FIRSTNAME:  user.FIRSTNAME,
-                    LASTNAME:   user.LASTNAME,
-                    EMAIL:      user.EMAIL,
-                    USERNAME:   user.USERNAME,
-                    PASSWORD:   user.PASSWORD,
-                    UUID:       Math.floor(Math.random() * 9000 + 1000).toString(),
-                },
-            }).catch((err: any) => {
-                console.error("Error => ", err)
-                throw err;
+            const userCreated = await knex('POKEMON').insert({
+                FIRSTNAME:  user.FIRSTNAME,
+                LASTNAME:   user.LASTNAME,
+                EMAIL:      user.EMAIL,
+                USERNAME:   user.USERNAME,
+                PASSWORD:   user.PASSWORD,
+                UUID:       Math.floor(Math.random() * 9000 + 1000).toString(),
             });
 
             return userCreated;
@@ -60,39 +54,12 @@ export default class Core_User {
 
     async userExisting(email: string) {
         try {
-            const user = await prisma.USER.findMany({
-                where: { EMAIL: email },
-            }).catch((err: any) => { console.error("Error => ", err)})
+            const user =  await knex.select('*')
+                                    .from('USER')
+                                    .where('EMAIL', email)
 
             if (user && user.length > 0) return true;
             else return false;
-
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async addUserPokedex(userId: number, generation: Generation) {
-        try {
-            const data: Pokemon_Owned[] = [];
-
-            for (let i = generation.MIN; i < generation.MAX + 1; i++) {
-                data.push({
-                    POKEMON_ID: i,
-                    USER_ID: userId,
-                    OWNED: 0,
-                    NOTE: ''
-                })
-            }
-
-            await prisma.POKEMON_OWNED.createMany({
-                data: data,
-            }).catch((err: any) => {
-                console.log("Error => ", err)
-                throw err;
-            });
-
-            return true;
 
         } catch (error) {
             throw error;
