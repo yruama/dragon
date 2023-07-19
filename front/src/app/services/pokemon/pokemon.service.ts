@@ -26,19 +26,37 @@ export class PokemonService {
   }
 
   getPokemons(offset: number, limit: number) {
-    return new Promise<APIResult>((resolve, reject) => {
+
       const headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
 
-      this._http.get(`http://localhost:3000/api/v1/pokemon?offset=${offset}&limit=${limit}`, {headers: headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
+      return this._http.get(`http://localhost:3000/api/v1/pokemon?offset=${offset}&limit=${limit}`, {headers: headers })
+  }
+
+  getUserPokedex() {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this._http.get(`http://localhost:3000/api/v1/pokemon/user-pokedex`, { headers: headers })
+  }
+
+  addPokemonsToUserPokedex(pokemonIds: number[]) {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    const data = {
+      pokemonIds
+    }
+
+    console.log("Data : ", data)
+
+    return this._http.post(`http://localhost:3000/api/v1/pokemon/user-pokedex`, { pokemonIds }, { headers: headers })
   }
 }

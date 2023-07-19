@@ -1,5 +1,0 @@
--- DropForeignKey
-ALTER TABLE `PokelistData` DROP FOREIGN KEY `PokelistData_POKEMON_ID_fkey`;
-
--- AddForeignKey
-ALTER TABLE `PokelistData` ADD CONSTRAINT `PokelistData_POKEMON_ID_fkey` FOREIGN KEY (`POKEMON_ID`) REFERENCES `Pokemon`(`POKEMON_ID`) ON DELETE RESTRICT ON UPDATE CASCADE;

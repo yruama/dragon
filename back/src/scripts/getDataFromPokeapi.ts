@@ -19,9 +19,9 @@ async function start() {
     //await prisma.pokemon.deleteMany({})
     //getPokemonsFromFile()
     //getXPokemon(133, 1);
-    //getXPokemon(589, 1);
+    getXPokemon(2, 1011);
     //updatePokemonFromFile(0)
-    getTalent();
+    //getTalent();
 
 }
 
@@ -80,8 +80,9 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 
         pokemonObject.POKEMON_ID = i;
         pokemonObject.INFORMATION = pokeInfos;
-        pokemonObject.NAME_EN = pokemonSpecies.names.find((_name: any) =>  _name.language.name === 'en').language.name
-        pokemonObject.NAME_FR = pokemonSpecies.names.find((_name: any) =>  _name.language.name === 'fr').language.name
+
+        pokemonObject.NAME_EN = pokemonSpecies.names.find((_name: any) =>  _name.language.name === 'en').name
+        pokemonObject.NAME_FR = pokemonSpecies.names.find((_name: any) =>  _name.language.name === 'fr').name
         pokemonObject.DESCRIPTION_FR = pokemonSpecies.flavor_text_entries.length > 0 ? pokemonSpecies.flavor_text_entries.filter((_flavor: any) => _flavor.language.name === 'fr').at(-1)?.flavor_text.replace('\n', ' ') : "none";
         pokemonObject.DESCRIPTION_EN = pokemonSpecies.flavor_text_entries.length > 0 ? pokemonSpecies.flavor_text_entries.filter((_flavor: any) => _flavor.language.name === 'en').at(-1).flavor_text.replace('\n', ' ') : "none";
 
@@ -115,7 +116,7 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
         console.log("pokemonSpecies.evolution_chain.url => ", pokemonSpecies.evolution_chain.url)
         pokemonObject.EVOLUTION = parseInt(pokemonSpecies.evolution_chain.url.split('/').at(-2));
 
-        //await new Core_Pokemon().addPokemon(pokemonObject);
+        await new Core_Pokemon().addPokemon(pokemonObject);
 
     } catch (error) {
         console.error('[getOnePokemon error ] => ', i, " - ", error);
@@ -163,7 +164,6 @@ async function addEvolution(evolution: any, evolutionObject: any, level: any, ch
     evolutionObject.CHAIN_ID                = parseInt(chain_id)
     evolutionObject.LEVEL                   = level
 
-    console.log("><((°>")
     if (evolution.evolution_details.length > 0) {
         const e = evolution.evolution_details[0];
 
@@ -185,8 +185,6 @@ async function addEvolution(evolution: any, evolutionObject: any, level: any, ch
         evolutionObject.TRADE_SPECIES           = e ? e.trade_species?.name : ''
         evolutionObject.TRIGGER                 = e ? e.trigger.name : ''
     }
-
-    console.log(" === >", evolutionObject)
 
     await new Core_Evolution().addEvolution(evolutionObject);
 

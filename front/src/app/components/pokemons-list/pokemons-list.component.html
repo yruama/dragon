@@ -1,6 +1,5 @@
 
-
-<div class="flex" *ngIf="!pokemons.length; else pokemonList">
+<!--<div class="flex" *ngIf="!pokemons.length; else pokemonList">
     <div class="container">
         <p-skeleton class="skeleton-block" *ngFor="let number of 25 | forNumber" size="15rem"></p-skeleton>
     </div>
@@ -12,7 +11,7 @@
         <div *ngFor="let pokemon of pokemons" class="pokemon-block">
             <div class="pokemon-img">
                 <img src='{{ "http://localhost:3000/assets/artwork/" + pokemon.POKEMON_ID + ".png" }}' alt="">
-           <!-- <img class="mini" src='{{ "http://localhost:3000/assets/miniature/" + pokemon.POKEMON_ID + ".png" }}' alt=""> -->
+           <!-- <img class="mini" src='{{ "http://localhost:3000/assets/miniature/" + pokemon.POKEMON_ID + ".png" }}' alt=""> 
             </div>
             <div class="info flex justify-content-center align-items-center">
                 <span class="name"> {{ pokemon.NAME[0].name }} </span>
@@ -36,4 +35,4 @@
             {{ 'GENERAL.load_more' | translate }}
         </span>
     </p-button>
-</div>
+</div>-->

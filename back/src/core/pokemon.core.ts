@@ -59,7 +59,7 @@ export default class Core_Pokemon {
 
     async getPokemonsWithPagination(offset: number, limit: number) {
         try {
-            const pokemon = await prisma.pokemon.findMany({
+            const pokemon = await prisma.POKEMON.findMany({
                 skip: offset,
                 take: limit,
                 orderBy: {
@@ -94,5 +94,45 @@ export default class Core_Pokemon {
         } catch (error) {
             throw error;
         }
+    }
+
+    async getPokemonOfUserPokedex(userId: number) {
+        try {
+            const pokemon = await prisma.POKEMON_OWNED.findMany({
+                where: { USER_ID: userId },
+                orderBy: {
+                    POKEMON_ID: 'asc'
+                }
+            }).catch((err: any) => {
+                console.error(err)
+            })
+
+            if (pokemon && pokemon.length > 0) return pokemon;
+            else throw "No pokemon found";
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async addPokemonInUserPokedex(userId: number, pokemonIds: number[]) {
+        try {
+            console.log("Pokemons Ids : ", pokemonIds)
+            for (const id of pokemonIds) {
+                await prisma.POKEMON_OWNED.create({
+                    data: {
+                        POKEMON_ID      : id,
+                        USER_ID         : userId,
+                        OWNED           : 1
+                    },
+                }).catch((err: any) => {
+                    console.error(err)
+                })
+            }
+
+            return true;
+        } catch (error) {
+            throw error;
+        }
+
     }
 }
