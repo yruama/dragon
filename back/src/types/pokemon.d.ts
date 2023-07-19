@@ -1,16 +1,25 @@
 export interface PokeInfos {
     height: number,
-    category: string,
+    statistics: string,
     weight: number,
-    type: string[]
 }
 
 export interface Pokemon {
-    id          : number,
-    name        : string,
-    artwork     : string,
-    miniature   : spring,
-    statistics  : string,
-    generation  : string,
-    informations: PokeInfos
+    ID?             : number,
+    POKEMON_ID      : number,
+    NAME_FR         : string,
+    NAME_EN         : string,
+    DESCRIPTION_FR  : string
+    DESCRIPTION_EN  : string
+    CATEGORY        : string,
+    TYPE_1_ID       : number,
+    TYPE_2_ID       : number,
+    TALENT          : string,
+    SHAPE           : string,
+    GENERATION      : number,
+    INFORMATION     : PokeInfos,
+    EVOLUTION       : number,
+    COLOR           : string,
+    artwork         : string,
+    miniature       : string,
 }

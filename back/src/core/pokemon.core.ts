@@ -8,23 +8,31 @@ export default class Core_Pokemon {
     private _utils: Core_Utils
 
     constructor() {
-        console.log("Core_Pokemon constructor");
         this._utils = new Core_Utils();
     }
 
     async addPokemon(pokemon: Pokemon) {
 
         try {
-            await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');
-            await this._utils.downloadImage(pokemon.miniature, 'miniature/' + pokemon.id + '.png');
+            // await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');
+            // await this._utils.downloadImage(pokemon.miniature, 'miniature/' + pokemon.id + '.png');
 
-            await prisma.pokemon.create({
+            await prisma.POKEMON.create({
                 data: {
-                    POKEMON_ID:      parseInt(pokemon.id as any),
-                    NAME:            JSON.parse(pokemon.name),
-                    GENERATION:      pokemon.generation,
-                    STATISTICS:      JSON.parse(pokemon.statistics),
-                    INFORMATIONS:    pokemon.informations
+                    POKEMON_ID      : pokemon.POKEMON_ID,
+                    NAME_FR         : pokemon.NAME_FR,
+                    NAME_EN         : pokemon.NAME_EN,
+                    DESCRIPTION_FR  : pokemon.DESCRIPTION_FR,
+                    DESCRIPTION_EN  : pokemon.DESCRIPTION_EN,
+                    CATEGORY        : pokemon.CATEGORY,
+                    TYPE_ID_1       : pokemon.TYPE_1_ID,
+                    TYPE_ID_2       : pokemon.TYPE_2_ID,
+                    TALENT          : pokemon.TALENT,
+                    SHAPE_ID        : pokemon.SHAPE,
+                    GENERATION      : pokemon.GENERATION,
+                    INFORMATIONS    : pokemon.INFORMATION,
+                    EVOLUTION_ID    : pokemon.EVOLUTION,
+                    COLOR           : pokemon.COLOR
                 },
             });
 

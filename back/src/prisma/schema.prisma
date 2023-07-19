@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -10,14 +11,73 @@ datasource db {
 model POKEMON {
   ID              Int           @id @default(autoincrement())
   POKEMON_ID      Int           @unique
-  NAME            Json
+  NAME_FR         String
+  NAME_EN         String
+  DESCRIPTION_FR  String        @db.Text
+  DESCRIPTION_EN  String        @db.Text
+  CATEGORY        String
+  TYPE_ID_1       Int
+  TYPE_ID_2       Int
+  TALENT          String
+  SHAPE_ID        Int
   GENERATION      Int
   INFORMATIONS    Json
-  STATISTICS      Json
-  EVOLUTION       Int?          @default(-1)
-  CREATED_AT      DateTime      @default(now())
-  UPDATED_AT      DateTime      @updatedAt
+  EVOLUTION_ID    Int?       @default(-1)
+  COLOR           String
   POKELISTDATA    POKEMON_OWNED[]
+}
+
+
+model EVOLUTION {
+  ID                      Int     @id @default(autoincrement())
+  GENDER                  Int?
+  HELD_ITEM               String?
+  ITEM                    String?
+  KNOW_MOVE               String?
+  KNOW_MOVE_TYPE          String?
+  LOCATION                String?
+  MIN_AFFECTION           Int?
+  MIN_BEAUTY              Int?
+  MIN_HAPPINESS           Int?
+  MIN_LEVEL               Int?
+  NEEDS_OVERWORLDS_RAIN   Int?
+  PARTY_SPECIES           String?
+  PARTY_TYPE              String?
+  RELATIVE_PHYSICAL_STATS Int?
+  TIME_OF_DAY             String?
+  TRADE_SPECIES           String?
+  TRIGGER                 String?
+  POKEMON_ID              Int
+  CHAIN_ID                Int
+  LEVEL                   Int
+}
+
+model CATEGORY {
+  ID        Int     @id @default(autoincrement())
+  NAME_FR   String
+  NAME_EN   String
+}
+
+model TALENT {
+  ID              Int     @id @default(autoincrement())
+  NAME_FR         String
+  NAME_EN         String
+  DESCRIPTION_FR  String  @db.Text
+  DESCRIPTION_EN  String  @db.Text
+}
+
+model TYPE {
+  ID        Int     @id @default(autoincrement())
+  NAME      String
+
+  @@fulltext([NAME])
+}
+
+model SHAPE {
+  ID        Int     @id @default(autoincrement())
+  NAME      String
+
+  @@fulltext([NAME])
 }
 
 model USER {

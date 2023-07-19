@@ -4,7 +4,6 @@ import fs from "fs";
 export default class Core_Utils {
 
     constructor() {
-        console.log("Core_Utils constructor");
     }
 
     async downloadImage(url: string, filename: string) {
