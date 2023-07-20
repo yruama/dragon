@@ -9,7 +9,6 @@ const coreUtils = new Core_Utils();
 async function routes (fastify: any, options: RequestRouteOptions) {
 
     fastify.post('/sign-in', async (request: any, reply: any) => {
-        console.log("><(((°>")
         try {
             const userData = await classUser.signIn(request.body.user);
             reply.send(coreUtils.successFormat(userData));

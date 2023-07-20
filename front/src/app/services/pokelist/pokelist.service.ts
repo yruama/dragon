@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pokelist } from 'src/app/types/pokelist.types';
 import { APIResult } from 'src/app/types/utils.types';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class PokelistService {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
 
-      this._http.post('http://localhost:3000/api/v1/pokelist/', { pokelist }, { headers }).subscribe(
+      this._http.post(environment.serverURL + '/pokelist/', { pokelist }, { headers }).subscribe(
         res => {
           resolve(res as APIResult);
         }, error => {
@@ -35,7 +36,7 @@ export class PokelistService {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
 
-      this._http.get(`http://localhost:3000/api/v1/pokelist`, {headers: headers }).subscribe(
+      this._http.get(environment.serverURL + `/pokelist`, {headers: headers }).subscribe(
         res => {
           resolve(res as APIResult);
         }, error => {
@@ -53,7 +54,7 @@ export class PokelistService {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
 
-      this._http.get(`http://localhost:3000/api/v1/pokelist/${id}`,  {headers: headers }).subscribe(
+      this._http.get(environment.serverURL + `/pokelist/${id}`,  {headers: headers }).subscribe(
         res => {
           resolve(res as APIResult);
         }, error => {
@@ -71,7 +72,7 @@ export class PokelistService {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
 
-      this._http.delete(`http://localhost:3000/api/v1/pokelist/${id}`,  {headers: headers }).subscribe(
+      this._http.delete(environment.serverURL + `/pokelist/${id}`,  {headers: headers }).subscribe(
         res => {
           resolve(res as APIResult);
         }, error => {
