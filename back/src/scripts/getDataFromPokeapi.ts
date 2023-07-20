@@ -19,7 +19,7 @@ async function start() {
     //await prisma.pokemon.deleteMany({})
     //getPokemonsFromFile()
     //getXPokemon(133, 1);
-    getXPokemon(2, 1011);
+    //getXPokemon(2, 1011);
     //updatePokemonFromFile(0)
     //getTalent();
 
