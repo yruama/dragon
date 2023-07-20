@@ -1,5 +1,3 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { RequestRouteOptions } from "fastify/types/request";
 import Core_Utils from "../core/utils.core";
 import Core_Pokelist from "../core/pokelist.core";
 import { Pokelist } from "../types/pokelist";
@@ -9,9 +7,9 @@ const corePokelist = new Core_Pokelist()
 const classPokelist = new Class_Pokelist()
 const coreUtils = new Core_Utils();
 
-async function routes (fastify: any, options: RequestRouteOptions) {
+async function routes (fastify: any, options: any) {
 
-    fastify.post('/', { onRequest: [fastify.authenticate] }, async (request: any, reply: FastifyReply) => {
+    fastify.post('/', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
 
         console.log("request.body.pokelist => ", request.body.pokelist)
         try {
@@ -29,7 +27,7 @@ async function routes (fastify: any, options: RequestRouteOptions) {
         }
     })
 
-    fastify.get('/', { onRequest: [fastify.authenticate] }, async (request: any, reply: FastifyReply) => {
+    fastify.get('/', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
 
         try {
             const pokelistData = await corePokelist.getPokelists(request.user.id);
@@ -39,7 +37,7 @@ async function routes (fastify: any, options: RequestRouteOptions) {
         }
     })
 
-    fastify.get('/:id', { onRequest: [fastify.authenticate] }, async (request: any, reply: FastifyReply) => {
+    fastify.get('/:id', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
 
         try {
             const pokelistData = await classPokelist.getPokeList(request.params.id, request.user.id);
@@ -49,7 +47,7 @@ async function routes (fastify: any, options: RequestRouteOptions) {
         }
     })
 
-    fastify.delete('/:id', { onRequest: [fastify.authenticate] }, async (request: any, reply: FastifyReply) => {
+    fastify.delete('/:id', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
 
         try {
             const pokelistData = await corePokelist.deletePokelist(request.params.id, request.user.id);

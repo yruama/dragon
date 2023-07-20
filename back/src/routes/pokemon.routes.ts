@@ -1,14 +1,12 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { RequestRouteOptions } from "fastify/types/request";
 import Core_Pokemon from "../core/pokemon.core";
 import Core_Utils from "../core/utils.core";
 
 const corePokemon = new Core_Pokemon()
 const coreUtils = new Core_Utils();
 
-async function routes (fastify: any, options: RequestRouteOptions) {
+async function routes (fastify: any, options: any) {
 
-  fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
+  fastify.get('/', async (request: any, reply: any) => {
       try {
           const offset = request.query.offset ? parseInt(request.query.offset) : 1;
           const limit = request.query.limit ? parseInt(request.query.limit) : 25;
@@ -21,7 +19,7 @@ async function routes (fastify: any, options: RequestRouteOptions) {
 
   })
 
-  fastify.get('/user-pokedex', { onRequest: [fastify.authenticate] }, async (request: any, reply: FastifyReply) => {
+  fastify.get('/user-pokedex', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
     try {
         const pokemons = await corePokemon.getPokemonOfUserPokedex(request.user.id);
         reply.send(coreUtils.successFormat(pokemons));
@@ -50,7 +48,7 @@ async function routes (fastify: any, options: RequestRouteOptions) {
     }
   })
 
-  fastify.get('/:id', async (request: FastifyRequest, reply: FastifyReply) => {
+  fastify.get('/:id', async (request: any, reply: any) => {
     console.log("WTF")
     const id = request.params.id;
 

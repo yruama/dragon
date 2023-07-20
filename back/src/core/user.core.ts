@@ -19,12 +19,9 @@ export default class Core_User {
                                     .from('USER')
                                     .where('EMAIL', email).catch(err => console.error(err))
 
-                                    console.log("User : ", user)
-
             if (user && user.length > 0) {
                 return user[0];
             }
-            
             else throw "No user found with this email : " + email;
 
         } catch (error) {

@@ -1,12 +1,10 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { RequestRouteOptions } from "fastify/types/request";
 import Class_User from "../classes/user.class";
 import Core_Utils from "../core/utils.core";
 
 const classUser = new Class_User();
 const coreUtils = new Core_Utils();
 
-async function routes (fastify: any, options: RequestRouteOptions) {
+async function routes (fastify: any, options: any) {
 
     fastify.post('/sign-in', async (request: any, reply: any) => {
         try {
@@ -27,17 +25,6 @@ async function routes (fastify: any, options: RequestRouteOptions) {
         }
 
     })
-
-
-    fastify.post('/test', { onRequest: [fastify.authenticate] }, async (request: any, reply: FastifyReply) => {
-        console.log("=========")
-        console.log("Header => ", request.headers);
-        console.log("User => ", request.user);
-        console.log("=========")
-
-        reply.send('ok')
-    })
-
 
 }
 

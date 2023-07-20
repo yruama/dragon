@@ -22,6 +22,7 @@ export class UserService {
   }
 
   signIn(user: User) {
+    console.log("environment > ", environment)
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
