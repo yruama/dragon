@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResult } from 'src/app/types/utils.types';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class GenerationService {
         'Content-Type': 'application/json'
       });
 
-      this._http.get(environment.serverURL + `/generation`, {headers: headers }).subscribe(
+      this._http.get(environment.apiURL + `/generation`, {headers: headers }).subscribe(
         res => {
           resolve(res as APIResult);
         }, error => {

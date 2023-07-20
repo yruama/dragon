@@ -3,6 +3,7 @@ import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
 import { Pokemon } from 'src/app/types/pokemons.types';
 
 import * as Papa from 'papaparse';
+import { GlobalService } from 'src/app/services/global/global.service';
 
 @Component({
   selector: 'app-profile-pokedex',
@@ -13,7 +14,8 @@ export class ProfilePokedexComponent implements OnInit {
   pokemons: Pokemon[] = [];
   pokemonsOwned: number[] = [];
 
-  constructor(private _pokemonService: PokemonService) {}
+  constructor(private _pokemonService: PokemonService,
+              public _global: GlobalService) {}
 
   async ngOnInit() {
 

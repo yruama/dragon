@@ -27,7 +27,7 @@
             <td>
                 <div class="flex justify-content-center align-items-center">
                     <div class="mini" style="width: 40px; height: 40px; overflow: visible;">
-                        <img style="max-width: 65px " src='{{ "http://localhost:3000/assets/miniature/" + pokemon.POKEMON_ID + ".png" }}' alt="">
+                        <img style="max-width: 65px " src='{{ _global.assetsURL + "/miniature/" + pokemon.POKEMON_ID + ".png" }}' alt="">
                     </div>
                 </div>
                 
@@ -35,9 +35,9 @@
             <td>{{ pokemon.NAME_FR }}</td>
             <td>
                 <div class="flex">
-                       <img style="max-width: 32px; margin-right: 1rem;" pTooltip="{{ 'TYPE.type' + pokemon.TYPE_ID_1  | translate }}" src="{{ 'http://localhost:3000/assets/types/' + pokemon.TYPE_ID_1 + '.png' }}" alt="">
+                       <img style="max-width: 32px; margin-right: 1rem;" pTooltip="{{ 'TYPE.type' + pokemon.TYPE_ID_1  | translate }}" src="{{ _global.assetsURL + '/types/' + pokemon.TYPE_ID_1 + '.png' }}" alt="">
 
-                       <img style="max-width: 32px; margin-right: 1rem;" pTooltip="{{ 'TYPE.type' + pokemon.TYPE_ID_2  | translate }}" src="{{ 'http://localhost:3000/assets/types/' + pokemon.TYPE_ID_2 + '.png' }}" alt="">
+                       <img style="max-width: 32px; margin-right: 1rem;" pTooltip="{{ 'TYPE.type' + pokemon.TYPE_ID_2  | translate }}" src="{{ _global.assetsURL + '/types/' + pokemon.TYPE_ID_2 + '.png' }}" alt="">
 
                 </div>
 

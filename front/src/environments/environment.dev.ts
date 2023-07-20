@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
     environmentName: 'development',
-    serverURL: 'http://localhost:3000/api/v1'
+    apiURL: 'http://localhost:3000/api/v1',
+    assetsURL: 'http://localhost:3000/assets'
 };

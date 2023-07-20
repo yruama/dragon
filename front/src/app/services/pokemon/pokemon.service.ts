@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResult } from 'src/app/types/utils.types';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class PokemonService {
       'Content-Type': 'application/json'
     });
 
-    this._http.get(environment.serverURL +'/pokemon/' + id,  {headers: headers }).subscribe(res => console.log(res));
+    this._http.get(environment.apiURL +'/pokemon/' + id,  {headers: headers }).subscribe(res => console.log(res));
   }
 
   getPokemons(offset: number, limit: number) {
@@ -24,7 +24,7 @@ export class PokemonService {
         'Content-Type': 'application/json'
       });
 
-      return this._http.get(environment.serverURL +`/pokemon?offset=${offset}&limit=${limit}`, {headers: headers })
+      return this._http.get(environment.apiURL +`/pokemon?offset=${offset}&limit=${limit}`, {headers: headers })
   }
 
   getUserPokedex() {
@@ -34,7 +34,7 @@ export class PokemonService {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
 
-    return this._http.get(environment.serverURL +`/pokemon/user-pokedex`, { headers: headers })
+    return this._http.get(environment.apiURL +`/pokemon/user-pokedex`, { headers: headers })
   }
 
   addPokemonsToUserPokedex(pokemonIds: number[]) {
@@ -48,6 +48,6 @@ export class PokemonService {
       pokemonIds
     }
 
-    return this._http.post(environment.serverURL +`/pokemon/user-pokedex`, { pokemonIds }, { headers: headers })
+    return this._http.post(environment.apiURL +`/pokemon/user-pokedex`, { pokemonIds }, { headers: headers })
   }
 }
