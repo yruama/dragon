@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
     LASTNAME:   'LAROZE',
     EMAIL:      'amaurylaroze@gmail.com',
     USERNAME:   'Yruama',
-    PASSWORD:   'link2407al'
+    PASSWORD:   ''
   };
 
   currentPage = 'sign-in';
@@ -65,6 +65,7 @@ export class AuthComponent implements OnInit {
     this.buttonLoading = true;
     this._user.signIn(this.user).subscribe({
       next: (data: any) => {
+        console.log("Data => ", data)
         localStorage.setItem('token', data.result.token);
         this._toast.add({
           severity: 'success',

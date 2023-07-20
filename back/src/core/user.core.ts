@@ -17,12 +17,14 @@ export default class Core_User {
         try {
             const user =  await knex.select('*')
                                     .from('USER')
-                                    .where('EMAIL', email)
+                                    .where('EMAIL', email).catch(err => console.error(err))
+
+                                    console.log("User : ", user)
 
             if (user && user.length > 0) {
-                user[0].PASSWORD = '';
                 return user[0];
             }
+            
             else throw "No user found with this email : " + email;
 
         } catch (error) {
@@ -34,7 +36,7 @@ export default class Core_User {
 
     async addUser(user: User) {
         try {
-            const userCreated = await knex('POKEMON').insert({
+            const userCreated = await knex('USER').insert({
                 FIRSTNAME:  user.FIRSTNAME,
                 LASTNAME:   user.LASTNAME,
                 EMAIL:      user.EMAIL,

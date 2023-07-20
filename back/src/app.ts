@@ -6,15 +6,14 @@ import cors from '@fastify/cors'
 import path from "path";
 import * as Knex from 'knex';
 
-
 export const knex = Knex.knex({
   client: 'mysql',
   connection: {
-    host : '192.168.1.84',
+    host : process.env.DATABASE_HOST,
     port : 3306,
-    user : 'yruamamac',
-    password : 'link2407al',
-    database : 'pokedex'
+    user : process.env.DATABASE_USER,
+    password : process.env.DATABASE_PASSWORD,
+    database : process.env.DATABASE_NAME
   }
 });
 
@@ -22,7 +21,6 @@ const port = "3000";
 export const app = fastify({
   logger: true
 })
-
 
 app.register(require("@fastify/jwt"), {
   secret: "supersecret"

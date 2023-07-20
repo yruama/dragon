@@ -20,6 +20,8 @@ export default class Class_User {
             const userData = await this._user.getUser(user.EMAIL);
 
             if (userData) {
+                console.log("")
+                console.log("_bcrypt.compareSync(user.PASSWORD, userData.PASSWORD : ", user.PASSWORD, '----', userData.PASSWORD);
                 if (_bcrypt.compareSync(user.PASSWORD, userData.PASSWORD)) {
                     const token = app.jwt.sign({ email: userData.EMAIL, id: userData.ID })
                     userData.token = token;
