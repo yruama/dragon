@@ -1,0 +1,20 @@
+{
+    "GENERAL": {
+        "home": "home",
+        "pokedex": "pokédex",
+        "about": "about",
+        "all": "All"
+    },
+    "POKEDEX": {
+        "1gen": "1ère génération",
+        "2gen": "2ème génération",
+        "3gen": "3ème génération",
+        "4gen": "4ème génération",
+        "5gen": "5ème génération",
+        "6gen": "6ème génération",
+        "7gen": "7ème génération",
+        "8gen": "8ème génération",
+        "9gen": "9ème génération"
+    },
+    "toto": "Ok"
+}
