@@ -4,9 +4,20 @@
         "pokedex": "pokédex",
         "about": "à propos",
         "all": "Toutes",
-        "load_more": "Chager plus de Pokémon",
+        "load_more": "Charger plus de Pokémon",
         "create": "Créer",
-        "generation": "Génération"
+        "generation": "Génération",
+        "LANG": {
+            "fr": "Français",
+            "en": "English",
+            "es": "Español",
+            "de": "Deutsch",
+            "it": "Italiano",
+            "ja": "日本語",
+            "ko": "한국어",
+            "zh": "简体中文",            
+            "pt": "Português"
+        }
     },
     "POKELIST": {
         "name": "Nom de la liste",

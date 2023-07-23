@@ -22,6 +22,46 @@ export class HeaderComponent implements OnInit {
     routerLink: '/profile/pokedex'
   }]
 
+  languages: { code: string, icon: string }[] = [
+    {
+      code: 'fr',
+      icon: 'fi fi-fr'
+    }, {
+      code: 'en',
+      icon: 'fi fi-us'
+    },
+    {
+      code: 'es',
+      icon: 'fi fi-es'
+    },
+    {
+      code: 'de',
+      icon: 'fi fi-de'
+    },
+    {
+      code: 'it',
+      icon: 'fi fi-it'
+    },
+    {
+      code: 'pt',
+      icon: 'fi fi-pt'
+    },
+    {
+      code: 'ja',
+      icon: 'fi fi-jp'
+    },
+    {
+      code: 'ko',
+      icon: 'fi fi-kr'
+    },
+    {
+      code: 'zh',
+      icon: 'fi fi-cn'
+    }
+  ];
+
+  currentLanguage: { code: string, icon: string } = this.languages[0];
+
   constructor(private _translate: TranslateService,
               public _user: UserService,
               private _router: Router) {}
@@ -56,6 +96,8 @@ export class HeaderComponent implements OnInit {
       }
     ];
    
+    // Find the current language or use default
+    this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) || this.languages[0];
   }
 
   signOff() {
@@ -63,6 +105,9 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(['/']);
   }
 
-
+  onLanguageChange(language: { code: string, icon: string }) {
+    this._translate.use(language.code);
+    this.currentLanguage = language;
+  }
 
 }

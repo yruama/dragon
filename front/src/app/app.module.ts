@@ -11,7 +11,6 @@ import { RippleModule } from 'primeng/ripple';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import { FlagComponent } from './components/flag/flag.component';
 import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule } from '@angular/forms';
@@ -48,7 +47,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     HomeComponent,
-    FlagComponent,
     PokedexComponent,
     HeaderComponent,
     PokemonsListComponent,

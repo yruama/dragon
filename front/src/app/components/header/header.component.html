@@ -4,16 +4,38 @@
             <img src="assets/imgs/evoli_logo.png" height="40" class="mr-2" />
         </ng-template>
 
-        <div *ngIf="_user.isAuthenticated(); else auth">
-            <p-menu #menu [model]="pofileItems" [popup]="true"></p-menu>
-            <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button>
-        </div>
-        <ng-template #auth>
-            <div class="auth">
-                <p-button routerLink="/auth/sign-up"> {{ 'USER.signup' | translate }} </p-button>
-                <p-button class="ml-4" styleClass="p-button-warning" routerLink="/auth/sign-in"> {{ 'USER.signin' | translate }} </p-button>
+        <div class="flex align-items-center">
+            <div *ngIf="_user.isAuthenticated(); else auth">
+                <p-menu #menu [model]="pofileItems" [popup]="true"></p-menu>
+                <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button>
             </div>
-        </ng-template>
+            <ng-template #auth>
+                <div class="auth">
+                    <p-button routerLink="/auth/sign-up"> {{ 'USER.signup' | translate }} </p-button>
+                    <p-button class="ml-4" styleClass="p-button-warning" routerLink="/auth/sign-in"> {{ 'USER.signin' | translate }} </p-button>
+                </div>
+            </ng-template>
+    
+            <p-dropdown 
+                [options]="languages"
+                [(ngModel)]="currentLanguage"
+                (ngModelChange)="onLanguageChange($event)"
+                placeholder="Select a Country"
+                appendTo="body"
+                class="ml-3">
+                <ng-template pTemplate="selectedItem">
+                    <div class="flex align-items-center gap-2" *ngIf="currentLanguage.code">
+                        <span [class]="currentLanguage.icon"></span>
+                    </div>
+                </ng-template>
+                <ng-template let-language pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                        <span [class]="language.icon"></span>
+                        <div>{{ ('GENERAL.LANG.' + language.code)  | translate }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
         
     </p-menubar>
 </div>
