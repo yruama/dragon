@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
-import fastify from 'fastify';
+import dotenv from "dotenv";
+import fastify from "fastify";
 
-import start from './scripts/getDataFromPokeapi';
+import start from "./scripts/getDataFromPokeapi";
 dotenv.config();
 
 const port = "3000";
@@ -9,7 +9,7 @@ const app = fastify({
 	logger: true
 });
 
-async function main() {
+async function main(): Promise<void> {
 	// Run the server!
 	try {
 		await app.listen({ port: 3000 });

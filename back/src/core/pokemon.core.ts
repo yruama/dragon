@@ -1,4 +1,4 @@
-import { Pokemon } from "../types/pokemon";
+import { Pokemon } from "@type/pokemon";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 export default class Core_Pokemon {
@@ -8,7 +8,7 @@ export default class Core_Pokemon {
 		this._utils = new Core_Utils();
 	}
 
-	async addPokemon(pokemon: Pokemon) {
+	async addPokemon(pokemon: Pokemon): Promise<number[]> {
 		try {
 			// await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');
 			// await this._utils.downloadImage(pokemon.miniature, 'miniature/' + pokemon.id + '.png');
@@ -37,7 +37,7 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getPokemon(id: number) {
+	async getPokemon(id: number): Promise<Pokemon> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").where("POKEMON_ID", id);
 
@@ -48,7 +48,7 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getPokemonsWithPagination(offset: number, limit: number) {
+	async getPokemonsWithPagination(offset: number, limit: number): Promise<Pokemon[]> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").limit(limit).offset(offset).orderBy("POKEMON_ID", "asc");
 
@@ -59,7 +59,7 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getManyPokemon(pokemonIds: number[]) {
+	async getManyPokemon(pokemonIds: number[]): Promise<Pokemon[]> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").whereIn("POKEMON_ID", pokemonIds);
 
@@ -70,7 +70,7 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getPokemonOfUserPokedex(userId: number) {
+	async getPokemonOfUserPokedex(userId: number): Promise<Pokemon[]> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON_OWNED").where("USER_ID", userId).orderBy("POKEMON_ID", "asc");
 
@@ -81,7 +81,7 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async addPokemonInUserPokedex(userId: number, pokemonIds: number[]) {
+	async addPokemonInUserPokedex(userId: number, pokemonIds: number[]): Promise<boolean> {
 		try {
 			console.log("Pokemons Ids : ", pokemonIds);
 			for (const id of pokemonIds) {

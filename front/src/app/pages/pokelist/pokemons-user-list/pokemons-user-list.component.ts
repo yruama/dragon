@@ -29,15 +29,11 @@ export class PokemonsUserListComponent {
 		private readonly _aRoute: ActivatedRoute
 	) {}
 
-	async ngOnInit() {
+	async ngOnInit(): Promise<void> {
 		this.getPokeList();
-		/* this.offset = this.min;
-    this.getPokemons();
-
-    this.loadMorePokemons() */
 	}
 
-	async getPokeList() {
+	async getPokeList(): Promise<void> {
 		const id = this._aRoute.snapshot.paramMap.get("id");
 		if (!id) throw new Error("No id");
 		const list = await this._pokelistService.getPokeList(id);
@@ -51,7 +47,7 @@ export class PokemonsUserListComponent {
 		console.log("LIST => ", list);
 	}
 
-	async getPokemons() {
+	async getPokemons(): Promise<void> {
 		if (this.offset > this.max) this.offset = this.max;
 		const limit: number = this.offset + this.limit > this.max ? this.max - this.offset : this.limit;
 
@@ -67,7 +63,7 @@ export class PokemonsUserListComponent {
 		}
 	}
 
-	loadMorePokemons() {
+	loadMorePokemons(): void {
 		const delta = 100;
 		const element = document.getElementsByClassName("p-datatable-wrapper") as any;
 

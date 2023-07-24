@@ -37,7 +37,7 @@ export class AuthComponent implements OnInit {
 		});
 	}
 
-	async signUp() {
+	async signUp(): Promise<void> {
 		this.buttonLoading = true;
 		this._user.signUp(this.user).subscribe({
 			next: (data: any) => {
@@ -63,7 +63,7 @@ export class AuthComponent implements OnInit {
 		});
 	}
 
-	signIn() {
+	signIn(): void {
 		this.buttonLoading = true;
 		this._user.signIn(this.user).subscribe({
 			next: data => {
@@ -91,7 +91,7 @@ export class AuthComponent implements OnInit {
 		});
 	}
 
-	async test() {
+	async test(): Promise<void> {
 		const test = await this._user.test();
 		console.log("Test => ", test);
 	}

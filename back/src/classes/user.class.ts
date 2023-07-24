@@ -1,4 +1,4 @@
-import { User } from "../types/user";
+import { User } from "@type/user";
 import Core_User from "../core/user.core";
 import _bcrypt from "bcrypt";
 import { app } from "../app";
@@ -14,7 +14,7 @@ export default class Class_User {
 		this._generation = new Core_Generation();
 	}
 
-	async signIn(user: User) {
+	async signIn(user: User): Promise<User> {
 		try {
 			const userData = await this._user.getUser(user.EMAIL);
 
@@ -36,7 +36,7 @@ export default class Class_User {
 		}
 	}
 
-	async signUp(user: User) {
+	async signUp(user: User): Promise<User> {
 		try {
 			const userData = await this._user.userExisting(user.EMAIL);
 

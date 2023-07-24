@@ -1,4 +1,4 @@
-import { Talent } from "../types/talent";
+import { Talent } from "@type/talent";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
@@ -9,7 +9,7 @@ export default class Core_Talent {
 		this._utils = new Core_Utils();
 	}
 
-	async addTalent(talent: Talent) {
+	async addTalent(talent: Talent): Promise<number[]> {
 		try {
 			const talentCreated = await knex("TALENT").insert({
 				NAME_FR: talent.NAME_FR,
@@ -25,7 +25,7 @@ export default class Core_Talent {
 		}
 	}
 
-	async getTalentByEnglishName(name: string) {
+	async getTalentByEnglishName(name: string): Promise<Talent> {
 		try {
 			const talent = await knex.select("*").from("TALENT").where("NAME_EN", name);
 
@@ -37,7 +37,7 @@ export default class Core_Talent {
 		}
 	}
 
-	async getTalent(id: number) {
+	async getTalent(id: number): Promise<Talent> {
 		try {
 			const talent = await knex.select("*").from("TALENT").where("ID", id);
 
@@ -49,7 +49,7 @@ export default class Core_Talent {
 		}
 	}
 
-	async getTalents() {
+	async getTalents(): Promise<Talent[]> {
 		try {
 			const talent = await knex.select("*").from("TALENT");
 

@@ -25,7 +25,7 @@ export class ModalListComponent implements OnInit {
 		private readonly _pokelist: PokelistService
 	) {}
 
-	async ngOnInit() {
+	async ngOnInit(): Promise<void> {
 		const generationData = await this._generation.getGenerations();
 
 		console.log("generationData => ", generationData);
@@ -39,7 +39,7 @@ export class ModalListComponent implements OnInit {
 		}
 	}
 
-	async createList() {
+	async createList(): Promise<void> {
 		if (!this.loading) {
 			this.loading = true;
 			const pokelistData = await this._pokelist.addPokeList(this.pokelist);

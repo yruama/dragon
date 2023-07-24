@@ -48,15 +48,13 @@ app.register(cors, {
 	// put your options here
 });
 
-async function main() {
+(async function main(): Promise<void> {
 	// Run the server!
 	try {
 		await app.listen({ port: 3000 });
-		app.blipp();
+		// app.blipp();
 	} catch (err) {
 		app.log.error(err);
 		process.exit(1);
 	}
-}
-
-main();
+})();

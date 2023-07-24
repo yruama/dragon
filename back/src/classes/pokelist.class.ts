@@ -1,7 +1,6 @@
-import { Pokelist, PokelistData } from "../types/pokelist";
+import { Pokelist } from "@type/pokelist";
 import Core_Pokelist from "../core/pokelist.core";
 import _bcrypt from "bcrypt";
-import { app } from "../app";
 import Core_Generation from "../core/generation.core";
 import Core_Pokemon from "../core/pokemon.core";
 
@@ -17,7 +16,7 @@ export default class Class_Pokelist {
 		this._pokemon = new Core_Pokemon();
 	}
 
-	async addPokelist(pokelist: Pokelist) {
+	async addPokelist(pokelist: Pokelist): Promise<number[]> {
 		try {
 			// 1. On récupère la génération pour récupérer les bons pokémons
 			const generationData = await this._generations.getGeneration(pokelist.GENERATION_ID);
@@ -41,7 +40,7 @@ export default class Class_Pokelist {
 		}
 	}
 
-	async getPokeList(id: string, userId: number) {
+	async getPokeList(id: string, userId: number): Promise<any> {
 		try {
 			// 1. On récupère lesdonnées de la liste
 			const pokelist = await this._pokelist.getPokelist(id, userId);
@@ -50,7 +49,7 @@ export default class Class_Pokelist {
 			const pokelistData = await this._pokelist.getPokemonOfList(id, userId);
 
 			// 3. On récupère les premiers pokémons
-			const pokemonsIds = pokelistData.map((_pokemon: PokelistData) => _pokemon.POKEMON_ID);
+			const pokemonsIds = pokelistData.map((_pokemon: Pokelist) => _pokemon.POKEMON_ID);
 			const pokemon = await this._pokemon.getManyPokemon(pokemonsIds.slice(0, 25));
 
 			return {

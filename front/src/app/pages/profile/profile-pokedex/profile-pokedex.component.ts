@@ -19,7 +19,7 @@ export class ProfilePokedexComponent implements OnInit {
 		public _global: GlobalService
 	) {}
 
-	async ngOnInit() {
+	async ngOnInit(): Promise<void> {
 		this._pokemonService.getUserPokedex().subscribe({
 			next: (userPokedexData: any) => {
 				console.log("userPokedexData : ", userPokedexData);
@@ -44,7 +44,7 @@ export class ProfilePokedexComponent implements OnInit {
 		});
 	}
 
-	exportPokedex() {
+	exportPokedex(): void {
 		console.log("This.pokemon : ", this.pokemons);
 		const csvLines: string[][] = [];
 		const row: string[] = [];
@@ -67,24 +67,7 @@ export class ProfilePokedexComponent implements OnInit {
 		window.URL.revokeObjectURL(url);
 	}
 
-	savePokedex() {
-		/*
-    if (data.status === 'success')  pokemonIds = this.filterUniqueElements(pokemonIds, data.result.map((_p: any) => _p.POKEMON_ID));
-
-    console.log("PokemonIds : ", pokemonIds);
-    console.log("Data => ", data.result)
-
-    if (pokemonIds && pokemonIds.length > 0)
-    this._pokemonService.addPokemonsToUserPokedex(pokemonIds).subscribe({
-      next: (data: any) => {
-        console.log("Dataaaaa => ", data)
-      }, error: (err) => {
-
-      }, complete: () => {
-
-      }
-    }) */
-	}
+	savePokedex(): void {}
 
 	filterUniqueElements(arr1: number[], arr2: number[]): number[] {
 		// Compter les occurrences des éléments du premier tableau

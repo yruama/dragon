@@ -1,4 +1,4 @@
-import { Shape } from "../types/shape";
+import { Shape } from "@type/shape";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
@@ -9,7 +9,7 @@ export default class Core_Shape {
 		this._utils = new Core_Utils();
 	}
 
-	async addShape(shape: Shape) {
+	async addShape(shape: Shape): Promise<number[]> {
 		try {
 			const shapeCreated = await knex("POKEMON").insert({
 				NAME: shape.NAME
@@ -22,7 +22,7 @@ export default class Core_Shape {
 		}
 	}
 
-	async getShape(id: number) {
+	async getShape(id: number): Promise<Shape> {
 		try {
 			const shape = await knex.select("*").from("SHAPE").where("ID", id);
 
@@ -34,7 +34,7 @@ export default class Core_Shape {
 		}
 	}
 
-	async getShapeByEnglishName(name: string) {
+	async getShapeByEnglishName(name: string): Promise<Shape> {
 		try {
 			const shape = await knex.select("*").from("SHAPE").where("NAME", name);
 
@@ -46,7 +46,7 @@ export default class Core_Shape {
 		}
 	}
 
-	async getShapes() {
+	async getShapes(): Promise<Shape[]> {
 		try {
 			const shape = await knex.select("*").from("SHAPE");
 

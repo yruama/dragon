@@ -41,7 +41,7 @@ export class PokedexComponent implements OnInit {
 		});
 	}
 
-	getGeneration() {
+	getGeneration(): void {
 		this.generation = this._aRoute.snapshot.paramMap.get("id") !== null ? parseInt(this._aRoute.snapshot.paramMap.get("id")!) : 0;
 		console.log("Generation : ", this.generation);
 

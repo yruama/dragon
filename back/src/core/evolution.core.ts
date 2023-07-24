@@ -1,4 +1,4 @@
-import { Evolution } from "../types/evolution";
+import { Evolution } from "@type/evolution";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
@@ -9,7 +9,7 @@ export default class Core_Evolution {
 		this._utils = new Core_Utils();
 	}
 
-	async addEvolution(evolution: Evolution) {
+	async addEvolution(evolution: Evolution): Promise<number[]> {
 		try {
 			const evolutionCreated = await knex("EVOLUTION").insert({
 				GENDER: evolution.GENDER,
@@ -41,7 +41,7 @@ export default class Core_Evolution {
 		}
 	}
 
-	async getEvolution(id: number) {
+	async getEvolution(id: number): Promise<Evolution> {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("ID", id);
 
@@ -53,7 +53,7 @@ export default class Core_Evolution {
 		}
 	}
 
-	async getEvolutionByChainID(chainId: number) {
+	async getEvolutionByChainID(chainId: number): Promise<Evolution[]> {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("CHAIN_ID", chainId);
 

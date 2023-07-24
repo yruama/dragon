@@ -18,11 +18,11 @@ export class PokelistComponent implements OnInit {
 		private readonly _router: Router
 	) {}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.getPokeList();
 	}
 
-	async getPokeList() {
+	async getPokeList(): Promise<void> {
 		const pokelistData = await this._pokelist.getPokeLists();
 
 		console.log("pokelistData => ", pokelistData);
@@ -31,16 +31,16 @@ export class PokelistComponent implements OnInit {
 		}
 	}
 
-	viewList(list: Pokelist) {
+	viewList(list: Pokelist): void {
 		this._router.navigate(["/pokelist/" + list.ID]);
 	}
 
-	reloadData(event: any) {
+	reloadData(event: any): void {
 		this.visible = false;
 		if (event) this.getPokeList();
 	}
 
-	deletePokeList(id: number) {
+	deletePokeList(id: number): void {
 		console.log("Delete : ", id);
 		this._pokelist.deletePokeList(id);
 		this.getPokeList();

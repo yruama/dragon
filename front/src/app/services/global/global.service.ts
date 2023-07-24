@@ -8,5 +8,7 @@ export class GlobalService {
 	apiURL = environment.apiURL;
 	assetsURL = environment.assetsURL;
 
+	appLoading = false;
+
 	constructor() {}
 }
