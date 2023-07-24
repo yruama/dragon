@@ -43,7 +43,8 @@ export class PokedexComponent implements OnInit {
 
 	getGeneration() {
 		const generation = this._aRoute.snapshot.paramMap.get("id");
-		this.generation = generation ? parseInt(generation) : 0;
+
+		this.generation = generation !== null ? parseInt(generation) : 0;
 
 		setTimeout(() => {
 			this.reloadData.next();

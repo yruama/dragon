@@ -52,7 +52,7 @@ export default class Core_User {
 		try {
 			const user = await knex.select("*").from("USER").where("EMAIL", email);
 
-			if (user && user.length > 0) return true;
+			if (user.length > 0) return true;
 			else return false;
 		} catch (error) {
 			console.error("Error => ", error);

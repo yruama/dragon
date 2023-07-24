@@ -27,28 +27,18 @@ export class PokemonsUserListComponent {
 		private readonly _pokemonService: PokemonService,
 		private readonly _pokelistService: PokelistService,
 		private readonly _aRoute: ActivatedRoute
-	) {}
+	) { }
 
 	async ngOnInit() {
 		this.getPokeList();
 		/* this.offset = this.min;
-    this.getPokemons();
+	this.getPokemons();
 
-    this.loadMorePokemons() */
+	this.loadMorePokemons() */
 	}
 
 	async getPokeList() {
-		const id = this._aRoute.snapshot.paramMap.get("id");
-		if (!id) throw new Error("No id");
-		const list = await this._pokelistService.getPokeList(id);
-
-		if (list.status === "success") {
-			this.pokelistData = list.result.pokelistData;
-			this.pokemons = list.result.pokemon;
-			this.pokelist = list.result.pokelist;
-		}
-
-		console.log("LIST => ", list);
+		console.log("GetPokelist");
 	}
 
 	async getPokemons() {

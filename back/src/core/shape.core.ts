@@ -26,7 +26,7 @@ export default class Core_Shape {
 		try {
 			const shape = await knex.select("*").from("SHAPE").where("ID", id);
 
-			if (shape && shape.length > 0) return shape[0];
+			if (shape.length > 0) return shape[0];
 			else throw "No shape found with this id : " + id;
 		} catch (error) {
 			console.error("Error => ", error);
@@ -38,7 +38,7 @@ export default class Core_Shape {
 		try {
 			const shape = await knex.select("*").from("SHAPE").where("NAME", name);
 
-			if (shape && shape.length > 0) return shape[0];
+			if (shape.length > 0) return shape[0];
 			else throw "No shape found with this name : " + name;
 		} catch (error) {
 			console.error("Error => ", error);
@@ -50,7 +50,7 @@ export default class Core_Shape {
 		try {
 			const shape = await knex.select("*").from("SHAPE");
 
-			if (shape && shape.length > 0) return shape;
+			if (shape.length > 0) return shape;
 			else throw "No shape found";
 		} catch (error) {
 			console.error("Error => ", error);

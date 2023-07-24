@@ -29,7 +29,7 @@ export default class Core_Talent {
 		try {
 			const talent = await knex.select("*").from("TALENT").where("NAME_EN", name);
 
-			if (talent && talent.length > 0) return talent[0];
+			if (talent.length > 0) return talent[0];
 			else throw "No talent found with this name : " + name;
 		} catch (error) {
 			console.error("Error => ", error);
@@ -41,7 +41,7 @@ export default class Core_Talent {
 		try {
 			const talent = await knex.select("*").from("TALENT").where("ID", id);
 
-			if (talent && talent.length > 0) return talent[0];
+			if (talent.length > 0) return talent[0];
 			else throw "No talent found with this id : " + id;
 		} catch (error) {
 			console.error("Error => ", error);
@@ -53,7 +53,7 @@ export default class Core_Talent {
 		try {
 			const talent = await knex.select("*").from("TALENT");
 
-			if (talent && talent.length > 0) return talent;
+			if (talent.length > 0) return talent;
 			else throw "No talent found";
 		} catch (error) {
 			console.error("Error => ", error);

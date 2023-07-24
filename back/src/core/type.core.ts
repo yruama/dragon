@@ -26,7 +26,7 @@ export default class Core_Type {
 		try {
 			const type = await knex.select("*").from("TYPE").where("ID", id);
 
-			if (type && type.length > 0) return type[0];
+			if (type.length > 0) return type[0];
 			else throw "No type found with this id : " + id;
 		} catch (error) {
 			console.error("Error => ", error);
@@ -38,7 +38,7 @@ export default class Core_Type {
 		try {
 			const type = await knex.select("*").from("TYPE").where("NAME", name);
 
-			if (type && type.length > 0) return type[0];
+			if (type.length > 0) return type[0];
 			else throw "No type found with this name : " + name;
 		} catch (error) {
 			console.error("Error => ", error);
@@ -50,7 +50,7 @@ export default class Core_Type {
 		try {
 			const type = await knex.select("*").from("TYPE");
 
-			if (type && type.length > 0) return type;
+			if (type.length > 0) return type;
 			else throw "No type found";
 		} catch (error) {
 			console.error("Error => ", error);

@@ -45,7 +45,7 @@ export default class Core_Evolution {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("ID", id);
 
-			if (evolution && evolution.length > 0) return evolution[0];
+			if (evolution.length > 0) return evolution[0];
 			else throw "No evolution found with this id : " + id;
 		} catch (error) {
 			console.error("Error => ", error);
@@ -57,7 +57,7 @@ export default class Core_Evolution {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("CHAIN_ID", chainId);
 
-			if (evolution && evolution.length > 0) return evolution;
+			if (evolution.length > 0) return evolution;
 			else return [];
 		} catch (error) {
 			console.error("Error => ", error);

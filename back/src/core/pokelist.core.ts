@@ -31,7 +31,7 @@ export default class Core_Pokelist {
 		try {
 			const pokelist = await knex.select("*").from("POKELIST").where("ID", id).andWhere("USER_ID", userId);
 
-			if (pokelist && pokelist.length > 0) return pokelist[0];
+			if (pokelist.length > 0) return pokelist[0];
 			else throw "No pokelist found with this id : " + id;
 		} catch (error) {
 			console.error("Error on getPokelist : ", error);
@@ -54,7 +54,7 @@ export default class Core_Pokelist {
 		try {
 			const pokelist = await knex.select("*").from("POKELIST").where("USER_ID", userId);
 
-			if (pokelist && pokelist.length > 0) return pokelist;
+			if (pokelist.length > 0) return pokelist;
 			else throw "No pokelist found";
 		} catch (error) {
 			console.error("Error on getPokelists : ", error);

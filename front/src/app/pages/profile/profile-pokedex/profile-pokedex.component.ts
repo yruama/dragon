@@ -17,7 +17,7 @@ export class ProfilePokedexComponent implements OnInit {
 	constructor(
 		private readonly _pokemonService: PokemonService,
 		public _global: GlobalService
-	) {}
+	) { }
 
 	async ngOnInit() {
 		this._pokemonService.getUserPokedex().subscribe({
@@ -33,14 +33,14 @@ export class ProfilePokedexComponent implements OnInit {
 							.filter(_pokemon => this.pokemonsOwned.includes(_pokemon.POKEMON_ID))
 							.forEach(_pokemon => (_pokemon.owned = true));
 					},
-					error: err => {},
-					complete: () => {}
+					error: err => { },
+					complete: () => { }
 				});
 			},
 			error: err => {
 				console.log("error => ", err);
 			},
-			complete: () => {}
+			complete: () => { }
 		});
 	}
 
@@ -53,7 +53,7 @@ export class ProfilePokedexComponent implements OnInit {
 		csvLines.push(header);
 
 		for (const pokemon of this.pokemons) {
-			if (!pokemon.owned) pokemon.owned = false;
+			if (pokemon.owned === false) pokemon.owned = false;
 			csvLines.push([pokemon.POKEMON_ID.toString(), pokemon.NAME_FR, String(pokemon.owned)]);
 		}
 
@@ -69,21 +69,21 @@ export class ProfilePokedexComponent implements OnInit {
 
 	savePokedex() {
 		/*
-    if (data.status === 'success')  pokemonIds = this.filterUniqueElements(pokemonIds, data.result.map((_p: any) => _p.POKEMON_ID));
+	if (data.status === 'success')  pokemonIds = this.filterUniqueElements(pokemonIds, data.result.map((_p: any) => _p.POKEMON_ID));
 
-    console.log("PokemonIds : ", pokemonIds);
-    console.log("Data => ", data.result)
+	console.log("PokemonIds : ", pokemonIds);
+	console.log("Data => ", data.result)
 
-    if (pokemonIds && pokemonIds.length > 0)
-    this._pokemonService.addPokemonsToUserPokedex(pokemonIds).subscribe({
-      next: (data: any) => {
-        console.log("Dataaaaa => ", data)
-      }, error: (err) => {
+	if (pokemonIds && pokemonIds.length > 0)
+	this._pokemonService.addPokemonsToUserPokedex(pokemonIds).subscribe({
+	  next: (data: any) => {
+		console.log("Dataaaaa => ", data)
+	  }, error: (err) => {
 
-      }, complete: () => {
+	  }, complete: () => {
 
-      }
-    }) */
+	  }
+	}) */
 	}
 
 	filterUniqueElements(arr1: number[], arr2: number[]): number[] {

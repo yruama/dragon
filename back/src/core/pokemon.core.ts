@@ -41,7 +41,7 @@ export default class Core_Pokemon {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").where("POKEMON_ID", id);
 
-			if (pokemon && pokemon.length > 0) return pokemon[0];
+			if (pokemon.length > 0) return pokemon[0];
 			else throw "No pokemon found with this id : " + id;
 		} catch (error) {
 			console.error("Error on getPokemon : ", error);
@@ -53,7 +53,7 @@ export default class Core_Pokemon {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").limit(limit).offset(offset).orderBy("POKEMON_ID", "asc");
 
-			if (pokemon && pokemon.length > 0) return pokemon;
+			if (pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
 			console.error("Error on getPokemonsWithPagination : ", error);
@@ -65,7 +65,7 @@ export default class Core_Pokemon {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").whereIn("POKEMON_ID", pokemonIds);
 
-			if (pokemon && pokemon.length > 0) return pokemon;
+			if (pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
 			console.error("Error on getManyPokemon : ", error);
@@ -77,7 +77,7 @@ export default class Core_Pokemon {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON_OWNED").where("USER_ID", userId).orderBy("POKEMON_ID", "asc");
 
-			if (pokemon && pokemon.length > 0) return pokemon;
+			if (pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
 			console.error("Error on getPokemonOfUserPokedex : ", error);

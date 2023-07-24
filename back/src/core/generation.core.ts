@@ -12,7 +12,7 @@ export default class Core_Generation {
 		try {
 			const generation = await knex.select("*").from("GENERATION").where("GENERATION_NO", no);
 
-			if (generation && generation.length > 0) return generation[0];
+			if (generation.length > 0) return generation[0];
 			else throw "No generation found with this id : " + no;
 		} catch (error) {
 			console.error("Error on getGeneration : ", error);
@@ -24,7 +24,7 @@ export default class Core_Generation {
 		try {
 			const generation = await knex.select("*").from("GENERATION");
 
-			if (generation && generation.length > 0) return generation;
+			if (generation.length > 0) return generation;
 			else throw "No generation found";
 		} catch (error) {
 			console.error("Error on getGenerations : ", error);

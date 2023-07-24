@@ -50,6 +50,7 @@
 		],
 		"space-before-function-paren": ["error", "never"],
 		"@typescript-eslint/space-before-function-paren": ["error", "never"],
+		"@typescript-eslint/strict-boolean-expressions": ["error", { "allowAny": true }],
 		// to be fixed
 		"@typescript-eslint/restrict-plus-operands": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
@@ -61,7 +62,7 @@
 		"@typescript-eslint/no-floating-promises": "off",
 		"no-return-assign": "off",
 		"n/handle-callback-err": "off",
-		"@typescript-eslint/strict-boolean-expressions": "off",
+
 		"@typescript-eslint/no-throw-literal": "off",
 		"no-unreachable": "off"
 	}
