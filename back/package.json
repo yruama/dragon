@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "tsx watch ./src/app.ts",
+    "watch": "nodemon --watch 'src' --exec 'tsx ./src/app.ts'",
     "script": "tsx watch ./src/script.ts"
   },
   "dependencies": {
