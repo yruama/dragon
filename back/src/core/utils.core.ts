@@ -1,10 +1,8 @@
 import axios from "axios";
 import fs from "fs";
-import { APIResult, APIResultError, APIResultSuccess } from "@type/utils";
+import { APIResultError, APIResultSuccess } from "@type/utils";
 
 export default class Core_Utils {
-	constructor() {}
-
 	async downloadImage(url: string, filename: string): Promise<void> {
 		console.log("'./src/assets/' + filename => ", "./src/assets/" + filename);
 		const response = await axios.get(url, { responseType: "arraybuffer" });

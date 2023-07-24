@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 	providedIn: "root"
 })
 export class PokemonService {
-	constructor(private readonly _http: HttpClient) {}
+	constructor(private readonly _http: HttpClient) { }
 
 	getPokemon(id: number): Observable<APIResult> {
 		const headers = new HttpHeaders({
@@ -42,10 +42,6 @@ export class PokemonService {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`
 		});
-
-		const data = {
-			pokemonIds
-		};
 
 		return this._http.post<APIResult>(`${environment.apiURL}/pokemon/user-pokedex`, { pokemonIds }, { headers });
 	}

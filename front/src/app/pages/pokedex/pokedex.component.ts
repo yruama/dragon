@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Subject } from "rxjs";
-import { PokemonService } from "src/app/services/pokemon/pokemon.service";
 
 @Component({
 	selector: "app-pokedex",
@@ -30,7 +29,7 @@ export class PokedexComponent implements OnInit {
 	constructor(
 		private readonly _router: Router,
 		private readonly _aRoute: ActivatedRoute
-	) {}
+	) { }
 
 	ngOnInit(): void {
 		this.getGeneration();

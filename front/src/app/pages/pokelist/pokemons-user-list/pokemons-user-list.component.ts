@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { PokelistService } from "src/app/services/pokelist/pokelist.service";
 import { PokemonService } from "src/app/services/pokemon/pokemon.service";
@@ -27,7 +27,7 @@ export class PokemonsUserListComponent {
 		private readonly _pokemonService: PokemonService,
 		private readonly _pokelistService: PokelistService,
 		private readonly _aRoute: ActivatedRoute
-	) {}
+	) { }
 
 	async ngOnInit(): Promise<void> {
 		this.getPokeList();

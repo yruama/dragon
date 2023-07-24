@@ -4,7 +4,6 @@ import { TranslateService } from "@ngx-translate/core";
 import { MessageService } from "primeng/api";
 import { UserService } from "src/app/services/user/user.service";
 import { User } from "src/app/types/user";
-import { APIResult } from "src/app/types/utils.types";
 
 @Component({
 	selector: "app-auth",

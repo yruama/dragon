@@ -19,7 +19,6 @@ export const knex = Knex.knex({
 	}
 });
 
-const port = "3000";
 export const app = fastify({
 	logger: true
 });

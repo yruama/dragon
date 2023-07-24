@@ -18,8 +18,7 @@ async function routes(fastify: any, options: any): Promise<void> {
 				TOTAL: 0
 			};
 
-			const pokelistData = await classPokelist.addPokelist();
-			// const pokelistData = await classPokelist.addPokelist(list);
+			const pokelistData = await classPokelist.addPokelist(list);
 			reply.send(coreUtils.successFormat(pokelistData));
 		} catch (error: any) {
 			reply.send(coreUtils.errorFormat(error));

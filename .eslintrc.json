@@ -61,13 +61,7 @@
 		// to be fixed
 		"import/no-duplicates": "off",
 		"@typescript-eslint/restrict-template-expressions": "off",
-		"@typescript-eslint/no-unused-vars": "off",
-		"@typescript-eslint/no-useless-constructor": "off",
-		"no-prototype-builtins": "off",
-		"no-mixed-spaces-and-tabs": "off",
 		"@typescript-eslint/no-floating-promises": "off",
-		"no-return-assign": "off",
-
 		"@typescript-eslint/no-throw-literal": "off",
 		"no-unreachable": "off"
 	}

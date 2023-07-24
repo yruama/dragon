@@ -9,6 +9,4 @@ export class GlobalService {
 	assetsURL = environment.assetsURL;
 
 	appLoading = false;
-
-	constructor() {}
 }

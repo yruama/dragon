@@ -46,9 +46,6 @@ async function routes(fastify: any, options: any): Promise<void> {
 	});
 
 	fastify.get("/:id", async(request: any, reply: any) => {
-		console.log("WTF");
-		const id = request.params.id;
-
 		const pokemon = await corePokemon.getPokemon(parseInt(request.params.id));
 
 		reply.send(pokemon);

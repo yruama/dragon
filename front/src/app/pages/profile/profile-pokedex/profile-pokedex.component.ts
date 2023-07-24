@@ -47,7 +47,6 @@ export class ProfilePokedexComponent implements OnInit {
 	exportPokedex(): void {
 		console.log("This.pokemon : ", this.pokemons);
 		const csvLines: string[][] = [];
-		const row: string[] = [];
 		const header = ["No", "Nom", "Possédés"];
 
 		csvLines.push(header);
@@ -78,7 +77,7 @@ export class ProfilePokedexComponent implements OnInit {
 
 		// Décrémenter les occurrences des éléments du deuxième tableau
 		for (const num of arr2) {
-			if (occurrences.hasOwnProperty(num)) {
+			if (Object.prototype.hasOwnProperty.call(occurrences, num)) {
 				occurrences[num] -= 1;
 			}
 		}

@@ -47,8 +47,8 @@ export default class Class_User {
 
 				user.PASSWORD = cryptedPassword;
 
-				const userCreated = await this._user.addUser(user);
-				const generationData = await this._generation.getGeneration(0);
+				await this._user.addUser(user);
+				await this._generation.getGeneration(0);
 
 				return user;
 			} else {

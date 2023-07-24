@@ -4,7 +4,6 @@ import fastify from "fastify";
 import start from "./scripts/getDataFromPokeapi";
 dotenv.config();
 
-const port = "3000";
 const app = fastify({
 	logger: true
 });
