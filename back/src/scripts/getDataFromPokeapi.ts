@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from "axios";
 import fs from "fs";
 
@@ -8,10 +9,10 @@ import Core_Shape from "../core/shape.core";
 import { Talent } from "../types/talent";
 import Core_Talent from "../core/talent.core";
 import Core_Evolution from "../core/evolution.core";
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-async function start () {
+async function start() {
 	console.log("Start !");
 
 	// getShapes();
@@ -24,9 +25,9 @@ async function start () {
 	// getTalent();
 }
 
-async function getXPokemon (start: number, end: number) {
+async function getXPokemon(start: number, end: number) {
 	const allPokemon: string[] = [];
-	for (let index = start; index < (end + start); index++) {
+	for (let index = start; index < end + start; index++) {
 		getOnePokemonAndFormatIt(index);
 		await new Promise((resolve, reject) => {
 			setTimeout(() => {
@@ -36,33 +37,33 @@ async function getXPokemon (start: number, end: number) {
 	}
 }
 
-async function getOnePokemonAndFormatIt (i: number): Promise<string> {
+async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 	try {
-		const pokemonData = await axios.get('https://pokeapi.co/api/v2/pokemon/' + i);
-		const pokemonSpeciesData = await axios.get('https://pokeapi.co/api/v2/pokemon-species/' + i);
+		const pokemonData = await axios.get("https://pokeapi.co/api/v2/pokemon/" + i);
+		const pokemonSpeciesData = await axios.get("https://pokeapi.co/api/v2/pokemon-species/" + i);
 
 		// @ts-expect-error
 		const pokemonObject: Pokemon = {
 			POKEMON_ID: 0,
-			NAME_FR: '',
-			NAME_EN: '',
-			DESCRIPTION_FR: '',
-			DESCRIPTION_EN: '',
-			CATEGORY: '',
+			NAME_FR: "",
+			NAME_EN: "",
+			DESCRIPTION_FR: "",
+			DESCRIPTION_EN: "",
+			CATEGORY: "",
 			TYPE_1_ID: 0,
 			TYPE_2_ID: 0,
-			TALENT: '',
-			SHAPE: '',
+			TALENT: "",
+			SHAPE: "",
 			GENERATION: 0,
 			INFORMATION: {
 				height: 0,
 				weight: 0,
-				statistics: ''
+				statistics: ""
 			},
 			EVOLUTION: 0,
-			COLOR: '',
-			artwork: '',
-			miniature: ''
+			COLOR: "",
+			artwork: "",
+			miniature: ""
 		};
 
 		console.log("get data of", i, "th pokemon");
@@ -73,20 +74,38 @@ async function getOnePokemonAndFormatIt (i: number): Promise<string> {
 		const pokeInfos: PokeInfos = {
 			height: pokemon.height,
 			weight: pokemon.weight,
-			statistics: JSON.stringify(pokemon.stats.map((_stats: any) => { return { value: _stats.base_stat, name: _stats.stat.name }; }))
+			statistics: JSON.stringify(
+				pokemon.stats.map((_stats: any) => {
+					return { value: _stats.base_stat, name: _stats.stat.name };
+				})
+			)
 		};
 
 		pokemonObject.POKEMON_ID = i;
 		pokemonObject.INFORMATION = pokeInfos;
 
-		pokemonObject.NAME_EN = pokemonSpecies.names.find((_name: any) => _name.language.name === 'en').name;
-		pokemonObject.NAME_FR = pokemonSpecies.names.find((_name: any) => _name.language.name === 'fr').name;
-		pokemonObject.DESCRIPTION_FR = pokemonSpecies.flavor_text_entries.length > 0 ? pokemonSpecies.flavor_text_entries.filter((_flavor: any) => _flavor.language.name === 'fr').at(-1)?.flavor_text.replace('\n', ' ') : "none";
-		pokemonObject.DESCRIPTION_EN = pokemonSpecies.flavor_text_entries.length > 0 ? pokemonSpecies.flavor_text_entries.filter((_flavor: any) => _flavor.language.name === 'en').at(-1).flavor_text.replace('\n', ' ') : "none";
+		pokemonObject.NAME_EN = pokemonSpecies.names.find((_name: any) => _name.language.name === "en").name;
+		pokemonObject.NAME_FR = pokemonSpecies.names.find((_name: any) => _name.language.name === "fr").name;
+		pokemonObject.DESCRIPTION_FR =
+			pokemonSpecies.flavor_text_entries.length > 0
+				? pokemonSpecies.flavor_text_entries
+						.filter((_flavor: any) => _flavor.language.name === "fr")
+						.at(-1)
+						?.flavor_text.replace("\n", " ")
+				: "none";
+		pokemonObject.DESCRIPTION_EN =
+			pokemonSpecies.flavor_text_entries.length > 0
+				? pokemonSpecies.flavor_text_entries
+						.filter((_flavor: any) => _flavor.language.name === "en")
+						.at(-1)
+						.flavor_text.replace("\n", " ")
+				: "none";
 
 		pokemonObject.DESCRIPTION_FR = pokemonObject.DESCRIPTION_FR ? pokemonObject.DESCRIPTION_FR : "none";
 
-		const types = pokemon.types.map((_type: any) => { return { name: _type.type.name }; });
+		const types = pokemon.types.map((_type: any) => {
+			return { name: _type.type.name };
+		});
 		const coreTypes = new Core_Type();
 
 		if (types[0]) {
@@ -99,49 +118,51 @@ async function getOnePokemonAndFormatIt (i: number): Promise<string> {
 		const talents = [];
 		for (const talent of pokemon.abilities) {
 			talents.push({
-				id: talent.ability.url.split('/').at(talent.ability.url.split('/').length - 2),
+				id: talent.ability.url.split("/").at(talent.ability.url.split("/").length - 2),
 				hidden: talent.is_hidden
 			});
 		}
 
-		pokemonObject.CATEGORY = pokemonSpecies.genera.find((_genera: any) => _genera.language.name === 'en').genus;
+		pokemonObject.CATEGORY = pokemonSpecies.genera.find((_genera: any) => _genera.language.name === "en").genus;
 		pokemonObject.TALENT = JSON.stringify(talents);
-		pokemonObject.SHAPE = pokemonSpecies?.shape ? (await new Core_Shape().getShapeByEnglishName(pokemonSpecies?.shape.name.replace('-', ''))).ID : -1;
-		pokemonObject.GENERATION = getGeneration(pokemonSpecies.generation.name.split('-')[1]);
+		pokemonObject.SHAPE = pokemonSpecies?.shape
+			? (await new Core_Shape().getShapeByEnglishName(pokemonSpecies?.shape.name.replace("-", ""))).ID
+			: -1;
+		pokemonObject.GENERATION = getGeneration(pokemonSpecies.generation.name.split("-")[1]);
 		pokemonObject.COLOR = pokemonSpecies.color.name;
 
 		addEvolutions(pokemonSpecies.evolution_chain.url);
 		console.log("pokemonSpecies.evolution_chain.url => ", pokemonSpecies.evolution_chain.url);
-		pokemonObject.EVOLUTION = parseInt(pokemonSpecies.evolution_chain.url.split('/').at(-2));
+		pokemonObject.EVOLUTION = parseInt(pokemonSpecies.evolution_chain.url.split("/").at(-2));
 
 		await new Core_Pokemon().addPokemon(pokemonObject);
 	} catch (error) {
-		console.error('[getOnePokemon error ] => ', i, " - ", error);
-		throw 'Error';
+		console.error("[getOnePokemon error ] => ", i, " - ", error);
+		throw "Error";
 	}
 
-	return '';
+	return "";
 }
 
-async function addEvolutions (url: string) {
+async function addEvolutions(url: string) {
 	const evolutionObject = {
 		GENDER: 0,
-		HELD_ITEM: '',
-		ITEM: '',
-		KNOW_MOVE: '',
-		KNOW_MOVE_TYPE: '',
-		LOCATION: '',
+		HELD_ITEM: "",
+		ITEM: "",
+		KNOW_MOVE: "",
+		KNOW_MOVE_TYPE: "",
+		LOCATION: "",
 		MIN_AFFECTION: 0,
 		MIN_BEAUTY: 0,
 		MIN_HAPPINESS: 0,
 		MIN_LEVEL: 0,
 		NEEDS_OVERWORLDS_RAIN: 0,
-		PARTY_SPECIES: '',
-		PARTY_TYPE: '',
+		PARTY_SPECIES: "",
+		PARTY_TYPE: "",
 		RELATIVE_PHYSICAL_STATS: 0,
-		TIME_OF_DAY: '',
-		TRADE_SPECIES: '',
-		TRIGGER: '',
+		TIME_OF_DAY: "",
+		TRADE_SPECIES: "",
+		TRIGGER: "",
 		POKEMON_ID: 0,
 		CHAIN_ID: 0,
 		LEVEL: 0
@@ -151,35 +172,35 @@ async function addEvolutions (url: string) {
 	const chainId = evolutionData.id;
 	const evolution = evolutionData.chain;
 
-	const evolutionChain = await (new Core_Evolution().getEvolutionByChainID(chainId));
+	const evolutionChain = await new Core_Evolution().getEvolutionByChainID(chainId);
 	if (evolutionChain.length === 0) addEvolution(evolution, evolutionObject, 0, chainId);
 }
 
-async function addEvolution (evolution: any, evolutionObject: any, level: any, chain_id: string) {
-	evolutionObject.POKEMON_ID = parseInt(evolution.species.url.split('/').at(-2));
+async function addEvolution(evolution: any, evolutionObject: any, level: any, chain_id: string) {
+	evolutionObject.POKEMON_ID = parseInt(evolution.species.url.split("/").at(-2));
 	evolutionObject.CHAIN_ID = parseInt(chain_id);
 	evolutionObject.LEVEL = level;
 
-	if (evolution.evolution_details.length > 0) {
+	if (evolution.evolution_details.length > 0) {
 		const e = evolution.evolution_details[0];
 
 		evolutionObject.GENDER = e ? e.gender : 0;
-		evolutionObject.HELD_ITEM = e ? e.held_item?.name : '';
-		evolutionObject.ITEM = e ? e.item?.name : '';
-		evolutionObject.KNOW_MOVE = e ? e.known_move?.name : '';
-		evolutionObject.KNOW_MOVE_TYPE = e ? e.known_move_type?.name : '';
-		evolutionObject.LOCATION = e ? e.location?.name : '';
+		evolutionObject.HELD_ITEM = e ? e.held_item?.name : "";
+		evolutionObject.ITEM = e ? e.item?.name : "";
+		evolutionObject.KNOW_MOVE = e ? e.known_move?.name : "";
+		evolutionObject.KNOW_MOVE_TYPE = e ? e.known_move_type?.name : "";
+		evolutionObject.LOCATION = e ? e.location?.name : "";
 		evolutionObject.MIN_AFFECTION = e ? e.min_affection : 0;
 		evolutionObject.MIN_BEAUTY = e ? e.min_beauty : 0;
 		evolutionObject.MIN_HAPPINESS = e ? e.min_happiness : 0;
 		evolutionObject.MIN_LEVEL = e ? e.min_level : 0;
 		evolutionObject.NEEDS_OVERWORLDS_RAIN = e ? Number(e.needs_overworld_rain) : 0;
-		evolutionObject.PARTY_SPECIES = e ? e.party_species?.name : '';
-		evolutionObject.PARTY_TYPE = e ? e.party_type?.name : '';
+		evolutionObject.PARTY_SPECIES = e ? e.party_species?.name : "";
+		evolutionObject.PARTY_TYPE = e ? e.party_type?.name : "";
 		evolutionObject.RELATIVE_PHYSICAL_STATS = e ? e.relative_physical_stats : 0;
-		evolutionObject.TIME_OF_DAY = e ? e.time_of_day : '';
-		evolutionObject.TRADE_SPECIES = e ? e.trade_species?.name : '';
-		evolutionObject.TRIGGER = e ? e.trigger.name : '';
+		evolutionObject.TIME_OF_DAY = e ? e.time_of_day : "";
+		evolutionObject.TRADE_SPECIES = e ? e.trade_species?.name : "";
+		evolutionObject.TRIGGER = e ? e.trigger.name : "";
 	}
 
 	await new Core_Evolution().addEvolution(evolutionObject);
@@ -197,9 +218,9 @@ async function addEvolution (evolution: any, evolutionObject: any, level: any, c
 	}
 }
 
-async function getTypes () {
+async function getTypes() {
 	try {
-		const pokeType = await axios.get('https://pokeapi.co/api/v2/type/');
+		const pokeType = await axios.get("https://pokeapi.co/api/v2/type/");
 		const coreType = new Core_Type();
 
 		console.log(pokeType.data.results);
@@ -212,9 +233,9 @@ async function getTypes () {
 	}
 }
 
-async function getShapes () {
+async function getShapes() {
 	try {
-		const pokeShape = await axios.get('https://pokeapi.co/api/v2/pokemon-shape/');
+		const pokeShape = await axios.get("https://pokeapi.co/api/v2/pokemon-shape/");
 		const coreShape = new Core_Shape();
 
 		console.log(pokeShape.data.results);
@@ -227,8 +248,8 @@ async function getShapes () {
 	}
 }
 
-async function getTalent () {
-	const allTalent = await axios.get('https://pokeapi.co/api/v2/ability/?offset=00&limit=360');
+async function getTalent() {
+	const allTalent = await axios.get("https://pokeapi.co/api/v2/ability/?offset=00&limit=360");
 
 	let i = 1;
 	for (const url of allTalent.data.results) {
@@ -236,10 +257,24 @@ async function getTalent () {
 		const talentData = (await axios.get(url.url)).data;
 
 		const talent: Talent = {
-			NAME_EN: talentData.names.find((_name: any) => _name.language.name == 'en').name,
-			NAME_FR: talentData.names.find((_name: any) => _name.language.name == 'fr') ? talentData.names.find((_name: any) => _name.language.name == 'fr').name : talentData.names.find((_name: any) => _name.language.name == 'en').name,
-			DESCRIPTION_EN: talentData.flavor_text_entries.length > 0 ? talentData.flavor_text_entries.filter((_flavor: any) => _flavor.language.name == 'en').at(-1).flavor_text.replace('\n', ' ') : "",
-			DESCRIPTION_FR: talentData.flavor_text_entries.length > 0 ? talentData.flavor_text_entries.filter((_flavor: any) => _flavor.language.name == 'fr').at(-1).flavor_text.replace('\n', ' ') : ""
+			NAME_EN: talentData.names.find((_name: any) => _name.language.name == "en").name,
+			NAME_FR: talentData.names.find((_name: any) => _name.language.name == "fr")
+				? talentData.names.find((_name: any) => _name.language.name == "fr").name
+				: talentData.names.find((_name: any) => _name.language.name == "en").name,
+			DESCRIPTION_EN:
+				talentData.flavor_text_entries.length > 0
+					? talentData.flavor_text_entries
+							.filter((_flavor: any) => _flavor.language.name == "en")
+							.at(-1)
+							.flavor_text.replace("\n", " ")
+					: "",
+			DESCRIPTION_FR:
+				talentData.flavor_text_entries.length > 0
+					? talentData.flavor_text_entries
+							.filter((_flavor: any) => _flavor.language.name == "fr")
+							.at(-1)
+							.flavor_text.replace("\n", " ")
+					: ""
 		};
 
 		const coreTalent = new Core_Talent();
@@ -254,33 +289,33 @@ async function getTalent () {
 	}
 }
 
-function getGeneration (romanNumber: string): number {
+function getGeneration(romanNumber: string): number {
 	switch (romanNumber) {
-		case 'i':
+		case "i":
 			return 1;
 			break;
-		case 'ii':
+		case "ii":
 			return 2;
 			break;
-		case 'iii':
+		case "iii":
 			return 3;
 			break;
-		case 'iv':
+		case "iv":
 			return 4;
 			break;
-		case 'v':
+		case "v":
 			return 5;
 			break;
-		case 'vi':
+		case "vi":
 			return 6;
 			break;
-		case 'vii':
+		case "vii":
 			return 7;
 			break;
-		case 'viii':
+		case "viii":
 			return 8;
 			break;
-		case 'ix':
+		case "ix":
 			return 9;
 			break;
 		default:

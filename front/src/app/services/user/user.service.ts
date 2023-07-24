@@ -1,55 +1,40 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { User } from 'src/app/types/user';
-import { APIResult } from 'src/app/types/utils.types';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { User } from "src/app/types/user";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from "src/environments/environment";
+import { Observable } from "rxjs";
+import { APIResult } from "src/app/types/utils.types";
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: "root"
 })
 export class UserService {
-	constructor (private readonly _http: HttpClient,
-		public jwtHelper: JwtHelperService) { }
+	constructor (
+		private readonly _http: HttpClient,
+		public jwtHelper: JwtHelperService
+	) {}
 
-	signUp (user: User) {
+	signUp (user: User): Observable<APIResult> {
 		const headers = new HttpHeaders({
-			'Content-Type': 'application/json'
+			"Content-Type": "application/json"
 		});
 
-		return this._http.post(environment.apiURL + '/user/sign-up', { user }, { headers });
+		return this._http.post<APIResult>(environment.apiURL + "/user/sign-up", { user }, { headers });
 	}
 
-	signIn (user: User) {
+	signIn (user: User): Observable<APIResult> {
 		console.log("environment > ", environment);
 		const headers = new HttpHeaders({
-			'Content-Type': 'application/json'
+			"Content-Type": "application/json"
 		});
 
-		return this._http.post(environment.apiURL + '/user/sign-in', { user }, { headers });
-	}
-
-	async test () {
-		return await new Promise<APIResult>((resolve, reject) => {
-			const headers = new HttpHeaders({
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${localStorage.getItem('token')}`
-			});
-
-			this._http.post(environment.apiURL + '/user/test', { toto: "toto" }, { headers }).subscribe(
-				res => {
-					resolve(res as APIResult);
-				}, error => {
-					console.log(error);
-					reject(error);
-				}
-			);
-		});
+		return this._http.post<APIResult>(environment.apiURL + "/user/sign-in", { user }, { headers });
 	}
 
 	public isAuthenticated (): boolean {
 		try {
-			const token = localStorage.getItem('token');
+			const token = localStorage.getItem("token");
 			return !this.jwtHelper.isTokenExpired(token);
 		} catch (error) {
 			return false;

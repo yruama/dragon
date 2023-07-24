@@ -1,37 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { MessageService } from 'primeng/api';
-import { UserService } from 'src/app/services/user/user.service';
-import { User } from 'src/app/types/user';
-import { APIResult } from 'src/app/types/utils.types';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import { MessageService } from "primeng/api";
+import { UserService } from "src/app/services/user/user.service";
+import { User } from "src/app/types/user";
+import { APIResult } from "src/app/types/utils.types";
 
 @Component({
-	selector: 'app-auth',
-	templateUrl: './auth.component.html',
-	styleUrls: ['./auth.component.scss']
+	selector: "app-auth",
+	templateUrl: "./auth.component.html",
+	styleUrls: ["./auth.component.scss"]
 })
 export class AuthComponent implements OnInit {
 	user: User = {
-		FIRSTNAME: 'Amaury',
-		LASTNAME: 'LAROZE',
-		EMAIL: 'amaurylaroze@gmail.com',
-		USERNAME: 'Yruama',
-		PASSWORD: ''
+		FIRSTNAME: "Amaury",
+		LASTNAME: "LAROZE",
+		EMAIL: "amaurylaroze@gmail.com",
+		USERNAME: "Yruama",
+		PASSWORD: ""
 	};
 
-	currentPage = 'sign-in';
+	currentPage = "sign-in";
 	buttonLoading = false;
 
-	constructor (private readonly _user: UserService,
+	constructor (
+		private readonly _user: UserService,
 		private readonly _aRoute: ActivatedRoute,
 		private readonly _router: Router,
 		private readonly _toast: MessageService,
-		private readonly _translate: TranslateService) {}
+		private readonly _translate: TranslateService
+	) {}
 
 	ngOnInit (): void {
 		this._aRoute.params.subscribe(params => {
-			this.currentPage = params.type !== null ? this._aRoute.snapshot.paramMap.get('type')! : 'sign-in';
+			this.currentPage = params.type !== null ? this._aRoute.snapshot.paramMap.get("type")! : "sign-in";
 		});
 	}
 
@@ -40,18 +42,18 @@ export class AuthComponent implements OnInit {
 		this._user.signUp(this.user).subscribe({
 			next: (data: any) => {
 				this._toast.add({
-					severity: 'success',
-					summary: this._translate.instant('TOAST.register_success')
+					severity: "success",
+					summary: this._translate.instant("TOAST.register_success")
 				});
 
 				setTimeout(() => {
-					this._router.navigate(['/']);
+					this._router.navigate(["/"]);
 				}, 1500);
 			},
-			error: (err) => {
+			error: err => {
 				this._toast.add({
-					severity: 'error',
-					summary: this._translate.instant('TOAST.register_error')
+					severity: "error",
+					summary: this._translate.instant("TOAST.register_error")
 				});
 				console.error("[SignIn] : ", err);
 			},
@@ -64,22 +66,22 @@ export class AuthComponent implements OnInit {
 	signIn () {
 		this.buttonLoading = true;
 		this._user.signIn(this.user).subscribe({
-			next: (data: any) => {
+			next: data => {
 				console.log("Data => ", data);
-				localStorage.setItem('token', data.result.token);
+				localStorage.setItem("token", data.result.token);
 				this._toast.add({
-					severity: 'success',
-					summary: this._translate.instant('TOAST.connexion_success')
+					severity: "success",
+					summary: this._translate.instant("TOAST.connexion_success")
 				});
 
 				setTimeout(() => {
-					this._router.navigate(['/']);
+					this._router.navigate(["/"]);
 				}, 1500);
 			},
-			error: (err) => {
+			error: err => {
 				this._toast.add({
-					severity: 'error',
-					summary: this._translate.instant('TOAST.connexion_error')
+					severity: "error",
+					summary: this._translate.instant("TOAST.connexion_error")
 				});
 				console.error("[SignIn] : ", err);
 			},
