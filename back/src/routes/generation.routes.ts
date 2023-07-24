@@ -4,8 +4,8 @@ import Core_Generation from "../core/generation.core";
 const coreGeneration = new Core_Generation();
 const coreUtils = new Core_Utils();
 
-async function routes(fastify: any, options: any) {
-	fastify.get('/', async(request: any, reply: any) => {
+async function routes(fastify: any, options: any): Promise<void> {
+	fastify.get("/", async(request: any, reply: any) => {
 		try {
 			const generationsData = await coreGeneration.getGenerations();
 			reply.send(coreUtils.successFormat(generationsData));

@@ -1,4 +1,4 @@
-import { Type } from "../types/type";
+import { Type } from "@type/type";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
@@ -9,7 +9,7 @@ export default class Core_Type {
 		this._utils = new Core_Utils();
 	}
 
-	async addType(type: Type) {
+	async addType(type: Type): Promise<number[]> {
 		try {
 			const typeCreated = await knex("TYPE").insert({
 				NAME: type.NAME
@@ -22,7 +22,7 @@ export default class Core_Type {
 		}
 	}
 
-	async getType(id: number) {
+	async getType(id: number): Promise<Type> {
 		try {
 			const type = await knex.select("*").from("TYPE").where("ID", id);
 
@@ -34,7 +34,7 @@ export default class Core_Type {
 		}
 	}
 
-	async getTypeByEnglishName(name: string) {
+	async getTypeByEnglishName(name: string): Promise<Type> {
 		try {
 			const type = await knex.select("*").from("TYPE").where("NAME", name);
 
@@ -46,7 +46,7 @@ export default class Core_Type {
 		}
 	}
 
-	async getTypes() {
+	async getTypes(): Promise<Type[]> {
 		try {
 			const type = await knex.select("*").from("TYPE");
 

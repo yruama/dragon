@@ -16,6 +16,11 @@
 			"files": ["**/*.ts"]
 		}
 	],
+	"settings": {
+		"import/resolver": {
+			"typescript": {}
+		}
+	},
 	"rules": {
 		"indent": ["error", "tab"],
 		"no-tabs": ["error", { "allowIndentationTabs": true }],
@@ -51,9 +56,10 @@
 		"space-before-function-paren": ["error", "never"],
 		"@typescript-eslint/space-before-function-paren": ["error", "never"],
 		"@typescript-eslint/strict-boolean-expressions": ["error", { "allowAny": true }],
+		"@typescript-eslint/restrict-plus-operands": "off", // laisser en off
+		// "@typescript-eslint/explicit-function-return-type": "off",
 		// to be fixed
-		"@typescript-eslint/restrict-plus-operands": "off",
-		"@typescript-eslint/explicit-function-return-type": "off",
+		"import/no-duplicates": "off",
 		"@typescript-eslint/restrict-template-expressions": "off",
 		"@typescript-eslint/no-unused-vars": "off",
 		"@typescript-eslint/no-useless-constructor": "off",

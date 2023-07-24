@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { PrimeNGConfig } from "primeng/api";
 import { TranslateService } from "@ngx-translate/core";
+import { GlobalService } from "./services/global/global.service";
 
 @Component({
 	selector: "app-root",
@@ -12,13 +13,21 @@ export class AppComponent {
 
 	constructor(
 		private readonly _primengConfig: PrimeNGConfig,
-		private readonly _translate: TranslateService
+		private readonly _translate: TranslateService,
+		public _global: GlobalService
 	) {
+		this._global.appLoading = true;
 		_translate.setDefaultLang("fr");
-		_translate.use("fr");
+		_translate.use("fr").subscribe({
+			next: () => {},
+			error: err => {},
+			complete: () => {
+				this._global.appLoading = false;
+			}
+		});
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this._primengConfig.ripple = true;
 	}
 }

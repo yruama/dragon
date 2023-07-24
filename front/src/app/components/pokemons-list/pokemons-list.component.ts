@@ -33,7 +33,7 @@ export class PokemonsListComponent implements OnInit {
 		});
 	}
 
-	async getPokemons() {
+	async getPokemons(): Promise<void> {
 		if (this.offset > this.max) this.offset = this.max;
 		const limit: number = this.offset + this.limit > this.max ? this.max - this.offset : this.limit;
 
@@ -46,13 +46,13 @@ export class PokemonsListComponent implements OnInit {
 		}
 	}
 
-	loadMorePokemons() {
+	loadMorePokemons(): void {
 		this.offset += this.limit;
 
 		this.getPokemons();
 	}
 
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.eventsSubscription.unsubscribe();
 	}
 }

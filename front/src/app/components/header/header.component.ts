@@ -75,8 +75,7 @@ export class HeaderComponent implements OnInit {
 		private readonly _router: Router
 	) {}
 
-	async ngOnInit() {
-		await new Promise(resolve => setTimeout(resolve, 150)); // Pour attendre l'initialisation des traductions
+	async ngOnInit(): Promise<void> {
 		const generationItems: MenuItem[] = [];
 
 		generationItems.push({
@@ -107,15 +106,15 @@ export class HeaderComponent implements OnInit {
 		];
 
 		// Find the current language or use default
-		this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) != null || this.languages[0];
+		this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) ?? this.languages[0];
 	}
 
-	signOff() {
+	signOff(): void {
 		localStorage.removeItem("token");
 		this._router.navigate(["/"]);
 	}
 
-	onLanguageChange(language: { code: string; icon: string }) {
+	onLanguageChange(language: { code: string; icon: string }): void {
 		this._translate.use(language.code);
 		this.currentLanguage = language;
 	}

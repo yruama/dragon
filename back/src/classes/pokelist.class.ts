@@ -1,7 +1,6 @@
-import { Pokelist } from "../types/pokelist";
+import { Pokelist } from "@type/pokelist";
 import Core_Pokelist from "../core/pokelist.core";
 import _bcrypt from "bcrypt";
-import { app } from "../app";
 import Core_Generation from "../core/generation.core";
 import Core_Pokemon from "../core/pokemon.core";
 
@@ -16,7 +15,7 @@ export default class Class_Pokelist {
 		this._pokemon = new Core_Pokemon();
 	}
 
-	async addPokelist() {
+	async addPokelist(pokelist: Pokelist): Promise<number[]> {
 		try {
 			// A Refaire suite aux changements du back
 			return true;
@@ -26,7 +25,7 @@ export default class Class_Pokelist {
 		}
 	}
 
-	async getPokeList() {
+	async getPokeList(): Promise<boolean> {
 		try {
 			// A Refaire suite aux changements du back
 			return true;

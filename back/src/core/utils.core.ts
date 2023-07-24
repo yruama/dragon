@@ -1,10 +1,11 @@
 import axios from "axios";
 import fs from "fs";
+import { APIResult, APIResultError, APIResultSuccess } from "@type/utils";
 
 export default class Core_Utils {
 	constructor() {}
 
-	async downloadImage(url: string, filename: string) {
+	async downloadImage(url: string, filename: string): Promise<void> {
 		console.log("'./src/assets/' + filename => ", "./src/assets/" + filename);
 		const response = await axios.get(url, { responseType: "arraybuffer" });
 
@@ -14,14 +15,14 @@ export default class Core_Utils {
 		});
 	}
 
-	successFormat(result: any) {
+	successFormat(result: any): APIResultSuccess {
 		return {
 			status: "success",
 			result
 		};
 	}
 
-	errorFormat(message: string, code: any = -1) {
+	errorFormat(message: string, code: any = -1): APIResultError {
 		return {
 			status: "error",
 			message,

@@ -30,7 +30,7 @@ export class PokedexComponent implements OnInit {
 	constructor(
 		private readonly _router: Router,
 		private readonly _aRoute: ActivatedRoute
-	) { }
+	) {}
 
 	ngOnInit(): void {
 		this.getGeneration();
@@ -41,7 +41,7 @@ export class PokedexComponent implements OnInit {
 		});
 	}
 
-	getGeneration() {
+	getGeneration(): void {
 		const generation = this._aRoute.snapshot.paramMap.get("id");
 
 		this.generation = generation !== null ? parseInt(generation) : 0;

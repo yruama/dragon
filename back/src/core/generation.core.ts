@@ -1,4 +1,4 @@
-import { Generation } from "../types/generation";
+import { Generation } from "@type/generation";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 export default class Core_Generation {
@@ -8,7 +8,7 @@ export default class Core_Generation {
 		this._utils = new Core_Utils();
 	}
 
-	async getGeneration(no: number) {
+	async getGeneration(no: number): Promise<Generation> {
 		try {
 			const generation = await knex.select("*").from("GENERATION").where("GENERATION_NO", no);
 
@@ -20,7 +20,7 @@ export default class Core_Generation {
 		}
 	}
 
-	async getGenerations() {
+	async getGenerations(): Promise<Generation[]> {
 		try {
 			const generation = await knex.select("*").from("GENERATION");
 

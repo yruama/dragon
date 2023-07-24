@@ -1,6 +1,4 @@
-import { Generation } from "../types/generation";
-import { Pokemon_Owned } from "../types/pokelist";
-import { User } from "../types/user";
+import { User } from "@type/user";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
@@ -11,7 +9,7 @@ export default class Core_User {
 		this._utils = new Core_Utils();
 	}
 
-	async getUser(email: string) {
+	async getUser(email: string): Promise<User> {
 		try {
 			const user = await knex
 				.select("*")
@@ -30,7 +28,7 @@ export default class Core_User {
 		}
 	}
 
-	async addUser(user: User) {
+	async addUser(user: User): Promise<number[]> {
 		try {
 			const userCreated = await knex("USER").insert({
 				FIRSTNAME: user.FIRSTNAME,
@@ -48,7 +46,7 @@ export default class Core_User {
 		}
 	}
 
-	async userExisting(email: string) {
+	async userExisting(email: string): Promise<boolean> {
 		try {
 			const user = await knex.select("*").from("USER").where("EMAIL", email);
 
