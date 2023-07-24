@@ -9,53 +9,45 @@ import { environment } from 'src/environments/environment';
 	providedIn: 'root'
 })
 export class PokelistService {
-	constructor(private readonly _http: HttpClient) { }
+	constructor (private readonly _http: HttpClient) { }
 
-	addPokeList(pokelist: Pokelist): Observable<APIResult> {
-
+	addPokeList (pokelist: Pokelist): Observable<APIResult> {
 		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`
 		});
 
-		return this._http.post<APIResult>(`${environment.apiURL}/pokelist`, { pokelist }, { headers })
-
+		return this._http.post<APIResult>(`${environment.apiURL}/pokelist`, { pokelist }, { headers });
 	}
 
-	getPokeLists(): Observable<APIResult> {
-
+	getPokeLists (): Observable<APIResult> {
 		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`
 		});
 
-		return this._http.get<APIResult>(`${environment.apiURL}/pokelist`, { headers })
-
+		return this._http.get<APIResult>(`${environment.apiURL}/pokelist`, { headers });
 	}
 
-	getPokeList(id: string): Observable<APIResult> {
-
+	getPokeList (id: string): Observable<APIResult> {
 		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`
 		});
 
-		return this._http.get<APIResult>(`${environment.apiURL}/pokelist/${id}`, { headers })
-
+		return this._http.get<APIResult>(`${environment.apiURL}/pokelist/${id}`, { headers });
 	}
 
-	deletePokeList(id: number): Observable<APIResult> {
-
+	deletePokeList (id: number): Observable<APIResult> {
 		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`
 		});
 
-		return this._http.delete<APIResult>(`${environment.apiURL}/pokelist/${id}`, { headers })
-
+		return this._http.delete<APIResult>(`${environment.apiURL}/pokelist/${id}`, { headers });
 	}
 }

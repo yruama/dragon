@@ -1,21 +1,20 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { APIResult } from 'src/app/types/utils.types';
-import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { APIResult } from "src/app/types/utils.types";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: "root"
 })
 export class GenerationService {
-	constructor(private readonly _http: HttpClient) { }
+	constructor (private readonly _http: HttpClient) {}
 
-	getGenerations(): Observable<APIResult> {
-
+	getGenerations (): Observable<APIResult> {
 		const headers = new HttpHeaders({
-			'Content-Type': 'application/json'
+			"Content-Type": "application/json"
 		});
 
-		return this._http.get<APIResult>(`${environment.apiURL}/generation`, { headers })
+		return this._http.get<APIResult>(`${environment.apiURL}/generation`, { headers });
 	}
 }

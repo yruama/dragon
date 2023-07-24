@@ -8,9 +8,9 @@ import { environment } from "src/environments/environment";
 	providedIn: "root"
 })
 export class PokemonService {
-	constructor(private readonly _http: HttpClient) { }
+	constructor (private readonly _http: HttpClient) { }
 
-	getPokemon(id: number): Observable<APIResult> {
+	getPokemon (id: number): Observable<APIResult> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
@@ -18,7 +18,7 @@ export class PokemonService {
 		return this._http.get<APIResult>(`${environment.apiURL}/pokemon/${id}`, { headers });
 	}
 
-	getPokemons(offset: number, limit: number): Observable<APIResult> {
+	getPokemons (offset: number, limit: number): Observable<APIResult> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
@@ -26,8 +26,8 @@ export class PokemonService {
 		return this._http.get<APIResult>(`${environment.apiURL}/pokemon?offset=${offset}&limit=${limit}`, { headers });
 	}
 
-	getUserPokedex(): Observable<APIResult> {
-		const token = localStorage.getItem('token')
+	getUserPokedex (): Observable<APIResult> {
+		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`
@@ -36,8 +36,8 @@ export class PokemonService {
 		return this._http.get<APIResult>(`${environment.apiURL}/pokemon/user-pokedex`, { headers });
 	}
 
-	addPokemonsToUserPokedex(pokemonIds: number[]): Observable<APIResult> {
-		const token = localStorage.getItem('token')
+	addPokemonsToUserPokedex (pokemonIds: number[]): Observable<APIResult> {
+		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`

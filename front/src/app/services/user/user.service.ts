@@ -10,12 +10,12 @@ import { APIResult } from "src/app/types/utils.types";
 	providedIn: "root"
 })
 export class UserService {
-	constructor(
+	constructor (
 		private readonly _http: HttpClient,
 		public jwtHelper: JwtHelperService
 	) { }
 
-	signUp(user: User): Observable<APIResult> {
+	signUp (user: User): Observable<APIResult> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
@@ -23,7 +23,7 @@ export class UserService {
 		return this._http.post<APIResult>(`${environment.apiURL}/user/sign-up`, { user }, { headers });
 	}
 
-	signIn(user: User): Observable<APIResult> {
+	signIn (user: User): Observable<APIResult> {
 		console.log("environment > ", environment);
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
@@ -32,7 +32,7 @@ export class UserService {
 		return this._http.post<APIResult>(`${environment.apiURL}/user/sign-in`, { user }, { headers });
 	}
 
-	public isAuthenticated(): boolean {
+	public isAuthenticated (): boolean {
 		try {
 			const token = localStorage.getItem("token");
 			return !this.jwtHelper.isTokenExpired(token);
