@@ -63,7 +63,6 @@
 		"n/handle-callback-err": "off",
 		"@typescript-eslint/strict-boolean-expressions": "off",
 		"@typescript-eslint/no-throw-literal": "off",
-		"@typescript-eslint/space-before-function-paren": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/no-var-requires": "off",
 		"no-unreachable": "off"
