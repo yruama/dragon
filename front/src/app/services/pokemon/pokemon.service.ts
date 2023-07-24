@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { APIResult } from "src/app/types/utils.types";
 import { environment } from "src/environments/environment";
 
@@ -7,44 +8,45 @@ import { environment } from "src/environments/environment";
 	providedIn: "root"
 })
 export class PokemonService {
-	constructor (private readonly _http: HttpClient) {}
+	constructor(private readonly _http: HttpClient) { }
 
-	getPokemon (id: number) {
+	getPokemon(id: number): Observable<APIResult> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
 
-		this._http.get(environment.apiURL + "/pokemon/" + id, { headers }).subscribe(res => { console.log(res); });
+		return this._http.get<APIResult>(`${environment.apiURL}/pokemon/${id}`, { headers });
 	}
 
-	getPokemons (offset: number, limit: number) {
+	getPokemons(offset: number, limit: number): Observable<APIResult> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
 
-		return this._http.get(environment.apiURL + `/pokemon?offset=${offset}&limit=${limit}`, { headers });
+		return this._http.get<APIResult>(`${environment.apiURL}/pokemon?offset=${offset}&limit=${limit}`, { headers });
 	}
 
-	getUserPokedex () {
-		console.log("environment => ", environment);
+	getUserPokedex(): Observable<APIResult> {
+		const token = localStorage.getItem('token')
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json",
-			Authorization: `Bearer ${localStorage.getItem("token")}`
+			Authorization: `Bearer ${token}`
 		});
 
-		return this._http.get(environment.apiURL + `/pokemon/user-pokedex`, { headers });
+		return this._http.get<APIResult>(`${environment.apiURL}/pokemon/user-pokedex`, { headers });
 	}
 
-	addPokemonsToUserPokedex (pokemonIds: number[]) {
+	addPokemonsToUserPokedex(pokemonIds: number[]): Observable<APIResult> {
+		const token = localStorage.getItem('token')
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json",
-			Authorization: `Bearer ${localStorage.getItem("token")}`
+			Authorization: `Bearer ${token}`
 		});
 
 		const data = {
 			pokemonIds
 		};
 
-		return this._http.post(environment.apiURL + `/pokemon/user-pokedex`, { pokemonIds }, { headers });
+		return this._http.post<APIResult>(`${environment.apiURL}/pokemon/user-pokedex`, { pokemonIds }, { headers });
 	}
 }

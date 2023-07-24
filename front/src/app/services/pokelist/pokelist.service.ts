@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Pokelist } from 'src/app/types/pokelist.types';
 import { APIResult } from 'src/app/types/utils.types';
 import { environment } from 'src/environments/environment';
@@ -8,77 +9,53 @@ import { environment } from 'src/environments/environment';
 	providedIn: 'root'
 })
 export class PokelistService {
-	constructor (private readonly _http: HttpClient) { }
+	constructor(private readonly _http: HttpClient) { }
 
-	async addPokeList (pokelist: Pokelist) {
-		return await new Promise<APIResult>((resolve, reject) => {
-			const headers = new HttpHeaders({
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${localStorage.getItem('token')}`
-			});
+	addPokeList(pokelist: Pokelist): Observable<APIResult> {
 
-			this._http.post(environment.apiURL + '/pokelist/', { pokelist }, { headers }).subscribe(
-				res => {
-					resolve(res as APIResult);
-				}, error => {
-					console.log(error);
-					reject(error);
-				}
-			);
+		const token = localStorage.getItem('token');
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`
 		});
+
+		return this._http.post<APIResult>(`${environment.apiURL}/pokelist`, { pokelist }, { headers })
+
 	}
 
-	async getPokeLists () {
-		return await new Promise<APIResult>((resolve, reject) => {
-			const headers = new HttpHeaders({
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${localStorage.getItem('token')}`
-			});
+	getPokeLists(): Observable<APIResult> {
 
-			this._http.get(environment.apiURL + `/pokelist`, { headers }).subscribe(
-				res => {
-					resolve(res as APIResult);
-				}, error => {
-					console.log(error);
-					reject(error);
-				}
-			);
+		const token = localStorage.getItem('token');
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`
 		});
+
+		return this._http.get<APIResult>(`${environment.apiURL}/pokelist`, { headers })
+
 	}
 
-	async getPokeList (id: string) {
-		return await new Promise<APIResult>((resolve, reject) => {
-			const headers = new HttpHeaders({
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${localStorage.getItem('token')}`
-			});
+	getPokeList(id: string): Observable<APIResult> {
 
-			this._http.get(environment.apiURL + `/pokelist/${id}`, { headers }).subscribe(
-				res => {
-					resolve(res as APIResult);
-				}, error => {
-					console.log(error);
-					reject(error);
-				}
-			);
+		const token = localStorage.getItem('token');
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`
 		});
+
+		return this._http.get<APIResult>(`${environment.apiURL}/pokelist/${id}`, { headers })
+
 	}
 
-	async deletePokeList (id: number) {
-		return await new Promise<APIResult>((resolve, reject) => {
-			const headers = new HttpHeaders({
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${localStorage.getItem('token')}`
-			});
+	deletePokeList(id: number): Observable<APIResult> {
 
-			this._http.delete(environment.apiURL + `/pokelist/${id}`, { headers }).subscribe(
-				res => {
-					resolve(res as APIResult);
-				}, error => {
-					console.log(error);
-					reject(error);
-				}
-			);
+		const token = localStorage.getItem('token');
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`
 		});
+
+		return this._http.delete<APIResult>(`${environment.apiURL}/pokelist/${id}`, { headers })
+
 	}
 }
