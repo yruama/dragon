@@ -44,6 +44,7 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon[0];
 			else throw "No pokemon found with this id : " + id;
 		} catch (error) {
+			console.error("Error on getPokemon : ", error);
 			throw error;
 		}
 	}
@@ -55,6 +56,7 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
+			console.error("Error on getPokemonsWithPagination : ", error);
 			throw error;
 		}
 	}
@@ -66,6 +68,7 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
+			console.error("Error on getManyPokemon : ", error);
 			throw error;
 		}
 	}
@@ -77,6 +80,7 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
+			console.error("Error on getPokemonOfUserPokedex : ", error);
 			throw error;
 		}
 	}
@@ -94,6 +98,7 @@ export default class Core_Pokemon {
 
 			return true;
 		} catch (error) {
+			console.error("Error on addPokemonInUserPokedex : ", error);
 			throw error;
 		}
 	}

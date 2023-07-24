@@ -15,6 +15,7 @@ export default class Core_Generation {
 			if (generation && generation.length > 0) return generation[0];
 			else throw "No generation found with this id : " + no;
 		} catch (error) {
+			console.error("Error on getGeneration : ", error);
 			throw error;
 		}
 	}
@@ -26,6 +27,7 @@ export default class Core_Generation {
 			if (generation && generation.length > 0) return generation;
 			else throw "No generation found";
 		} catch (error) {
+			console.error("Error on getGenerations : ", error);
 			throw error;
 		}
 	}

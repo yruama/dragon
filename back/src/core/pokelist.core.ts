@@ -22,6 +22,7 @@ export default class Core_Pokelist {
 
 			return newPokelist;
 		} catch (error) {
+			console.error("Error on addPokelist : ", error);
 			throw error;
 		}
 	}
@@ -33,6 +34,7 @@ export default class Core_Pokelist {
 			if (pokelist && pokelist.length > 0) return pokelist[0];
 			else throw "No pokelist found with this id : " + id;
 		} catch (error) {
+			console.error("Error on getPokelist : ", error);
 			throw error;
 		}
 	}
@@ -43,7 +45,7 @@ export default class Core_Pokelist {
 
 			return pokelist;
 		} catch (error) {
-			console.log("Error => ", error);
+			console.error("Error on deletePokelist : ", error);
 			throw error;
 		}
 	}
@@ -55,6 +57,7 @@ export default class Core_Pokelist {
 			if (pokelist && pokelist.length > 0) return pokelist;
 			else throw "No pokelist found";
 		} catch (error) {
+			console.error("Error on getPokelists : ", error);
 			throw error;
 		}
 	}

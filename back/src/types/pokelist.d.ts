@@ -4,7 +4,7 @@ export interface Pokelist {
 	DESCRIPTION: string;
 	USER_ID: number;
 	FILTER: string;
-	TOTAL: string;
+	TOTAL: number;
 }
 
 export interface Pokemon_Owned {

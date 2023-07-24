@@ -55,6 +55,7 @@ export default class Core_User {
 			if (user && user.length > 0) return true;
 			else return false;
 		} catch (error) {
+			console.error("Error => ", error);
 			throw error;
 		}
 	}

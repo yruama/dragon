@@ -32,6 +32,7 @@ export default class Class_User {
 				throw "Invalid credentials.";
 			}
 		} catch (error) {
+			console.error("Error on signIn : ", error);
 			throw error;
 		}
 	}
@@ -49,14 +50,12 @@ export default class Class_User {
 				const userCreated = await this._user.addUser(user);
 				const generationData = await this._generation.getGeneration(0);
 
-				await this._user.addUserPokedex(userCreated.ID!, generationData);
-
 				return user;
 			} else {
 				throw "Email already exist";
 			}
 		} catch (error) {
-			console.log("errir => ", error);
+			console.error("Error on signUp : ", error);
 			throw error;
 		}
 	}
