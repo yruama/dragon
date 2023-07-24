@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
-import { Pokemon } from 'src/app/types/pokemons.types';
+import { Component, OnInit } from "@angular/core";
+import { PokemonService } from "src/app/services/pokemon/pokemon.service";
+import { Pokemon } from "src/app/types/pokemons.types";
 
-import * as Papa from 'papaparse';
-import { GlobalService } from 'src/app/services/global/global.service';
+import * as Papa from "papaparse";
+import { GlobalService } from "src/app/services/global/global.service";
 
 @Component({
-	selector: 'app-profile-pokedex',
-	templateUrl: './profile-pokedex.component.html',
-	styleUrls: ['./profile-pokedex.component.scss']
+	selector: "app-profile-pokedex",
+	templateUrl: "./profile-pokedex.component.html",
+	styleUrls: ["./profile-pokedex.component.scss"]
 })
 export class ProfilePokedexComponent implements OnInit {
 	pokemons: Pokemon[] = [];
 	pokemonsOwned: number[] = [];
 
-	constructor (private readonly _pokemonService: PokemonService,
-		public _global: GlobalService) {}
+	constructor(
+		private readonly _pokemonService: PokemonService,
+		public _global: GlobalService
+	) {}
 
-	async ngOnInit () {
+	async ngOnInit() {
 		this._pokemonService.getUserPokedex().subscribe({
 			next: (userPokedexData: any) => {
 				console.log("userPokedexData : ", userPokedexData);
@@ -27,30 +29,26 @@ export class ProfilePokedexComponent implements OnInit {
 					next: (pokemonData: any) => {
 						this.pokemons = pokemonData.result;
 
-						this.pokemons.filter(_pokemon => this.pokemonsOwned.includes(_pokemon.POKEMON_ID)).forEach(_pokemon => _pokemon.owned = true);
+						this.pokemons
+							.filter(_pokemon => this.pokemonsOwned.includes(_pokemon.POKEMON_ID))
+							.forEach(_pokemon => (_pokemon.owned = true));
 					},
-					error: (err) => {
-
-					},
-					complete: () => {
-
-					}
+					error: err => {},
+					complete: () => {}
 				});
 			},
-			error: (err) => {
+			error: err => {
 				console.log("error => ", err);
 			},
-			complete: () => {
-
-			}
+			complete: () => {}
 		});
 	}
 
-	exportPokedex () {
+	exportPokedex() {
 		console.log("This.pokemon : ", this.pokemons);
 		const csvLines: string[][] = [];
 		const row: string[] = [];
-		const header = ['No', 'Nom', 'Possédés'];
+		const header = ["No", "Nom", "Possédés"];
 
 		csvLines.push(header);
 
@@ -60,16 +58,16 @@ export class ProfilePokedexComponent implements OnInit {
 		}
 
 		const csvData = Papa.unparse(csvLines);
-		const blob = new Blob([csvData], { type: 'text/csv' });
+		const blob = new Blob([csvData], { type: "text/csv" });
 		const url = window.URL.createObjectURL(blob);
-		const a = document.createElement('a');
+		const a = document.createElement("a");
 		a.href = url;
-		a.download = 'data.csv';
+		a.download = "data.csv";
 		a.click();
 		window.URL.revokeObjectURL(url);
 	}
 
-	savePokedex () {
+	savePokedex() {
 		/*
     if (data.status === 'success')  pokemonIds = this.filterUniqueElements(pokemonIds, data.result.map((_p: any) => _p.POKEMON_ID));
 
@@ -86,10 +84,9 @@ export class ProfilePokedexComponent implements OnInit {
 
       }
     }) */
-
 	}
 
-	filterUniqueElements (arr1: number[], arr2: number[]): number[] {
+	filterUniqueElements(arr1: number[], arr2: number[]): number[] {
 		// Compter les occurrences des éléments du premier tableau
 		const occurrences: Record<number, number> = {};
 		for (const num of arr1) {
@@ -104,7 +101,7 @@ export class ProfilePokedexComponent implements OnInit {
 		}
 
 		// Conserver les éléments du premier tableau dont l'occurrence est supérieure à zéro
-		const uniqueElements: number[] = arr1.filter((num) => occurrences[num] > 0);
+		const uniqueElements: number[] = arr1.filter(num => occurrences[num] > 0);
 
 		return uniqueElements;
 	}

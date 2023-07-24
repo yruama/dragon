@@ -4,16 +4,16 @@ import { knex } from "../app";
 export default class Core_Pokemon {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		this._utils = new Core_Utils();
 	}
 
-	async addPokemon (pokemon: Pokemon) {
+	async addPokemon(pokemon: Pokemon) {
 		try {
 			// await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');
 			// await this._utils.downloadImage(pokemon.miniature, 'miniature/' + pokemon.id + '.png');
 
-			const pokemonCreated = await knex('POKEMON').insert({
+			const pokemonCreated = await knex("POKEMON").insert({
 				POKEMON_ID: pokemon.POKEMON_ID,
 				NAME_FR: pokemon.NAME_FR,
 				NAME_EN: pokemon.NAME_EN,
@@ -37,11 +37,9 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getPokemon (id: number) {
+	async getPokemon(id: number) {
 		try {
-			const pokemon = await knex.select('*')
-				.from('POKEMON')
-				.where('POKEMON_ID', id);
+			const pokemon = await knex.select("*").from("POKEMON").where("POKEMON_ID", id);
 
 			if (pokemon && pokemon.length > 0) return pokemon[0];
 			else throw "No pokemon found with this id : " + id;
@@ -50,13 +48,9 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getPokemonsWithPagination (offset: number, limit: number) {
+	async getPokemonsWithPagination(offset: number, limit: number) {
 		try {
-			const pokemon = await knex.select('*')
-				.from('POKEMON')
-				.limit(limit)
-				.offset(offset)
-				.orderBy('POKEMON_ID', 'asc');
+			const pokemon = await knex.select("*").from("POKEMON").limit(limit).offset(offset).orderBy("POKEMON_ID", "asc");
 
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
@@ -65,11 +59,9 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getManyPokemon (pokemonIds: number[]) {
+	async getManyPokemon(pokemonIds: number[]) {
 		try {
-			const pokemon = await knex.select('*')
-				.from('POKEMON')
-				.whereIn('POKEMON_ID', pokemonIds);
+			const pokemon = await knex.select("*").from("POKEMON").whereIn("POKEMON_ID", pokemonIds);
 
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
@@ -78,12 +70,9 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getPokemonOfUserPokedex (userId: number) {
+	async getPokemonOfUserPokedex(userId: number) {
 		try {
-			const pokemon = await knex.select('*')
-				.from('POKEMON_OWNED')
-				.where('USER_ID', userId)
-				.orderBy('POKEMON_ID', 'asc');
+			const pokemon = await knex.select("*").from("POKEMON_OWNED").where("USER_ID", userId).orderBy("POKEMON_ID", "asc");
 
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
@@ -92,11 +81,11 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async addPokemonInUserPokedex (userId: number, pokemonIds: number[]) {
+	async addPokemonInUserPokedex(userId: number, pokemonIds: number[]) {
 		try {
 			console.log("Pokemons Ids : ", pokemonIds);
 			for (const id of pokemonIds) {
-				await knex('POKEMON_OWNED').insert({
+				await knex("POKEMON_OWNED").insert({
 					POKEMON_ID: id,
 					USER_ID: userId,
 					OWNED: 1

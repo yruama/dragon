@@ -5,13 +5,13 @@ import { knex } from "../app";
 export default class Core_Type {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		this._utils = new Core_Utils();
 	}
 
-	async addType (type: Type) {
+	async addType(type: Type) {
 		try {
-			const typeCreated = await knex('TYPE').insert({
+			const typeCreated = await knex("TYPE").insert({
 				NAME: type.NAME
 			});
 
@@ -22,11 +22,9 @@ export default class Core_Type {
 		}
 	}
 
-	async getType (id: number) {
+	async getType(id: number) {
 		try {
-			const type = await knex.select('*')
-				.from('TYPE')
-				.where('ID', id);
+			const type = await knex.select("*").from("TYPE").where("ID", id);
 
 			if (type && type.length > 0) return type[0];
 			else throw "No type found with this id : " + id;
@@ -36,11 +34,9 @@ export default class Core_Type {
 		}
 	}
 
-	async getTypeByEnglishName (name: string) {
+	async getTypeByEnglishName(name: string) {
 		try {
-			const type = await knex.select('*')
-				.from('TYPE')
-				.where('NAME', name);
+			const type = await knex.select("*").from("TYPE").where("NAME", name);
 
 			if (type && type.length > 0) return type[0];
 			else throw "No type found with this name : " + name;
@@ -50,10 +46,9 @@ export default class Core_Type {
 		}
 	}
 
-	async getTypes () {
+	async getTypes() {
 		try {
-			const type = await knex.select('*')
-				.from('TYPE');
+			const type = await knex.select("*").from("TYPE");
 
 			if (type && type.length > 0) return type;
 			else throw "No type found";

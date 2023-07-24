@@ -5,13 +5,13 @@ import { knex } from "../app";
 export default class Core_Talent {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		this._utils = new Core_Utils();
 	}
 
-	async addTalent (talent: Talent) {
+	async addTalent(talent: Talent) {
 		try {
-			const talentCreated = await knex('TALENT').insert({
+			const talentCreated = await knex("TALENT").insert({
 				NAME_FR: talent.NAME_FR,
 				NAME_EN: talent.NAME_EN,
 				DESCRIPTION_FR: talent.DESCRIPTION_FR,
@@ -25,11 +25,9 @@ export default class Core_Talent {
 		}
 	}
 
-	async getTalentByEnglishName (name: string) {
+	async getTalentByEnglishName(name: string) {
 		try {
-			const talent = await knex.select('*')
-				.from('TALENT')
-				.where('NAME_EN', name);
+			const talent = await knex.select("*").from("TALENT").where("NAME_EN", name);
 
 			if (talent && talent.length > 0) return talent[0];
 			else throw "No talent found with this name : " + name;
@@ -39,11 +37,9 @@ export default class Core_Talent {
 		}
 	}
 
-	async getTalent (id: number) {
+	async getTalent(id: number) {
 		try {
-			const talent = await knex.select('*')
-				.from('TALENT')
-				.where('ID', id);
+			const talent = await knex.select("*").from("TALENT").where("ID", id);
 
 			if (talent && talent.length > 0) return talent[0];
 			else throw "No talent found with this id : " + id;
@@ -53,10 +49,9 @@ export default class Core_Talent {
 		}
 	}
 
-	async getTalents () {
+	async getTalents() {
 		try {
-			const talent = await knex.select('*')
-				.from('TALENT');
+			const talent = await knex.select("*").from("TALENT");
 
 			if (talent && talent.length > 0) return talent;
 			else throw "No talent found";

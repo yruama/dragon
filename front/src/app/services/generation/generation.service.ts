@@ -8,9 +8,9 @@ import { environment } from "src/environments/environment";
 	providedIn: "root"
 })
 export class GenerationService {
-	constructor (private readonly _http: HttpClient) {}
+	constructor(private readonly _http: HttpClient) {}
 
-	getGenerations (): Observable<APIResult> {
+	getGenerations(): Observable<APIResult> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});

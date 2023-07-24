@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { PokemonService } from "src/app/services/pokemon/pokemon.service";
 
 @Component({
-	selector: 'app-pokedex',
-	templateUrl: './pokedex.component.html',
-	styleUrls: ['./pokedex.component.scss']
+	selector: "app-pokedex",
+	templateUrl: "./pokedex.component.html",
+	styleUrls: ["./pokedex.component.scss"]
 })
 export class PokedexComponent implements OnInit {
 	reloadData: Subject<void> = new Subject<void>();
@@ -27,22 +27,22 @@ export class PokedexComponent implements OnInit {
 		{ from: 905, to: 1010 }
 	];
 
-	constructor (private readonly _router: Router,
-		private readonly _aRoute: ActivatedRoute) {
+	constructor(
+		private readonly _router: Router,
+		private readonly _aRoute: ActivatedRoute
+	) {}
 
-	}
-
-	ngOnInit (): void {
+	ngOnInit(): void {
 		this.getGeneration();
-		this._router.events.forEach((event) => {
+		this._router.events.forEach(event => {
 			if (event instanceof NavigationEnd) {
 				this.getGeneration();
 			}
 		});
 	}
 
-	getGeneration () {
-		this.generation = this._aRoute.snapshot.paramMap.get('id') !== null ? parseInt(this._aRoute.snapshot.paramMap.get('id')!) : 0;
+	getGeneration() {
+		this.generation = this._aRoute.snapshot.paramMap.get("id") !== null ? parseInt(this._aRoute.snapshot.paramMap.get("id")!) : 0;
 		console.log("Generation : ", this.generation);
 
 		setTimeout(() => {

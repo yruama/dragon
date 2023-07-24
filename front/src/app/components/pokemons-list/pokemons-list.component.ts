@@ -19,9 +19,9 @@ export class PokemonsListComponent implements OnInit {
 	offset = 0;
 	limit = 100;
 
-	constructor (private readonly _pokemonService: PokemonService) {}
+	constructor(private readonly _pokemonService: PokemonService) {}
 
-	ngOnInit (): void {
+	ngOnInit(): void {
 		this.offset = this.min;
 		this.getPokemons();
 
@@ -33,7 +33,7 @@ export class PokemonsListComponent implements OnInit {
 		});
 	}
 
-	async getPokemons () {
+	async getPokemons() {
 		if (this.offset > this.max) this.offset = this.max;
 		const limit: number = this.offset + this.limit > this.max ? this.max - this.offset : this.limit;
 
@@ -46,13 +46,13 @@ export class PokemonsListComponent implements OnInit {
 		}
 	}
 
-	loadMorePokemons () {
+	loadMorePokemons() {
 		this.offset += this.limit;
 
 		this.getPokemons();
 	}
 
-	ngOnDestroy () {
+	ngOnDestroy() {
 		this.eventsSubscription.unsubscribe();
 	}
 }

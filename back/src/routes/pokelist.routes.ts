@@ -7,8 +7,8 @@ const corePokelist = new Core_Pokelist();
 const classPokelist = new Class_Pokelist();
 const coreUtils = new Core_Utils();
 
-async function routes (fastify: any, options: any) {
-	fastify.post('/', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
+async function routes(fastify: any, options: any) {
+	fastify.post('/', { onRequest: [fastify.authenticate] }, async(request: any, reply: any) => {
 		console.log("request.body.pokelist => ", request.body.pokelist);
 		try {
 			const list: Pokelist = {
@@ -24,7 +24,7 @@ async function routes (fastify: any, options: any) {
 		}
 	});
 
-	fastify.get('/', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
+	fastify.get('/', { onRequest: [fastify.authenticate] }, async(request: any, reply: any) => {
 		try {
 			const pokelistData = await corePokelist.getPokelists(request.user.id);
 			reply.send(coreUtils.successFormat(pokelistData));
@@ -33,7 +33,7 @@ async function routes (fastify: any, options: any) {
 		}
 	});
 
-	fastify.get('/:id', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
+	fastify.get('/:id', { onRequest: [fastify.authenticate] }, async(request: any, reply: any) => {
 		try {
 			const pokelistData = await classPokelist.getPokeList(request.params.id, request.user.id);
 			reply.send(coreUtils.successFormat(pokelistData));
@@ -42,7 +42,7 @@ async function routes (fastify: any, options: any) {
 		}
 	});
 
-	fastify.delete('/:id', { onRequest: [fastify.authenticate] }, async (request: any, reply: any) => {
+	fastify.delete('/:id', { onRequest: [fastify.authenticate] }, async(request: any, reply: any) => {
 		try {
 			const pokelistData = await corePokelist.deletePokelist(request.params.id, request.user.id);
 			reply.send(coreUtils.successFormat(pokelistData));

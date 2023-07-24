@@ -1,84 +1,93 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
-import { UserService } from 'src/app/services/user/user.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import { MenuItem } from "primeng/api";
+import { UserService } from "src/app/services/user/user.service";
 
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss']
+	selector: "app-header",
+	templateUrl: "./header.component.html",
+	styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
 	items: MenuItem[] | undefined;
-	pofileItems: MenuItem[] = [{
-		label: this._translate.instant('USER.signoff'),
-		command: () => { this.signOff(); }
-	}, {
-		label: this._translate.instant('USER.profile'),
-		routerLink: '/profile'
-	}, {
-		label: this._translate.instant('USER.my_pokedex'),
-		routerLink: '/profile/pokedex'
-	}];
+	pofileItems: MenuItem[] = [
+		{
+			label: this._translate.instant("USER.signoff"),
+			command: () => {
+				this.signOff();
+			}
+		},
+		{
+			label: this._translate.instant("USER.profile"),
+			routerLink: "/profile"
+		},
+		{
+			label: this._translate.instant("USER.my_pokedex"),
+			routerLink: "/profile/pokedex"
+		}
+	];
 
 	languages: Array<{ code: string; icon: string }> = [
 		{
-			code: 'fr',
-			icon: 'fi fi-fr'
-		}, {
-			code: 'en',
-			icon: 'fi fi-us'
+			code: "fr",
+			icon: "fi fi-fr"
 		},
 		{
-			code: 'es',
-			icon: 'fi fi-es'
+			code: "en",
+			icon: "fi fi-us"
 		},
 		{
-			code: 'de',
-			icon: 'fi fi-de'
+			code: "es",
+			icon: "fi fi-es"
 		},
 		{
-			code: 'it',
-			icon: 'fi fi-it'
+			code: "de",
+			icon: "fi fi-de"
 		},
 		{
-			code: 'pt',
-			icon: 'fi fi-pt'
+			code: "it",
+			icon: "fi fi-it"
 		},
 		{
-			code: 'ja',
-			icon: 'fi fi-jp'
+			code: "pt",
+			icon: "fi fi-pt"
 		},
 		{
-			code: 'ko',
-			icon: 'fi fi-kr'
+			code: "ja",
+			icon: "fi fi-jp"
 		},
 		{
-			code: 'zh',
-			icon: 'fi fi-cn'
+			code: "ko",
+			icon: "fi fi-kr"
+		},
+		{
+			code: "zh",
+			icon: "fi fi-cn"
 		}
 	];
 
 	currentLanguage: { code: string; icon: string } = this.languages[0];
 
-	constructor (private readonly _translate: TranslateService,
+	constructor(
+		private readonly _translate: TranslateService,
 		public _user: UserService,
-		private readonly _router: Router) {}
+		private readonly _router: Router
+	) {}
 
-	async ngOnInit () {
+	async ngOnInit() {
 		await new Promise(resolve => setTimeout(resolve, 150)); // Pour attendre l'initialisation des traductions
 		const generationItems: MenuItem[] = [];
 
 		generationItems.push({
-			label: this._translate.instant('GENERAL.all'),
-			routerLink: '/pokedex/'
+			label: this._translate.instant("GENERAL.all"),
+			routerLink: "/pokedex/"
 		});
 
 		for (let index = 1; index < 10; index++) {
 			const menuItem: MenuItem = {
-				label: this._translate.instant('POKEDEX.' + index.toString() + 'gen'),
-				routerLink: '/pokedex/' + index
+				label: this._translate.instant("POKEDEX." + index.toString() + "gen"),
+				routerLink: "/pokedex/" + index
 			};
 
 			generationItems.push(menuItem);
@@ -86,26 +95,27 @@ export class HeaderComponent implements OnInit {
 
 		this.items = [
 			{
-				label: this._translate.instant('pokedex'),
-				icon: 'pi pi-fw pi-map-marker',
+				label: this._translate.instant("pokedex"),
+				icon: "pi pi-fw pi-map-marker",
 				items: generationItems
-			}, {
-				label: this._translate.instant('pokelist'),
-				icon: 'pi pi-fw ',
-				routerLink: '/pokelist/'
+			},
+			{
+				label: this._translate.instant("pokelist"),
+				icon: "pi pi-fw ",
+				routerLink: "/pokelist/"
 			}
 		];
 
 		// Find the current language or use default
-		this.currentLanguage = (this.languages.find(language => language.code === this._translate.currentLang) != null) || this.languages[0];
+		this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) != null || this.languages[0];
 	}
 
-	signOff () {
-		localStorage.removeItem('token');
-		this._router.navigate(['/']);
+	signOff() {
+		localStorage.removeItem("token");
+		this._router.navigate(["/"]);
 	}
 
-	onLanguageChange (language: { code: string; icon: string }) {
+	onLanguageChange(language: { code: string; icon: string }) {
 		this._translate.use(language.code);
 		this.currentLanguage = language;
 	}

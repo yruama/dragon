@@ -9,7 +9,7 @@ const app = fastify({
 	logger: true
 });
 
-async function main () {
+async function main() {
 	// Run the server!
 	try {
 		await app.listen({ port: 3000 });

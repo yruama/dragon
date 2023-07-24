@@ -26,7 +26,7 @@ app.register(require("@fastify/jwt"), {
 	secret: "supersecret"
 });
 
-app.decorate("authenticate", async function (request: any, reply: any) {
+app.decorate("authenticate", async function(request: any, reply: any) {
 	try {
 		await request.jwtVerify();
 	} catch (err) {
@@ -48,7 +48,7 @@ app.register(cors, {
 	// put your options here
 });
 
-async function main () {
+async function main() {
 	// Run the server!
 	try {
 		await app.listen({ port: 3000 });

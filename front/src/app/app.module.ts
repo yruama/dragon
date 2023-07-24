@@ -39,7 +39,7 @@ import { MenuModule } from 'primeng/menu';
 import { ProfilePokedexComponent } from './pages/profile/profile-pokedex/profile-pokedex.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
-export function HttpLoaderFactory (http: HttpClient): TranslateHttpLoader {
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 	return new TranslateHttpLoader(http);
 }
 

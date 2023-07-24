@@ -7,17 +7,21 @@ import { knex } from "../app";
 export default class Core_User {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		this._utils = new Core_Utils();
 	}
 
-	async getUser (email: string) {
+	async getUser(email: string) {
 		try {
-			const user = await knex.select('*')
-				.from('USER')
-				.where('EMAIL', email).catch(err => { console.error(err); });
+			const user = await knex
+				.select("*")
+				.from("USER")
+				.where("EMAIL", email)
+				.catch(err => {
+					console.error(err);
+				});
 
-			if ((user != null) && user.length > 0) {
+			if (user != null && user.length > 0) {
 				return user[0];
 			} else throw "No user found with this email : " + email;
 		} catch (error) {
@@ -26,9 +30,9 @@ export default class Core_User {
 		}
 	}
 
-	async addUser (user: User) {
+	async addUser(user: User) {
 		try {
-			const userCreated = await knex('USER').insert({
+			const userCreated = await knex("USER").insert({
 				FIRSTNAME: user.FIRSTNAME,
 				LASTNAME: user.LASTNAME,
 				EMAIL: user.EMAIL,
@@ -44,11 +48,9 @@ export default class Core_User {
 		}
 	}
 
-	async userExisting (email: string) {
+	async userExisting(email: string) {
 		try {
-			const user = await knex.select('*')
-				.from('USER')
-				.where('EMAIL', email);
+			const user = await knex.select("*").from("USER").where("EMAIL", email);
 
 			if (user && user.length > 0) return true;
 			else return false;

@@ -48,8 +48,9 @@
 				"fixStyle": "separate-type-imports"
 			}
 		],
+		"space-before-function-paren": ["error", "never"],
+		"@typescript-eslint/space-before-function-paren": ["error", "never"],
 		// to be fixed
-		"space-before-function-paren": "off",
 		"@typescript-eslint/restrict-plus-operands": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/restrict-template-expressions": "off",

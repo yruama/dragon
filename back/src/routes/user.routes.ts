@@ -4,8 +4,8 @@ import Core_Utils from "../core/utils.core";
 const classUser = new Class_User();
 const coreUtils = new Core_Utils();
 
-async function routes (fastify: any, options: any) {
-	fastify.post('/sign-in', async (request: any, reply: any) => {
+async function routes(fastify: any, options: any) {
+	fastify.post('/sign-in', async(request: any, reply: any) => {
 		try {
 			const userData = await classUser.signIn(request.body.user);
 			reply.send(coreUtils.successFormat(userData));
@@ -14,7 +14,7 @@ async function routes (fastify: any, options: any) {
 		}
 	});
 
-	fastify.post('/sign-up', async (request: any, reply: any) => {
+	fastify.post('/sign-up', async(request: any, reply: any) => {
 		try {
 			const userData = await classUser.signUp(request.body.user);
 			reply.send(coreUtils.successFormat(userData));

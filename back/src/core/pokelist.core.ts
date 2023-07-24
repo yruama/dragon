@@ -5,12 +5,12 @@ import { knex } from "../app";
 export default class Core_Pokelist {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		console.log("Core_Pokelist constructor");
 		this._utils = new Core_Utils();
 	}
 
-	async addPokelist (pokelist: Pokelist, total: number) {
+	async addPokelist(pokelist: Pokelist, total: number) {
 		try {
 			const newPokelist = await knex.insert({
 				NAME: pokelist.NAME,
@@ -26,12 +26,9 @@ export default class Core_Pokelist {
 		}
 	}
 
-	async getPokelist (id: number, userId: number) {
+	async getPokelist(id: number, userId: number) {
 		try {
-			const pokelist = await knex.select('*')
-				.from('POKELIST')
-				.where('ID', id)
-				.andWhere('USER_ID', userId);
+			const pokelist = await knex.select("*").from("POKELIST").where("ID", id).andWhere("USER_ID", userId);
 
 			if (pokelist && pokelist.length > 0) return pokelist[0];
 			else throw "No pokelist found with this id : " + id;
@@ -40,12 +37,9 @@ export default class Core_Pokelist {
 		}
 	}
 
-	async deletePokelist (id: number, userId: number) {
+	async deletePokelist(id: number, userId: number) {
 		try {
-			const pokelist = await knex('POKELIST')
-				.where('ID', id)
-				.andWhere('USER_ID', userId)
-				.del();
+			const pokelist = await knex("POKELIST").where("ID", id).andWhere("USER_ID", userId).del();
 
 			return pokelist;
 		} catch (error) {
@@ -54,11 +48,9 @@ export default class Core_Pokelist {
 		}
 	}
 
-	async getPokelists (userId: number) {
+	async getPokelists(userId: number) {
 		try {
-			const pokelist = await knex.select('*')
-				.from('POKELIST')
-				.where('USER_ID', userId);
+			const pokelist = await knex.select("*").from("POKELIST").where("USER_ID", userId);
 
 			if (pokelist && pokelist.length > 0) return pokelist;
 			else throw "No pokelist found";

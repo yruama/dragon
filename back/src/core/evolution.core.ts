@@ -5,13 +5,13 @@ import { knex } from "../app";
 export default class Core_Evolution {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		this._utils = new Core_Utils();
 	}
 
-	async addEvolution (evolution: Evolution) {
+	async addEvolution(evolution: Evolution) {
 		try {
-			const evolutionCreated = await knex('EVOLUTION').insert({
+			const evolutionCreated = await knex("EVOLUTION").insert({
 				GENDER: evolution.GENDER,
 				HELD_ITEM: evolution.HELD_ITEM,
 				ITEM: evolution.ITEM,
@@ -41,11 +41,9 @@ export default class Core_Evolution {
 		}
 	}
 
-	async getEvolution (id: number) {
+	async getEvolution(id: number) {
 		try {
-			const evolution = await knex.select('*')
-				.from('EVOLUTION')
-				.where('ID', id);
+			const evolution = await knex.select("*").from("EVOLUTION").where("ID", id);
 
 			if (evolution && evolution.length > 0) return evolution[0];
 			else throw "No evolution found with this id : " + id;
@@ -55,11 +53,9 @@ export default class Core_Evolution {
 		}
 	}
 
-	async getEvolutionByChainID (chainId: number) {
+	async getEvolutionByChainID(chainId: number) {
 		try {
-			const evolution = await knex.select('*')
-				.from('EVOLUTION')
-				.where('CHAIN_ID', chainId);
+			const evolution = await knex.select("*").from("EVOLUTION").where("CHAIN_ID", chainId);
 
 			if (evolution && evolution.length > 0) return evolution;
 			else return [];

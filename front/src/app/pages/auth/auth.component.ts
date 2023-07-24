@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
 	currentPage = "sign-in";
 	buttonLoading = false;
 
-	constructor (
+	constructor(
 		private readonly _user: UserService,
 		private readonly _aRoute: ActivatedRoute,
 		private readonly _router: Router,
@@ -31,13 +31,13 @@ export class AuthComponent implements OnInit {
 		private readonly _translate: TranslateService
 	) {}
 
-	ngOnInit (): void {
+	ngOnInit(): void {
 		this._aRoute.params.subscribe(params => {
 			this.currentPage = params.type !== null ? this._aRoute.snapshot.paramMap.get("type")! : "sign-in";
 		});
 	}
 
-	async signUp () {
+	async signUp() {
 		this.buttonLoading = true;
 		this._user.signUp(this.user).subscribe({
 			next: (data: any) => {
@@ -63,7 +63,7 @@ export class AuthComponent implements OnInit {
 		});
 	}
 
-	signIn () {
+	signIn() {
 		this.buttonLoading = true;
 		this._user.signIn(this.user).subscribe({
 			next: data => {
@@ -91,7 +91,7 @@ export class AuthComponent implements OnInit {
 		});
 	}
 
-	async test () {
+	async test() {
 		const test = await this._user.test();
 		console.log("Test => ", test);
 	}
