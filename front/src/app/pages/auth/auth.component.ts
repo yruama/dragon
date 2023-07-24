@@ -29,12 +29,11 @@ export class AuthComponent implements OnInit {
 		private readonly _router: Router,
 		private readonly _toast: MessageService,
 		private readonly _translate: TranslateService
-	) {}
+	) { }
 
 	ngOnInit(): void {
-		this._aRoute.params.subscribe(params => {
-			this.currentPage = params.type !== null ? this._aRoute.snapshot.paramMap.get("type")! : "sign-in";
-		});
+		const type = this._aRoute.snapshot.paramMap.get("type");
+		this.currentPage = type ?? "sign-in";
 	}
 
 	async signUp() {

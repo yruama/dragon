@@ -4,6 +4,8 @@ import blippPlugin from "fastify-blipp";
 import cors from "@fastify/cors";
 import path from "path";
 import * as Knex from "knex";
+import jwt from "@fastify/jwt";
+import fastifyStatic from "@fastify/static";
 dotenv.config();
 
 export const knex = Knex.knex({
@@ -22,7 +24,7 @@ export const app = fastify({
 	logger: true
 });
 
-app.register(require("@fastify/jwt"), {
+app.register(jwt, {
 	secret: "supersecret"
 });
 
@@ -34,7 +36,7 @@ app.decorate("authenticate", async function(request: any, reply: any) {
 	}
 });
 
-app.register(require("@fastify/static"), {
+app.register(fastifyStatic, {
 	root: path.join(__dirname, "assets"),
 	prefix: "/assets/" // optional: default '/'
 });
