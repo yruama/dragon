@@ -8,9 +8,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PokedexComponent } from './pages/pokedex/pokedex.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +24,7 @@ import { ForNumberPipe } from './pipe/forNumber/for-number.pipe';
 import { TableModule } from 'primeng/table';
 import { PokelistComponent } from './pages/pokelist/pokelist.component';
 import { PokemonsUserListComponent } from './pages/pokelist/pokemons-user-list/pokemons-user-list.component';
-import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { DialogModule } from 'primeng/dialog';
 import { ModalListComponent } from './pages/pokelist/modal-list/modal-list.component';
@@ -39,60 +39,60 @@ import { MenuModule } from 'primeng/menu';
 import { ProfilePokedexComponent } from './pages/profile/profile-pokedex/profile-pokedex.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+export function HttpLoaderFactory (http: HttpClient): TranslateHttpLoader {
+	return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    PokedexComponent,
-    HeaderComponent,
-    PokemonsListComponent,
-    AuthComponent,
-    ForNumberPipe,
-    PokelistComponent,
-    PokemonsUserListComponent,
-    ModalListComponent,
-    ProfilePokedexComponent,
-    ProfileComponent
-  ],
-  imports: [
-    HttpClientModule,
-    TranslateModule.forRoot({
-        loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-        }
-    }),
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    ButtonModule,
-    RippleModule,
-    FormsModule,
-    MenubarModule,
-    TooltipModule,
-    InputTextModule,
-    SkeletonModule,
-    TableModule,
-    DialogModule,
-    MultiSelectModule,
-    DropdownModule,
-    FieldsetModule,
-    InputSwitchModule,
-    ToastModule,
-    MessagesModule,
-    MenuModule
-  ],
-  providers: [
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    JwtHelperService,
-    AuthGuardService,
-    MessageService
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		PokedexComponent,
+		HeaderComponent,
+		PokemonsListComponent,
+		AuthComponent,
+		ForNumberPipe,
+		PokelistComponent,
+		PokemonsUserListComponent,
+		ModalListComponent,
+		ProfilePokedexComponent,
+		ProfileComponent
+	],
+	imports: [
+		HttpClientModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		}),
+		BrowserModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+		ButtonModule,
+		RippleModule,
+		FormsModule,
+		MenubarModule,
+		TooltipModule,
+		InputTextModule,
+		SkeletonModule,
+		TableModule,
+		DialogModule,
+		MultiSelectModule,
+		DropdownModule,
+		FieldsetModule,
+		InputSwitchModule,
+		ToastModule,
+		MessagesModule,
+		MenuModule
+	],
+	providers: [
+		{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+		JwtHelperService,
+		AuthGuardService,
+		MessageService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

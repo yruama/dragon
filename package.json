@@ -1,7 +1,13 @@
 {
 	"scripts": {
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
 	},
+	"workspaces": [
+		"back",
+		"front"
+	],
+	"private": true,
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
 		"eslint": "^8.45.0",

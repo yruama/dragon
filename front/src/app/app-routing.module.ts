@@ -11,18 +11,18 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfilePokedexComponent } from './pages/profile/profile-pokedex/profile-pokedex.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'pokedex', component: PokedexComponent },
-  { path: 'pokedex/:id', component: PokedexComponent },
-  { path: 'auth/:type', component: AuthComponent },
-  { path: 'pokelist', component: PokelistComponent, canActivate: [AuthGuardService] },
-  { path: 'pokelist/:id', component: PokemonsUserListComponent, canActivate: [AuthGuardService] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
-  { path: 'profile/pokedex', component: ProfilePokedexComponent, canActivate: [AuthGuardService] }
+	{ path: '', component: HomeComponent },
+	{ path: 'pokedex', component: PokedexComponent },
+	{ path: 'pokedex/:id', component: PokedexComponent },
+	{ path: 'auth/:type', component: AuthComponent },
+	{ path: 'pokelist', component: PokelistComponent, canActivate: [AuthGuardService] },
+	{ path: 'pokelist/:id', component: PokemonsUserListComponent, canActivate: [AuthGuardService] },
+	{ path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
+	{ path: 'profile/pokedex', component: ProfilePokedexComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }

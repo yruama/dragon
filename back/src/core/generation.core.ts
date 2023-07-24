@@ -2,38 +2,34 @@ import { Generation } from "../types/generation";
 import Core_Utils from "./utils.core";
 import { knex } from "../app";
 export default class Core_Generation {
+	private readonly _utils: Core_Utils;
 
-    private _utils: Core_Utils
+	constructor () {
+		this._utils = new Core_Utils();
+	}
 
-    constructor() {
-        this._utils = new Core_Utils();
-    }
+	async getGeneration (no: number) {
+		try {
+			const generation = await knex.select('*')
+				.from('GENERATION')
+				.where('GENERATION_NO', no);
 
-    async getGeneration(no: number) {
-        try {
+			if (generation && generation.length > 0) return generation[0];
+			else throw "No generation found with this id : " + no;
+		} catch (error) {
+			throw error;
+		}
+	}
 
-            const generation = await knex.select('*')
-                                        .from('GENERATION')
-                                        .where('GENERATION_NO', no)
+	async getGenerations () {
+		try {
+			const generation = await knex.select('*')
+				.from('GENERATION');
 
-            if (generation && generation.length > 0) return generation[0];
-            else throw "No generation found with this id : " + no;
-        } catch (error) {
-            throw error;
-        }
-
-    }
-
-    async getGenerations() {
-        try {
-            const generation = await knex.select('*')
-                                        .from('GENERATION')
-
-            if (generation && generation.length > 0) return generation;
-            else throw "No generation found";
-        } catch (error) {
-            throw error;
-        }
-
-    }
+			if (generation && generation.length > 0) return generation;
+			else throw "No generation found";
+		} catch (error) {
+			throw error;
+		}
+	}
 }

@@ -4,7 +4,8 @@
 	"prettier.useEditorConfig": false,
 	"prettier.configPath": ".prettierrc.json",
 	"eslint.format.enable": true,
+	"eslint.options": { "overrideConfigFile": "${workspace}/.eslintrc.json" }
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
-	}
+	},
 }

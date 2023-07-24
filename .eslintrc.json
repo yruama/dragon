@@ -4,6 +4,7 @@
 		"es2021": true
 	},
 	"extends": "standard-with-typescript",
+	"root": true,
 	"parserOptions": {
 		"ecmaVersion": "latest",
 		"sourceType": "module",
@@ -16,6 +17,36 @@
 		}
 	],
 	"rules": {
-		"indent": ["error", 4]
+		"indent": ["error", "tab"],
+		"no-tabs": ["error", { "allowIndentationTabs": true }],
+		"@typescript-eslint/indent": ["error", "tab"],
+		"semi": ["error", "always"],
+		"@typescript-eslint/semi": ["error", "always"],
+		"quotes": "off",
+		"@typescript-eslint/quotes": "off",
+		"comma-dangle": ["error", "never"],
+		"@typescript-eslint/comma-dangle": ["error", "never"],
+		"@typescript-eslint/member-delimiter-style": [
+			"error",
+			{
+				"multiline": {
+					"delimiter": "semi",
+					"requireLast": true
+				},
+				"singleline": {
+					"delimiter": "semi",
+					"requireLast": false
+				},
+				"multilineDetection": "brackets"
+			}
+		],
+		"@typescript-eslint/consistent-type-imports": [
+			"error",
+			{
+				"prefer": "no-type-imports",
+				"disallowTypeAnnotations": true,
+				"fixStyle": "separate-type-imports"
+			}
+		]
 	}
 }

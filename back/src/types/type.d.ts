@@ -1,4 +1,4 @@
 export interface Type {
-    ID?: number,
-    NAME: string
+	ID?: number;
+	NAME: string;
 }

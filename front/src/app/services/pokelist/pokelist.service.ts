@@ -5,81 +5,80 @@ import { APIResult } from 'src/app/types/utils.types';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class PokelistService {
+	constructor (private readonly _http: HttpClient) { }
 
-  constructor(private _http: HttpClient) { }
+	async addPokeList (pokelist: Pokelist) {
+		return await new Promise<APIResult>((resolve, reject) => {
+			const headers = new HttpHeaders({
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			});
 
-  addPokeList(pokelist: Pokelist) {
-    return new Promise<APIResult>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      });
+			this._http.post(environment.apiURL + '/pokelist/', { pokelist }, { headers }).subscribe(
+				res => {
+					resolve(res as APIResult);
+				}, error => {
+					console.log(error);
+					reject(error);
+				}
+			);
+		});
+	}
 
-      this._http.post(environment.apiURL + '/pokelist/', { pokelist }, { headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
-  }
+	async getPokeLists () {
+		return await new Promise<APIResult>((resolve, reject) => {
+			const headers = new HttpHeaders({
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			});
 
-  getPokeLists() {
-    return new Promise<APIResult>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      });
+			this._http.get(environment.apiURL + `/pokelist`, { headers }).subscribe(
+				res => {
+					resolve(res as APIResult);
+				}, error => {
+					console.log(error);
+					reject(error);
+				}
+			);
+		});
+	}
 
-      this._http.get(environment.apiURL + `/pokelist`, {headers: headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
-  }
+	async getPokeList (id: string) {
+		return await new Promise<APIResult>((resolve, reject) => {
+			const headers = new HttpHeaders({
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			});
 
-  getPokeList(id: string) {
-    return new Promise<APIResult>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      });
+			this._http.get(environment.apiURL + `/pokelist/${id}`, { headers }).subscribe(
+				res => {
+					resolve(res as APIResult);
+				}, error => {
+					console.log(error);
+					reject(error);
+				}
+			);
+		});
+	}
 
-      this._http.get(environment.apiURL + `/pokelist/${id}`,  {headers: headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
-  }
+	async deletePokeList (id: number) {
+		return await new Promise<APIResult>((resolve, reject) => {
+			const headers = new HttpHeaders({
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			});
 
-  deletePokeList(id: number) {
-    return new Promise<APIResult>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      });
-
-      this._http.delete(environment.apiURL + `/pokelist/${id}`,  {headers: headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
-  }
+			this._http.delete(environment.apiURL + `/pokelist/${id}`, { headers }).subscribe(
+				res => {
+					resolve(res as APIResult);
+				}, error => {
+					console.log(error);
+					reject(error);
+				}
+			);
+		});
+	}
 }

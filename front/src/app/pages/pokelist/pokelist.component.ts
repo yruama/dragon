@@ -4,43 +4,43 @@ import { PokelistService } from 'src/app/services/pokelist/pokelist.service';
 import { Pokelist } from 'src/app/types/pokelist.types';
 
 @Component({
-  selector: 'app-pokelist',
-  templateUrl: './pokelist.component.html',
-  styleUrls: ['./pokelist.component.scss']
+	selector: 'app-pokelist',
+	templateUrl: './pokelist.component.html',
+	styleUrls: ['./pokelist.component.scss']
 })
 export class PokelistComponent implements OnInit {
-  visible = false;
+	visible = false;
 
-  pokelist: Pokelist[] = [];
+	pokelist: Pokelist[] = [];
 
-  constructor(private _pokelist: PokelistService,
-              private _router: Router) {}
+	constructor (private readonly _pokelist: PokelistService,
+		private readonly _router: Router) {}
 
-  ngOnInit() {
-    this.getPokeList();
-  }
+	ngOnInit () {
+		this.getPokeList();
+	}
 
-  async getPokeList() {
-    const pokelistData = await this._pokelist.getPokeLists();
+	async getPokeList () {
+		const pokelistData = await this._pokelist.getPokeLists();
 
-    console.log("pokelistData => ", pokelistData)
-    if (pokelistData.status === 'success') {
-      this.pokelist = pokelistData.result;
-    }
-  }
+		console.log("pokelistData => ", pokelistData);
+		if (pokelistData.status === 'success') {
+			this.pokelist = pokelistData.result;
+		}
+	}
 
-  viewList(list: Pokelist) {
-    this._router.navigate(['/pokelist/' + list.ID]);
-  }
+	viewList (list: Pokelist) {
+		this._router.navigate(['/pokelist/' + list.ID]);
+	}
 
-  reloadData(event: any) {
-    this.visible = false;
-    if (event) this.getPokeList();
-  }
+	reloadData (event: any) {
+		this.visible = false;
+		if (event) this.getPokeList();
+	}
 
-  deletePokeList(id: number) {
-    console.log("Delete : ", id)
-    this._pokelist.deletePokeList(id);
-    this.getPokeList();
-  }
+	deletePokeList (id: number) {
+		console.log("Delete : ", id);
+		this._pokelist.deletePokeList(id);
+		this.getPokeList();
+	}
 }

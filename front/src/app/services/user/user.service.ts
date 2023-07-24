@@ -6,56 +6,53 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class UserService {
+	constructor (private readonly _http: HttpClient,
+		public jwtHelper: JwtHelperService) { }
 
-  constructor(private _http: HttpClient,
-              public jwtHelper: JwtHelperService) { }
+	signUp (user: User) {
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
 
-  signUp(user: User) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+		return this._http.post(environment.apiURL + '/user/sign-up', { user }, { headers });
+	}
 
-    return this._http.post(environment.apiURL + '/user/sign-up', { user }, { headers })
-  }
+	signIn (user: User) {
+		console.log("environment > ", environment);
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json'
+		});
 
-  signIn(user: User) {
-    console.log("environment > ", environment)
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+		return this._http.post(environment.apiURL + '/user/sign-in', { user }, { headers });
+	}
 
-    return this._http.post(environment.apiURL + '/user/sign-in', { user }, { headers });
-  }
+	async test () {
+		return await new Promise<APIResult>((resolve, reject) => {
+			const headers = new HttpHeaders({
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			});
 
-  test() {
-    return new Promise<APIResult>((resolve, reject) => {
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      });
+			this._http.post(environment.apiURL + '/user/test', { toto: "toto" }, { headers }).subscribe(
+				res => {
+					resolve(res as APIResult);
+				}, error => {
+					console.log(error);
+					reject(error);
+				}
+			);
+		});
+	}
 
-      this._http.post(environment.apiURL + '/user/test', { toto: "toto" }, { headers }).subscribe(
-        res => {
-          resolve(res as APIResult);
-        }, error => {
-          console.log(error);
-          reject(error);
-        }
-      );
-    })
-  }
-
-  public isAuthenticated(): boolean {
-    try {
-      const token = localStorage.getItem('token');
-      return !this.jwtHelper.isTokenExpired(token);
-    } catch (error) {
-      return false
-    }
-    
-  }
-
+	public isAuthenticated (): boolean {
+		try {
+			const token = localStorage.getItem('token');
+			return !this.jwtHelper.isTokenExpired(token);
+		} catch (error) {
+			return false;
+		}
+	}
 }

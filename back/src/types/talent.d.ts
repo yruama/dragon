@@ -1,7 +1,7 @@
 export interface Talent {
-    ID?             : number,
-    NAME_FR         : string,
-    NAME_EN         : string,
-    DESCRIPTION_FR  : string,
-    DESCRIPTION_EN  : string
+	ID?: number;
+	NAME_FR: string;
+	NAME_EN: string;
+	DESCRIPTION_FR: string;
+	DESCRIPTION_EN: string;
 }

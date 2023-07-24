@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 import fastify from "fastify";
 import blippPlugin from "fastify-blipp";
-dotenv.config();
 import cors from "@fastify/cors";
 import path from "path";
 import * as Knex from "knex";
+dotenv.config();
 
 export const knex = Knex.knex({
 	client: "mysql",
@@ -13,17 +13,17 @@ export const knex = Knex.knex({
 		port: 3306,
 		user: process.env.DATABASE_USER,
 		password: process.env.DATABASE_PASSWORD,
-		database: process.env.DATABASE_NAME,
-	},
+		database: process.env.DATABASE_NAME
+	}
 });
 
 const port = "3000";
 export const app = fastify({
-	logger: true,
+	logger: true
 });
 
 app.register(require("@fastify/jwt"), {
-	secret: "supersecret",
+	secret: "supersecret"
 });
 
 app.decorate("authenticate", async function (request: any, reply: any) {
@@ -36,7 +36,7 @@ app.decorate("authenticate", async function (request: any, reply: any) {
 
 app.register(require("@fastify/static"), {
 	root: path.join(__dirname, "assets"),
-	prefix: "/assets/", // optional: default '/'
+	prefix: "/assets/" // optional: default '/'
 });
 
 app.register(blippPlugin);
@@ -48,7 +48,7 @@ app.register(cors, {
 	// put your options here
 });
 
-async function main() {
+async function main () {
 	// Run the server!
 	try {
 		await app.listen({ port: 3000 });
