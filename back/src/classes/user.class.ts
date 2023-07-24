@@ -8,13 +8,13 @@ export default class Class_User {
 	private readonly _user: Core_User;
 	private readonly _generation: Core_Generation;
 
-	constructor () {
+	constructor() {
 		console.log("Core_Pokemon constructor");
 		this._user = new Core_User();
 		this._generation = new Core_Generation();
 	}
 
-	async signIn (user: User) {
+	async signIn(user: User) {
 		try {
 			const userData = await this._user.getUser(user.EMAIL);
 
@@ -32,11 +32,12 @@ export default class Class_User {
 				throw 'Invalid credentials.';
 			}
 		} catch (error) {
+			console.error("Error on signIn : ", error);
 			throw error;
 		}
 	}
 
-	async signUp (user: User) {
+	async signUp(user: User) {
 		try {
 			const userData = await this._user.userExisting(user.EMAIL);
 
@@ -49,14 +50,12 @@ export default class Class_User {
 				const userCreated = await this._user.addUser(user);
 				const generationData = await this._generation.getGeneration(0);
 
-				await this._user.addUserPokedex(userCreated.ID!, generationData);
-
 				return user;
 			} else {
 				throw "Email already exist";
 			}
 		} catch (error) {
-			console.log("errir => ", error);
+			console.error("Error on signUp : ", error);
 			throw error;
 		}
 	}

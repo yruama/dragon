@@ -5,12 +5,12 @@ import { knex } from "../app";
 export default class Core_Pokelist {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		console.log("Core_Pokelist constructor");
 		this._utils = new Core_Utils();
 	}
 
-	async addPokelist (pokelist: Pokelist, total: number) {
+	async addPokelist(pokelist: Pokelist, total: number) {
 		try {
 			const newPokelist = await knex.insert({
 				NAME: pokelist.NAME,
@@ -22,11 +22,12 @@ export default class Core_Pokelist {
 
 			return newPokelist;
 		} catch (error) {
+			console.error("Error on addPokelist : ", error);
 			throw error;
 		}
 	}
 
-	async getPokelist (id: number, userId: number) {
+	async getPokelist(id: number, userId: number) {
 		try {
 			const pokelist = await knex.select('*')
 				.from('POKELIST')
@@ -36,11 +37,12 @@ export default class Core_Pokelist {
 			if (pokelist && pokelist.length > 0) return pokelist[0];
 			else throw "No pokelist found with this id : " + id;
 		} catch (error) {
+			console.error("Error on getPokelist : ", error);
 			throw error;
 		}
 	}
 
-	async deletePokelist (id: number, userId: number) {
+	async deletePokelist(id: number, userId: number) {
 		try {
 			const pokelist = await knex('POKELIST')
 				.where('ID', id)
@@ -49,12 +51,12 @@ export default class Core_Pokelist {
 
 			return pokelist;
 		} catch (error) {
-			console.log("Error => ", error);
+			console.error("Error on deletePokelist : ", error);
 			throw error;
 		}
 	}
 
-	async getPokelists (userId: number) {
+	async getPokelists(userId: number) {
 		try {
 			const pokelist = await knex.select('*')
 				.from('POKELIST')
@@ -63,6 +65,7 @@ export default class Core_Pokelist {
 			if (pokelist && pokelist.length > 0) return pokelist;
 			else throw "No pokelist found";
 		} catch (error) {
+			console.error("Error on getPokelists : ", error);
 			throw error;
 		}
 	}

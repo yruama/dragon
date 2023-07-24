@@ -4,11 +4,11 @@ import { knex } from "../app";
 export default class Core_Pokemon {
 	private readonly _utils: Core_Utils;
 
-	constructor () {
+	constructor() {
 		this._utils = new Core_Utils();
 	}
 
-	async addPokemon (pokemon: Pokemon) {
+	async addPokemon(pokemon: Pokemon) {
 		try {
 			// await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');
 			// await this._utils.downloadImage(pokemon.miniature, 'miniature/' + pokemon.id + '.png');
@@ -37,7 +37,7 @@ export default class Core_Pokemon {
 		}
 	}
 
-	async getPokemon (id: number) {
+	async getPokemon(id: number) {
 		try {
 			const pokemon = await knex.select('*')
 				.from('POKEMON')
@@ -46,11 +46,12 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon[0];
 			else throw "No pokemon found with this id : " + id;
 		} catch (error) {
+			console.error("Error on getPokemon : ", error);
 			throw error;
 		}
 	}
 
-	async getPokemonsWithPagination (offset: number, limit: number) {
+	async getPokemonsWithPagination(offset: number, limit: number) {
 		try {
 			const pokemon = await knex.select('*')
 				.from('POKEMON')
@@ -61,11 +62,12 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
+			console.error("Error on getPokemonsWithPagination : ", error);
 			throw error;
 		}
 	}
 
-	async getManyPokemon (pokemonIds: number[]) {
+	async getManyPokemon(pokemonIds: number[]) {
 		try {
 			const pokemon = await knex.select('*')
 				.from('POKEMON')
@@ -74,11 +76,12 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
+			console.error("Error on getManyPokemon : ", error);
 			throw error;
 		}
 	}
 
-	async getPokemonOfUserPokedex (userId: number) {
+	async getPokemonOfUserPokedex(userId: number) {
 		try {
 			const pokemon = await knex.select('*')
 				.from('POKEMON_OWNED')
@@ -88,11 +91,12 @@ export default class Core_Pokemon {
 			if (pokemon && pokemon.length > 0) return pokemon;
 			else throw "No pokemon found";
 		} catch (error) {
+			console.error("Error on getPokemonOfUserPokedex : ", error);
 			throw error;
 		}
 	}
 
-	async addPokemonInUserPokedex (userId: number, pokemonIds: number[]) {
+	async addPokemonInUserPokedex(userId: number, pokemonIds: number[]) {
 		try {
 			console.log("Pokemons Ids : ", pokemonIds);
 			for (const id of pokemonIds) {
@@ -105,6 +109,7 @@ export default class Core_Pokemon {
 
 			return true;
 		} catch (error) {
+			console.error("Error on addPokemonInUserPokedex : ", error);
 			throw error;
 		}
 	}
