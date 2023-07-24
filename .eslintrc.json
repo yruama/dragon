@@ -67,7 +67,6 @@
 		"no-mixed-spaces-and-tabs": "off",
 		"@typescript-eslint/no-floating-promises": "off",
 		"no-return-assign": "off",
-		"n/handle-callback-err": "off",
 
 		"@typescript-eslint/no-throw-literal": "off",
 		"no-unreachable": "off"

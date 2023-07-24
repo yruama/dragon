@@ -17,7 +17,7 @@ export class ProfilePokedexComponent implements OnInit {
 	constructor(
 		private readonly _pokemonService: PokemonService,
 		public _global: GlobalService
-	) {}
+	) { }
 
 	async ngOnInit(): Promise<void> {
 		this._pokemonService.getUserPokedex().subscribe({
@@ -33,14 +33,14 @@ export class ProfilePokedexComponent implements OnInit {
 							.filter(_pokemon => this.pokemonsOwned.includes(_pokemon.POKEMON_ID))
 							.forEach(_pokemon => (_pokemon.owned = true));
 					},
-					error: err => {},
-					complete: () => {}
+					error: err => { console.log(err); },
+					complete: () => { }
 				});
 			},
 			error: err => {
 				console.log("error => ", err);
 			},
-			complete: () => {}
+			complete: () => { }
 		});
 	}
 
@@ -67,7 +67,7 @@ export class ProfilePokedexComponent implements OnInit {
 		window.URL.revokeObjectURL(url);
 	}
 
-	savePokedex(): void {}
+	savePokedex(): void { }
 
 	filterUniqueElements(arr1: number[], arr2: number[]): number[] {
 		// Compter les occurrences des éléments du premier tableau

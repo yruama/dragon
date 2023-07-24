@@ -19,8 +19,8 @@ export class AppComponent {
 		this._global.appLoading = true;
 		_translate.setDefaultLang("fr");
 		_translate.use("fr").subscribe({
-			next: () => {},
-			error: err => {},
+			next: () => { },
+			error: err => { console.log("error : ", err); },
 			complete: () => {
 				this._global.appLoading = false;
 			}
