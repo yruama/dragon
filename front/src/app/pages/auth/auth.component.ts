@@ -45,7 +45,7 @@ export class AuthComponent implements OnInit {
 				});
 
 				setTimeout(() => {
-					this._router.navigate(["/"]);
+					this._router.navigate(["/"]).then(() => { }).catch(() => { });
 				}, 1500);
 			},
 			error: err => {
@@ -73,7 +73,7 @@ export class AuthComponent implements OnInit {
 				});
 
 				setTimeout(() => {
-					this._router.navigate(["/"]);
+					this._router.navigate(["/"]).then(() => { }).catch(() => { });
 				}, 1500);
 			},
 			error: err => {

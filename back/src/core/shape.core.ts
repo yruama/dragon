@@ -2,8 +2,6 @@ import { Shape } from "@type/shape";
 import { knex } from "../app";
 
 export default class Core_Shape {
-	constructor() {}
-
 	async addShape(shape: Shape): Promise<number[]> {
 		try {
 			const shapeCreated = await knex("POKEMON").insert({

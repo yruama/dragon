@@ -2,8 +2,6 @@ import { Type } from "@type/type";
 import { knex } from "../app";
 
 export default class Core_Type {
-	constructor() {}
-
 	async addType(type: Type): Promise<number[]> {
 		try {
 			const typeCreated = await knex("TYPE").insert({

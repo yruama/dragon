@@ -1,3 +1,4 @@
+/* eslint-disable */
 import dotenv from "dotenv";
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import blippPlugin from "fastify-blipp";
@@ -27,7 +28,7 @@ app.register(jwt, {
 	secret: "supersecret"
 });
 
-app.decorate("authenticate", async function(request: FastifyRequest, reply: FastifyReply) {
+app.decorate("authenticate", async function (request: FastifyRequest, reply: FastifyReply) {
 	try {
 		await request.jwtVerify();
 	} catch (err) {

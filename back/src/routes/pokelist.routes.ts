@@ -2,7 +2,7 @@ import { successFormat, errorFormat } from "@core/route.core";
 import Core_Pokelist from "../core/pokelist.core";
 import { Pokelist } from "../types/pokelist";
 import Class_Pokelist from "../classes/pokelist.class";
-import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
+import { FastifyReply } from "fastify";
 import { RequestRouteOptions } from "fastify/types/request";
 import { FastifyInstanceDecorated, RequestType } from "@type/route";
 
@@ -21,18 +21,18 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 			};
 
 			const pokelistData = await classPokelist.addPokelist(list);
-			reply.send(successFormat(pokelistData));
+			await reply.send(successFormat(pokelistData));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 
 	fastify.get("/", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const pokelistData = await corePokelist.getPokelists(request.user.id);
-			reply.send(successFormat(pokelistData));
+			await reply.send(successFormat(pokelistData));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 
@@ -40,9 +40,9 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		try {
 			const pokelistData = await classPokelist.getPokeList();
 			// const pokelistData = await classPokelist.getPokeList(request.params.id, request.user.id);
-			reply.send(successFormat(pokelistData));
+			await reply.send(successFormat(pokelistData));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 
@@ -50,9 +50,9 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		try {
 			const id = typeof request.params.id === "string" ? parseInt(request.params.id) : request.params.id;
 			const pokelistData = await corePokelist.deletePokelist(id, request.user.id);
-			reply.send(successFormat(pokelistData));
+			await reply.send(successFormat(pokelistData));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 }

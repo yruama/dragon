@@ -9,9 +9,9 @@ export class AuthGuardService implements CanActivate {
 		private readonly _user: UserService
 	) { }
 
-	canActivate(): boolean {
+	async canActivate(): Promise<boolean> {
 		if (!this._user.isAuthenticated()) {
-			this._router.navigate(["auth/sign-in"]);
+			await this._router.navigate(["auth/sign-in"]);
 			return false;
 		}
 		return true;

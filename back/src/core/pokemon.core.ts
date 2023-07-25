@@ -1,8 +1,6 @@
 import { Pokemon } from "@type/pokemon";
 import { knex } from "../app";
 export default class Core_Pokemon {
-	constructor() {}
-
 	async addPokemon(pokemon: Pokemon): Promise<number[]> {
 		try {
 			// await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');

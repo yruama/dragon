@@ -2,8 +2,6 @@ import { Evolution } from "@type/evolution";
 import { knex } from "../app";
 
 export default class Core_Evolution {
-	constructor() {}
-
 	async addEvolution(evolution: Evolution): Promise<number[]> {
 		try {
 			const evolutionCreated = await knex("EVOLUTION").insert({

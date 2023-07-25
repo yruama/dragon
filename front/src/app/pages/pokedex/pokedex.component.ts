@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 @Component({
@@ -33,11 +33,6 @@ export class PokedexComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getGeneration();
-		this._router.events.forEach(event => {
-			if (event instanceof NavigationEnd) {
-				this.getGeneration();
-			}
-		});
 	}
 
 	getGeneration(): void {

@@ -1,8 +1,6 @@
 import { Generation } from "@type/generation";
 import { knex } from "../app";
 export default class Core_Generation {
-	constructor() {}
-
 	async getGeneration(no: number): Promise<Generation> {
 		try {
 			const generation = await knex.select("*").from("GENERATION").where("GENERATION_NO", no);

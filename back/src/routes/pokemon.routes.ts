@@ -13,18 +13,18 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 			const limit = request.query.limit ? parseInt(request.query.limit) : 25;
 
 			const pokemons = await corePokemon.getPokemonsWithPagination(offset, limit);
-			reply.send(successFormat(pokemons));
+			await reply.send(successFormat(pokemons));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 
 	fastify.get("/user-pokedex", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const pokemons = await corePokemon.getPokemonOfUserPokedex(request.user.id);
-			reply.send(successFormat(pokemons));
+			await reply.send(successFormat(pokemons));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 
@@ -32,25 +32,25 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		try {
 			console.log("request.body => ", request.body);
 			const pokemon = await corePokemon.addPokemonInUserPokedex(request.user.id, request.body.pokemonIds);
-			reply.send(successFormat(pokemon));
+			await reply.send(successFormat(pokemon));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 
 	fastify.post("/getMany", async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const pokemon = await corePokemon.getManyPokemon(request.body.pokemonIds);
-			reply.send(successFormat(pokemon));
+			await reply.send(successFormat(pokemon));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 
 	fastify.get("/:id", async(request: RequestType, reply: FastifyReply) => {
 		const pokemon = await corePokemon.getPokemon(parseInt(request.params.id));
 
-		reply.send(pokemon);
+		await reply.send(pokemon);
 	});
 }
 

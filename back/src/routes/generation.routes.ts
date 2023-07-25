@@ -10,9 +10,9 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 	fastify.get("/", async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const generationsData = await coreGeneration.getGenerations();
-			reply.send(successFormat(generationsData));
+			await reply.send(successFormat(generationsData));
 		} catch (error) {
-			reply.send(errorFormat(error));
+			await reply.send(errorFormat(error));
 		}
 	});
 }

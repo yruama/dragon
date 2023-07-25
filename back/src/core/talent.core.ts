@@ -2,8 +2,6 @@ import { Talent } from "@type/talent";
 import { knex } from "../app";
 
 export default class Core_Talent {
-	constructor() {}
-
 	async addTalent(talent: Talent): Promise<number[]> {
 		try {
 			const talentCreated = await knex("TALENT").insert({

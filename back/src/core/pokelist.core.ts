@@ -2,8 +2,6 @@ import { Pokelist } from "@type/pokelist";
 import { knex } from "../app";
 
 export default class Core_Pokelist {
-	constructor() {}
-
 	async addPokelist(pokelist: Pokelist, total: number): Promise<number[]> {
 		try {
 			const newPokelist = await knex.insert({

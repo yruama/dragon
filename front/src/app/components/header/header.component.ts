@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
 		{
 			label: this._translate.instant("USER.signoff"),
 			command: () => {
-				this.signOff();
+				this.signOff().then(() => { }).catch(() => { });
 			}
 		},
 		{
@@ -109,9 +109,9 @@ export class HeaderComponent implements OnInit {
 		this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) ?? this.languages[0];
 	}
 
-	signOff(): void {
+	async signOff(): Promise<void> {
 		localStorage.removeItem("token");
-		this._router.navigate(["/"]);
+		await this._router.navigate(["/"]);
 	}
 
 	onLanguageChange(language: { code: string; icon: string }): void {

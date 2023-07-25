@@ -2,8 +2,6 @@ import { User } from "@type/user";
 import { knex } from "../app";
 
 export default class Core_User {
-	constructor() {}
-
 	async getUser(email: string): Promise<User> {
 		try {
 			const user = await knex
