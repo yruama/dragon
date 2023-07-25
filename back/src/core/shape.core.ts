@@ -1,13 +1,8 @@
 import { Shape } from "@type/shape";
-import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
 export default class Core_Shape {
-	private readonly _utils: Core_Utils;
-
-	constructor() {
-		this._utils = new Core_Utils();
-	}
+	constructor() {}
 
 	async addShape(shape: Shape): Promise<number[]> {
 		try {

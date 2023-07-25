@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import fastify from "fastify";
+import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import blippPlugin from "fastify-blipp";
 import cors from "@fastify/cors";
 import path from "path";
@@ -41,10 +41,10 @@ app.register(fastifyStatic, {
 });
 
 app.register(blippPlugin);
-app.register(import("./routes/pokemon.routes"), { prefix: "api/v1/pokemon" });
-app.register(import("./routes/user.routes"), { prefix: "api/v1/user" });
-app.register(import("./routes/pokelist.routes"), { prefix: "api/v1/pokelist" });
-app.register(import("./routes/generation.routes"), { prefix: "api/v1/generation" });
+app.register(import("./routes/pokemon.routes") as any, { prefix: "api/v1/pokemon" });
+app.register(import("./routes/user.routes") as any, { prefix: "api/v1/user" });
+app.register(import("./routes/pokelist.routes") as any, { prefix: "api/v1/pokelist" });
+app.register(import("./routes/generation.routes") as any, { prefix: "api/v1/generation" });
 app.register(cors, {
 	// put your options here
 });

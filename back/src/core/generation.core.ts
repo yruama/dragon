@@ -1,12 +1,7 @@
 import { Generation } from "@type/generation";
-import Core_Utils from "./utils.core";
 import { knex } from "../app";
 export default class Core_Generation {
-	private readonly _utils: Core_Utils;
-
-	constructor() {
-		this._utils = new Core_Utils();
-	}
+	constructor() {}
 
 	async getGeneration(no: number): Promise<Generation> {
 		try {

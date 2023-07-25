@@ -1,13 +1,8 @@
 import { Type } from "@type/type";
-import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
 export default class Core_Type {
-	private readonly _utils: Core_Utils;
-
-	constructor() {
-		this._utils = new Core_Utils();
-	}
+	constructor() {}
 
 	async addType(type: Type): Promise<number[]> {
 		try {

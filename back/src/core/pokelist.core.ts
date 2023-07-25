@@ -1,14 +1,8 @@
 import { Pokelist } from "@type/pokelist";
-import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
 export default class Core_Pokelist {
-	private readonly _utils: Core_Utils;
-
-	constructor() {
-		console.log("Core_Pokelist constructor");
-		this._utils = new Core_Utils();
-	}
+	constructor() {}
 
 	async addPokelist(pokelist: Pokelist, total: number): Promise<number[]> {
 		try {

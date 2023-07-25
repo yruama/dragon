@@ -1,13 +1,8 @@
 import { Talent } from "@type/talent";
-import Core_Utils from "./utils.core";
 import { knex } from "../app";
 
 export default class Core_Talent {
-	private readonly _utils: Core_Utils;
-
-	constructor() {
-		this._utils = new Core_Utils();
-	}
+	constructor() {}
 
 	async addTalent(talent: Talent): Promise<number[]> {
 		try {

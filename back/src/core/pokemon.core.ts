@@ -1,12 +1,7 @@
 import { Pokemon } from "@type/pokemon";
-import Core_Utils from "./utils.core";
 import { knex } from "../app";
 export default class Core_Pokemon {
-	private readonly _utils: Core_Utils;
-
-	constructor() {
-		this._utils = new Core_Utils();
-	}
+	constructor() {}
 
 	async addPokemon(pokemon: Pokemon): Promise<number[]> {
 		try {
