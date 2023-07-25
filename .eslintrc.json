@@ -18,7 +18,10 @@
 	],
 	"settings": {
 		"import/resolver": {
-			"typescript": {}
+			"typescript": {},
+			"node": {
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
 		}
 	},
 	"rules": {
@@ -59,7 +62,7 @@
 		"@typescript-eslint/restrict-plus-operands": "off", // laisser en off
 		// "@typescript-eslint/explicit-function-return-type": "off",
 		// to be fixed
-		"import/no-duplicates": "off",
+		//"import/no-duplicates": "off",
 		"@typescript-eslint/restrict-template-expressions": "off",
 		"@typescript-eslint/no-floating-promises": "off",
 		"@typescript-eslint/no-throw-literal": "off",

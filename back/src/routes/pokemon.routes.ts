@@ -7,7 +7,7 @@ import { FastifyInstanceDecorated, RequestType } from "@type/route";
 const corePokemon = new Core_Pokemon();
 
 async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOptions): Promise<void> {
-	fastify.get("/", async (request: RequestType, reply: FastifyReply) => {
+	fastify.get("/", async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const offset = request.query.offset ? parseInt(request.query.offset) : 1;
 			const limit = request.query.limit ? parseInt(request.query.limit) : 25;
@@ -19,7 +19,7 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		}
 	});
 
-	fastify.get("/user-pokedex", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
+	fastify.get("/user-pokedex", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const pokemons = await corePokemon.getPokemonOfUserPokedex(request.user.id);
 			reply.send(successFormat(pokemons));
@@ -28,7 +28,7 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		}
 	});
 
-	fastify.post("/user-pokedex", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
+	fastify.post("/user-pokedex", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
 		try {
 			console.log("request.body => ", request.body);
 			const pokemon = await corePokemon.addPokemonInUserPokedex(request.user.id, request.body.pokemonIds);
@@ -38,7 +38,7 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		}
 	});
 
-	fastify.post("/getMany", async (request: RequestType, reply: FastifyReply) => {
+	fastify.post("/getMany", async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const pokemon = await corePokemon.getManyPokemon(request.body.pokemonIds);
 			reply.send(successFormat(pokemon));
@@ -47,7 +47,7 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		}
 	});
 
-	fastify.get("/:id", async (request: RequestType, reply: FastifyReply) => {
+	fastify.get("/:id", async(request: RequestType, reply: FastifyReply) => {
 		const pokemon = await corePokemon.getPokemon(parseInt(request.params.id));
 
 		reply.send(pokemon);

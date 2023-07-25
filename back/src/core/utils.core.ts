@@ -1,7 +1,7 @@
 import axios from "axios";
 import fs from "fs";
 
-const downloadImage = async (url: string, filename: string): Promise<void> => {
+const downloadImage = async(url: string, filename: string): Promise<void> => {
 	console.log("'./src/assets/' + filename => ", "./src/assets/" + filename);
 	const response = await axios.get(url, { responseType: "arraybuffer" });
 

@@ -7,7 +7,7 @@ import { FastifyInstanceDecorated, RequestType } from "@type/route";
 const coreGeneration = new Core_Generation();
 
 async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOptions): Promise<void> {
-	fastify.get("/", async (request: RequestType, reply: FastifyReply) => {
+	fastify.get("/", async(request: RequestType, reply: FastifyReply) => {
 		try {
 			const generationsData = await coreGeneration.getGenerations();
 			reply.send(successFormat(generationsData));

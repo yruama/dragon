@@ -15,19 +15,15 @@ import { PokedexComponent } from "./pages/pokedex/pokedex.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { FormsModule } from "@angular/forms";
 import { MenubarModule } from "primeng/menubar";
-import { PokemonsListComponent } from "./components/pokemons-list/pokemons-list.component";
 import { TooltipModule } from "primeng/tooltip";
 import { AuthComponent } from "./pages/auth/auth.component";
 import { InputTextModule } from "primeng/inputtext";
 import { SkeletonModule } from "primeng/skeleton";
 import { ForNumberPipe } from "./pipe/forNumber/for-number.pipe";
 import { TableModule } from "primeng/table";
-import { PokelistComponent } from "./pages/pokelist/pokelist.component";
-import { PokemonsUserListComponent } from "./pages/pokelist/pokemons-user-list/pokemons-user-list.component";
 import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
 import { AuthGuardService } from "./services/auth-guard/auth-guard.service";
 import { DialogModule } from "primeng/dialog";
-import { ModalListComponent } from "./pages/pokelist/modal-list/modal-list.component";
 import { MultiSelectModule } from "primeng/multiselect";
 import { DropdownModule } from "primeng/dropdown";
 import { FieldsetModule } from "primeng/fieldset";
@@ -36,8 +32,6 @@ import { ToastModule } from "primeng/toast";
 import { MessagesModule } from "primeng/messages";
 import { MessageService } from "primeng/api";
 import { MenuModule } from "primeng/menu";
-import { ProfilePokedexComponent } from "./pages/profile/profile-pokedex/profile-pokedex.component";
-import { ProfileComponent } from "./pages/profile/profile.component";
 import { BlockUIModule } from "primeng/blockui";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 
@@ -51,14 +45,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 		HomeComponent,
 		PokedexComponent,
 		HeaderComponent,
-		PokemonsListComponent,
 		AuthComponent,
-		ForNumberPipe,
-		PokelistComponent,
-		PokemonsUserListComponent,
-		ModalListComponent,
-		ProfilePokedexComponent,
-		ProfileComponent
+		ForNumberPipe
 	],
 	imports: [
 		HttpClientModule,
@@ -94,4 +82,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 	providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService, AuthGuardService, MessageService],
 	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

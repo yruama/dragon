@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit {
 		private readonly _translate: TranslateService,
 		public _user: UserService,
 		private readonly _router: Router
-	) {}
+	) { }
 
 	async ngOnInit(): Promise<void> {
 		const generationItems: MenuItem[] = [];

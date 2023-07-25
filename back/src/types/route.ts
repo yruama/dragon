@@ -1,15 +1,9 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 
 export type RequestType = FastifyRequest<{
-	Querystring: {
-		[key: string]: string;
-	};
-	Params: {
-		[key: string]: string;
-	};
-	Body: {
-		[key: string]: any;
-	};
+	Querystring: Record<string, string>;
+	Params: Record<string, string>;
+	Body: Record<string, any>;
 }>;
 
 export type FastifyInstanceDecorated = FastifyInstance & { authenticate: any };
