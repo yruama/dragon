@@ -27,7 +27,7 @@ app.register(jwt, {
 	secret: "supersecret"
 });
 
-app.decorate("authenticate", async function(request: any, reply: any) {
+app.decorate("authenticate", async function (request: FastifyRequest, reply: FastifyReply) {
 	try {
 		await request.jwtVerify();
 	} catch (err) {
