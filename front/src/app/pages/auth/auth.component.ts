@@ -88,9 +88,4 @@ export class AuthComponent implements OnInit {
 			}
 		});
 	}
-
-	async test(): Promise<void> {
-		const test = await this._user.test();
-		console.log("Test => ", test);
-	}
 }
