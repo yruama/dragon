@@ -2,8 +2,6 @@
 	<div class="content">
 		<app-header class="hidden md:block"></app-header>
 
-		<router-outlet></router-outlet>
-
 		<div class="card">
 			<p-blockUI [blocked]="_global.appLoading">
 				<div>
@@ -18,4 +16,6 @@
 
 <div class="wip">
 	<h1>Under construction</h1>
+
+	<router-outlet></router-outlet>
 </div>
