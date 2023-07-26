@@ -7,9 +7,8 @@ import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
 import { AuthGuardService } from "./services/auth-guard/auth-guard.service";
 import { MessageService } from "primeng/api";
 import { SharedModule } from "./shared.module";
-import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
-
+import { HeaderModule } from "./components/header/header.module";
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 	return new TranslateHttpLoader(http);
 }
@@ -21,7 +20,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 	imports: [
 		HttpClientModule,
 		AppRoutingModule,
-		BrowserModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
@@ -29,6 +27,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 				deps: [HttpClient]
 			}
 		}),
+		HeaderModule,
 		SharedModule
 	],
 	providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService, AuthGuardService, MessageService],
