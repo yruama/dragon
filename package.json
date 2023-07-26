@@ -1,7 +1,9 @@
 {
 	"scripts": {
 		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
+		"lint:fix": "eslint . --fix",
+		"front": "cd front && ng serve",
+		"back": "cd back && npm run watch"
 	},
 	"workspaces": [
 		"back",
