@@ -28,7 +28,7 @@ export class HeaderComponent {
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-house',
-		command: async () => { await this.Router.navigate(['/home']); }
+		command: async () => { await this.Router.navigate(['/']); }
 	}, {
 		name: this._translate.instant('GENERAL.pokedex'),
 		isHovered: false,
@@ -48,30 +48,12 @@ export class HeaderComponent {
 		icon: 'fa-solid fa-dice',
 		command: async () => { await this.Router.navigate(['/tcg']); }
 	}, {
-		name: this._translate.instant('GENERAL.user'),
+		name: this._translate.instant(localStorage.getItem('token') ? 'USER.profile' : 'USER.signin'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-user',
-		command: async () => { await this.Router.navigate(['/user']); }
+		command: async () => { await this.Router.navigate([localStorage.getItem('token') ? '/users' : '/users/sign-in']); }
 	}];
-
-	items: MenuItem[] | undefined;
-	pofileItems: MenuItem[] = [
-		{
-			label: this._translate.instant("USER.signoff"),
-			command: () => {
-				this.signOff().then(() => { }).catch(() => { });
-			}
-		},
-		{
-			label: this._translate.instant("USER.profile"),
-			routerLink: "/profile"
-		},
-		{
-			label: this._translate.instant("USER.my_pokedex"),
-			routerLink: "/profile/pokedex"
-		}
-	];
 
 	languages: Array<{ code: string; icon: string }> = [
 		{
@@ -137,19 +119,6 @@ export class HeaderComponent {
 
 			generationItems.push(menuItem);
 		}
-
-		this.items = [
-			{
-				label: this._translate.instant("pokedex"),
-				icon: "pi pi-fw pi-map-marker",
-				items: generationItems
-			},
-			{
-				label: this._translate.instant("pokelist"),
-				icon: "pi pi-fw ",
-				routerLink: "/pokelist/"
-			}
-		];
 
 		// Find the current language or use default
 		this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) ?? this.languages[0];

@@ -75,7 +75,10 @@
 		"signin": "Connexion",
 		"signoff": "Déconnexion",
 		"profile": "Profil",
-		"my_pokedex": "Mon pokédex"
+		"my_pokedex": "Mon pokédex",
+		"no_account": "Pas de compte ?",
+		"you_should_join_us": "Explorez l'univers des Pokémon comme jamais auparavant en vous inscrivant sur pokedata.fr ! Profitez d'un accès privilégié aux données les plus complètes sur chaque créature, concevez vos listes de Pokédex sur mesure et échangez vos découvertes avec d'autres passionnés. Ne manquez aucune occasion de perfectionner votre équipe, de dénicher des raretés et de devenir le dresseur légendaire que vous rêvez d'être ! Rejoignez-nous pour une aventure Pokémon épique et palpitante !",
+		"already_have_account": "Vous avez déjà un compte ? Connectez-vous !"
 	},
 	"TOAST": {
 		"connexion_success": "Connexion réussi",

@@ -26,8 +26,17 @@ export default class ClassUser {
 
 			if (userData) {
 				if (_bcrypt.compareSync(user.PASSWORD, userData.PASSWORD)) {
-					// temp, à fix
-					const token = app.jwt.sign({ email: userData.EMAIL, id: userData.ID } as any);
+
+					const payload = {
+						email: userData.EMAIL,
+						id: userData.ID!
+					}
+
+					const options = {
+						expiresIn: 3600 * 24 * 7 // 1 heure * 24 heures * 7 jours ==> 1 semaine
+					};
+
+					const token = app.jwt.sign(payload, options);
 					userData.token = token;
 					delete (userData as Partial<User>).PASSWORD;
 

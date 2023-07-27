@@ -27,8 +27,10 @@ export const app = fastify({
 	logger: true
 });
 
+const secret = process.env.JWT_SECRET;
+
 app.register(jwt, {
-	secret: "supersecret"
+	secret: secret!
 });
 
 app.decorate("authenticate", async function (request: FastifyRequest, reply: FastifyReply) {

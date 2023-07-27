@@ -6,12 +6,13 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
 import { AuthGuardService } from "./services/auth-guard/auth-guard.service";
 import { MessageService } from "primeng/api";
-import { SharedModule } from "./shared.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { HeaderModule } from "./components/header/header.module";
 import { APP_INITIALIZER } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
+import { CommonModule } from "@angular/common";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function appInitializerFactory(translate: TranslateService) {
 	return () => new Promise<void>((resolve: any) => {
@@ -36,7 +37,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 		HttpClientModule,
 		AppRoutingModule,
 		HeaderModule,
-		SharedModule,
 		TranslateModule.forRoot({
 			defaultLanguage: 'en',
 			loader: {
@@ -44,7 +44,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 				useFactory: HttpLoaderFactory,
 				deps: [HttpClient],
 			},
-		})
+		}),
+		BrowserModule,
+		CommonModule,
+		BrowserAnimationsModule
 	],
 	providers: [
 		{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
@@ -58,7 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 			multi: true,
 		},
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
 
 
