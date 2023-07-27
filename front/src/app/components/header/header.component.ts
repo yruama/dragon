@@ -1,0 +1,179 @@
+import { ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { MenuItem } from 'primeng/api';
+import { UserService } from 'src/app/services/user/user.service';
+import { ThemeService } from 'src/app/theme.service';
+
+interface MenuBloc {
+	name: string;
+	isHovered: boolean;
+	isActive: boolean;
+	icon: string;
+	command: any;
+}
+
+@Component({
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.scss'],
+	encapsulation: ViewEncapsulation.None
+})
+export class HeaderComponent {
+	darkMode = false;
+
+	menu: MenuBloc[] = [{
+		name: this._translate.instant('GENERAL.home'),
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-house',
+		command: async () => { await this.Router.navigate(['/home']); }
+	}, {
+		name: this._translate.instant('GENERAL.pokedex'),
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-earth-europe',
+		command: async () => { await this.Router.navigate(['/pokedex']); }
+	}, {
+		name: this._translate.instant('GENERAL.video-games'),
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-gamepad',
+		command: async () => { await this.Router.navigate(['/video-games']); }
+	}, {
+		name: this._translate.instant('GENERAL.tcg'),
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-dice',
+		command: async () => { await this.Router.navigate(['/tcg']); }
+	}, {
+		name: this._translate.instant('GENERAL.user'),
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-user',
+		command: async () => { await this.Router.navigate(['/user']); }
+	}];
+
+	items: MenuItem[] | undefined;
+	pofileItems: MenuItem[] = [
+		{
+			label: this._translate.instant("USER.signoff"),
+			command: () => {
+				this.signOff().then(() => { }).catch(() => { });
+			}
+		},
+		{
+			label: this._translate.instant("USER.profile"),
+			routerLink: "/profile"
+		},
+		{
+			label: this._translate.instant("USER.my_pokedex"),
+			routerLink: "/profile/pokedex"
+		}
+	];
+
+	languages: Array<{ code: string; icon: string }> = [
+		{
+			code: "fr",
+			icon: "fi fi-fr"
+		},
+		{
+			code: "en",
+			icon: "fi fi-us"
+		},
+		{
+			code: "es",
+			icon: "fi fi-es"
+		},
+		{
+			code: "de",
+			icon: "fi fi-de"
+		},
+		{
+			code: "it",
+			icon: "fi fi-it"
+		},
+		{
+			code: "pt",
+			icon: "fi fi-pt"
+		},
+		{
+			code: "ja",
+			icon: "fi fi-jp"
+		},
+		{
+			code: "ko",
+			icon: "fi fi-kr"
+		},
+		{
+			code: "zh",
+			icon: "fi fi-cn"
+		}
+	];
+
+	currentLanguage: { code: string; icon: string } = this.languages[0];
+	constructor(
+		private readonly _translate: TranslateService,
+		public _user: UserService,
+		private readonly _router: Router,
+		private readonly _theme: ThemeService,
+		private readonly Router: Router
+	) { }
+
+	async ngOnInit(): Promise<void> {
+		const generationItems: MenuItem[] = [];
+
+		generationItems.push({
+			label: this._translate.instant("GENERAL.all"),
+			routerLink: "/pokedex/"
+		});
+
+		for (let index = 1; index < 10; index++) {
+			const menuItem: MenuItem = {
+				label: this._translate.instant("POKEDEX." + index.toString() + "gen"),
+				routerLink: "/pokedex/" + index
+			};
+
+			generationItems.push(menuItem);
+		}
+
+		this.items = [
+			{
+				label: this._translate.instant("pokedex"),
+				icon: "pi pi-fw pi-map-marker",
+				items: generationItems
+			},
+			{
+				label: this._translate.instant("pokelist"),
+				icon: "pi pi-fw ",
+				routerLink: "/pokelist/"
+			}
+		];
+
+		// Find the current language or use default
+		this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) ?? this.languages[0];
+	}
+
+	async signOff(): Promise<void> {
+		localStorage.removeItem("token");
+		await this._router.navigate(["/"]);
+	}
+
+	onLanguageChange(language: { code: string; icon: string }): void {
+		this._translate.use(language.code);
+		this.currentLanguage = language;
+	}
+
+	changeTheme(name: string): void {
+		this._theme.switchTheme(name);
+	}
+
+	toggleTheme(): void {
+		this.darkMode = !this.darkMode;
+	}
+
+	async onCommandClick(command: () => Promise<void>): Promise<void> {
+		await command();
+	}
+}

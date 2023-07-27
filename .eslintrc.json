@@ -59,7 +59,7 @@
 		],
 		"space-before-function-paren": ["error", "never"],
 		"@typescript-eslint/space-before-function-paren": ["error", "never"],
-		"@typescript-eslint/strict-boolean-expressions": ["error", { "allowAny": true }],
+		"@typescript-eslint/strict-boolean-expressions": ["error", { "allowAny": true }, { "allowNullableString": true }],
 		"@typescript-eslint/restrict-template-expressions": ["error", { "allowAny": true, "allowNullish": true }],
 		"@typescript-eslint/restrict-plus-operands": "off", // laisser en off
 		// "@typescript-eslint/explicit-function-return-type": "off",

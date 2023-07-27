@@ -9,4 +9,6 @@ export class GlobalService {
 	assetsURL = environment.assetsURL;
 
 	appLoading = false;
+	theme = "arya-orange";
+	isDarkMode = true;
 }
