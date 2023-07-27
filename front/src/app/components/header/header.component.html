@@ -1,4 +1,21 @@
-<div class="card">
+<p-card class="header-card">
+	<div class="flex menu">
+		<li
+			*ngFor="let item of menu; let i = index"
+			class="bloc-menu custom-footer-{{ i }}"
+			(click)="onCommandClick(item.command)"
+			[ngClass]="item.isHovered || item.isActive ? 'custom-menu-' + i : ''"
+			(mouseenter)="item.isHovered = true"
+			(mouseleave)="item.isHovered = false"
+		>
+			<i class="{{ item.icon }} mb-2 text-2xl"></i> {{ item.name }}
+		</li>
+	</div>
+
+	<app-toggle-darkmode class="theme-switcher"></app-toggle-darkmode>
+</p-card>
+
+<!-- 
 	<p-menubar
 		class="header"
 		[model]="items"
@@ -66,12 +83,11 @@
 				</ng-template>
 			</p-dropdown>
 
-			<app-toggle-darkmode></app-toggle-darkmode>
+			
 		</div>
 	</p-menubar>
-</div>
 
-<!-- <p>header works!</p>
+<p>header works!</p>
 
 <p-button (click)="changeTheme('saga-blue')">saga-blue</p-button> <br /><br />
 <p-button (click)="changeTheme('vela-blue')">vela-blue</p-button> <br /><br />
@@ -120,4 +136,5 @@
 		label="Danger"
 		styleClass="p-button-raised p-button-danger"
 	></p-button>
-</div> -->
+</div>
+-->

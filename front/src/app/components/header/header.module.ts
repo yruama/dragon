@@ -8,10 +8,11 @@ import { MenuModule } from "primeng/menu";
 import { FormsModule } from "@angular/forms";
 import { ToggleDarkmodeComponent } from "./toggle-darkmode/toggle-darkmode.component";
 import { InputSwitchModule } from "primeng/inputswitch";
+import { CardModule } from 'primeng/card';
 
 @NgModule({
 	declarations: [HeaderComponent, ToggleDarkmodeComponent],
-	imports: [ButtonModule, MenubarModule, DropdownModule, SharedModule, MenuModule, FormsModule, InputSwitchModule],
+	imports: [ButtonModule, MenubarModule, DropdownModule, SharedModule, MenuModule, FormsModule, InputSwitchModule, CardModule],
 	exports: [HeaderComponent]
 })
-export class HeaderModule {}
+export class HeaderModule { }

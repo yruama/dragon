@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { GlobalService } from "src/app/services/global/global.service";
 import { ThemeService } from "src/app/theme.service";
 
 @Component({
@@ -7,17 +8,14 @@ import { ThemeService } from "src/app/theme.service";
 	styleUrls: ["./toggle-darkmode.component.scss"]
 })
 export class ToggleDarkmodeComponent {
-	baseTheme = "arya-orange";
-	isDarkMode = false;
+	constructor(private readonly ThemeService: ThemeService,
+		public GlobalService: GlobalService) { }
 
-	constructor(private ThemeService: ThemeService) {}
+	toggleTheme(): void {
 
-	ngOnInit() {
-		this.isDarkMode = this.baseTheme === "arya-orange" ? true : false;
-	}
-
-	toggleTheme() {
-		this.baseTheme = this.baseTheme === "arya-orange" ? "saga-orange" : "arya-orange";
-		this.ThemeService.switchTheme(this.baseTheme);
+		this.GlobalService.isDarkMode = !this.GlobalService.isDarkMode;
+		localStorage.setItem("darkmode", String(this.GlobalService.isDarkMode));
+		this.GlobalService.theme = this.GlobalService.theme === "arya-orange" ? "saga-orange" : "arya-orange";
+		this.ThemeService.switchTheme(this.GlobalService.theme);
 	}
 }

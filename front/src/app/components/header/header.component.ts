@@ -1,3 +1,4 @@
+import { ViewEncapsulation } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -5,13 +6,55 @@ import { MenuItem } from 'primeng/api';
 import { UserService } from 'src/app/services/user/user.service';
 import { ThemeService } from 'src/app/theme.service';
 
+interface MenuBloc {
+	name: string;
+	isHovered: boolean;
+	isActive: boolean;
+	icon: string;
+	command: any;
+}
+
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss']
+	styleUrls: ['./header.component.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent {
 	darkMode = false;
+
+	menu: MenuBloc[] = [{
+		name: 'home',
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-house',
+		command: async () => { await this.Router.navigate(['/home']); }
+	}, {
+		name: 'pokedex',
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-earth-europe',
+		command: async () => { await this.Router.navigate(['/pokedex']); }
+	}, {
+		name: 'Jeux vidéo',
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-gamepad',
+		command: async () => { await this.Router.navigate(['/pokedex']); }
+	}, {
+		name: 'TCG',
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-dice',
+		command: async () => { await this.Router.navigate(['/pokedex']); }
+	}, {
+		name: 'profile',
+		isHovered: false,
+		isActive: false,
+		icon: 'fa-solid fa-user',
+		command: async () => { await this.Router.navigate(['/pokedex']); }
+	}];
+
 	items: MenuItem[] | undefined;
 	pofileItems: MenuItem[] = [
 		{
@@ -74,7 +117,8 @@ export class HeaderComponent {
 		private readonly _translate: TranslateService,
 		public _user: UserService,
 		private readonly _router: Router,
-		private readonly _theme: ThemeService
+		private readonly _theme: ThemeService,
+		private readonly Router: Router
 	) { }
 
 	async ngOnInit(): Promise<void> {
@@ -127,5 +171,9 @@ export class HeaderComponent {
 
 	toggleTheme() {
 		this.darkMode = !this.darkMode;
+	}
+
+	async onCommandClick(command: () => Promise<void>): Promise<void> {
+		await command();
 	}
 }
