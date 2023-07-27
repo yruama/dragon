@@ -8,7 +8,6 @@ import * as Knex from "knex";
 import jwt from "@fastify/jwt";
 import fastifyStatic from "@fastify/static";
 import { consoleErrorWithline } from "@core/utils.core";
-import Core_Generation from "@core/generation.core";
 import { setGlobals } from "./config/global";
 
 dotenv.config();
@@ -60,8 +59,6 @@ app.register(cors, {
 		setGlobals();
 		await app.listen({ port: 3000 });
 		consoleErrorWithline();
-		const myClass = new Core_Generation();
-		await myClass.getGeneration(13);
 		// app.blipp();
 	} catch (err) {
 		console.error("Error on main : ", err);

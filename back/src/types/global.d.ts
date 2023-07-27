@@ -13,7 +13,7 @@ class InternalError extends Error {
 }
 
 declare global {
-	interface Global {
+	interface globalThis {
 		InternalError: typeof InternalError;
 	}
 }

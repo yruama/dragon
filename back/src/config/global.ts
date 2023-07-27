@@ -6,6 +6,10 @@ class InternalError extends Error {
 	}
 }
 
+interface Global {
+	InternalError: typeof InternalError;
+}
+
 export const setGlobals = (): void => {
-	(global as any).InternalError = InternalError;
+	(global as unknown as Global).InternalError = InternalError;
 };
