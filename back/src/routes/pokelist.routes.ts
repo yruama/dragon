@@ -1,4 +1,4 @@
-import { successFormat, errorFormat } from "@core/route.core";
+import { replySuccess, errorFormat } from "@core/route.core";
 import Core_Pokelist from "../core/pokelist.core";
 import { Pokelist } from "../types/pokelist";
 import Class_Pokelist from "../classes/pokelist.class";
@@ -10,7 +10,7 @@ const corePokelist = new Core_Pokelist();
 const classPokelist = new Class_Pokelist();
 
 async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOptions): Promise<void> {
-	fastify.post("/", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
+	fastify.post("/", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
 		try {
 			const list: Pokelist = {
 				NAME: request.body.pokelist.NAME,
@@ -21,36 +21,35 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 			};
 
 			const pokelistData = await classPokelist.addPokelist(list);
-			await reply.send(successFormat(pokelistData));
+			await replySuccess(pokelistData, reply, "post");
 		} catch (error) {
 			await reply.send(errorFormat(error));
 		}
 	});
 
-	fastify.get("/", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
+	fastify.get("/", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
 		try {
 			const pokelistData = await corePokelist.getPokelists(request.user.id);
-			await reply.send(successFormat(pokelistData));
+			await replySuccess(pokelistData, reply, "get");
 		} catch (error) {
 			await reply.send(errorFormat(error));
 		}
 	});
 
-	fastify.get("/:id", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
+	fastify.get("/:id", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
 		try {
 			const pokelistData = await classPokelist.getPokeList();
-			// const pokelistData = await classPokelist.getPokeList(request.params.id, request.user.id);
-			await reply.send(successFormat(pokelistData));
+			await replySuccess(pokelistData, reply, "get");
 		} catch (error) {
 			await reply.send(errorFormat(error));
 		}
 	});
 
-	fastify.delete("/:id", { onRequest: [fastify.authenticate] }, async(request: RequestType, reply: FastifyReply) => {
+	fastify.delete("/:id", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
 		try {
 			const id = typeof request.params.id === "string" ? parseInt(request.params.id) : request.params.id;
 			const pokelistData = await corePokelist.deletePokelist(id, request.user.id);
-			await reply.send(successFormat(pokelistData));
+			await replySuccess(pokelistData, reply, "delete");
 		} catch (error) {
 			await reply.send(errorFormat(error));
 		}

@@ -7,6 +7,10 @@ import path from "path";
 import * as Knex from "knex";
 import jwt from "@fastify/jwt";
 import fastifyStatic from "@fastify/static";
+import { consoleErrorWithline } from "@core/utils.core";
+import Core_Generation from "@core/generation.core";
+import { setGlobals } from "./config/global";
+
 dotenv.config();
 
 export const knex = Knex.knex({
@@ -53,9 +57,15 @@ app.register(cors, {
 (async function main(): Promise<void> {
 	// Run the server!
 	try {
+		setGlobals();
 		await app.listen({ port: 3000 });
+		consoleErrorWithline();
+		const myClass = new Core_Generation();
+		await myClass.getGeneration(13);
 		// app.blipp();
 	} catch (err) {
+		console.error("Error on main : ", err);
+
 		app.log.error(err);
 		process.exit(1);
 	}

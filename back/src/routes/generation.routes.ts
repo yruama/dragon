@@ -1,4 +1,4 @@
-import { successFormat, errorFormat } from "@core/route.core";
+import { replySuccess, replyError, ErrorResponse } from "@core/route.core";
 import Core_Generation from "../core/generation.core";
 import { FastifyReply } from "fastify";
 import { RequestRouteOptions } from "fastify/types/request";
@@ -7,12 +7,13 @@ import { FastifyInstanceDecorated, RequestType } from "@type/route";
 const coreGeneration = new Core_Generation();
 
 async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOptions): Promise<void> {
-	fastify.get("/", async(request: RequestType, reply: FastifyReply) => {
+	fastify.get("/", async (request: RequestType, reply: FastifyReply) => {
 		try {
 			const generationsData = await coreGeneration.getGenerations();
-			await reply.send(successFormat(generationsData));
+			reply.statusCode = 200;
+			await replySuccess(generationsData, reply, "get");
 		} catch (error) {
-			await reply.send(errorFormat(error));
+			await replyError(error, reply);
 		}
 	});
 }

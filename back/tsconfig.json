@@ -12,7 +12,8 @@
 		"baseUrl": "./",
 		"paths": {
 			"@type/*": ["src/types/*"],
-			"@core/*": ["src/core/*"]
+			"@core/*": ["src/core/*"],
+			"@http/*": ["src/http-response/*"]
 		}
 	},
 	"include": ["src/**/*.ts"],

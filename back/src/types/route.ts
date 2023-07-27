@@ -25,5 +25,5 @@ export interface APIResult {
 	code: number;
 }
 
-export type APIResultError = Pick<APIResult, "status" | "message" | "code">;
-export type APIResultSuccess = Pick<APIResult, "status" | "result">;
+export type APIResultError = Pick<APIResult, "message" | "code">;
+export type APIResultSuccess = Pick<APIResult, "result" | "code">;

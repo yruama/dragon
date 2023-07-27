@@ -23,7 +23,6 @@
 		"@ngx-translate/core": "^15.0.0",
 		"@ngx-translate/http-loader": "^8.0.0",
 		"flag-icons": "^6.9.1",
-		"lodash": "^4.17.21",
 		"papaparse": "^5.4.1",
 		"pokedex": "file:",
 		"primeflex": "^3.3.1",
