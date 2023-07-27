@@ -84,6 +84,21 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 			await replyError(error, reply);
 		}
 	});
+
+	fastify.get("/getByToken", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply): Promise<void> => {
+		try {
+
+			if (request.user) await replySuccess(true, reply, "get");
+			else throw new InternalError({
+				message: "Not connected",
+				code: 500,
+				description: ''
+			});
+
+		} catch (error) {
+			await replyError(error, reply);
+		}
+	});
 }
 
 export default routes;

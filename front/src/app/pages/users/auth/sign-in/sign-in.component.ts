@@ -13,8 +13,6 @@ import { User } from 'src/app/types/user';
 })
 export class SignInComponent {
   user: User = {
-    FIRSTNAME: 'Amaury',
-    LASTNAME: 'LAROZE',
     EMAIL: 'amaurylaroze@gmail.com',
     USERNAME: 'Yruama',
     PASSWORD: ''
@@ -27,13 +25,15 @@ export class SignInComponent {
     private TranslateService: TranslateService,
     private Router: Router) { }
 
-  async signUp() {
+  signIn() {
     this.buttonLoading = true;
-    this.UserService.signUp(this.user).subscribe({
+    this.UserService.signIn(this.user).subscribe({
       next: (data: any) => {
+        console.log("Data => ", data)
+        localStorage.setItem('token', data.token);
         this.ToastService.add({
           severity: 'success',
-          summary: this.TranslateService.instant('TOAST.register_success'),
+          summary: this.TranslateService.instant('TOAST.connexion_success'),
         });
 
         setTimeout(() => {
@@ -43,7 +43,7 @@ export class SignInComponent {
       }, error: (err) => {
         this.ToastService.add({
           severity: 'error',
-          summary: this.TranslateService.instant('TOAST.register_error'),
+          summary: this.TranslateService.instant('TOAST.connexion_error'),
         });
         console.error("[SignIn] : ", err)
       }, complete: () => {
@@ -52,4 +52,5 @@ export class SignInComponent {
     })
 
   }
+
 }

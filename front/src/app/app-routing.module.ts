@@ -6,7 +6,6 @@ const routes: Routes = [
 	{ path: 'users', loadChildren: async () => (await import('./pages/users/users.module')).UsersModule },
 	{ path: 'users/sign-up', loadChildren: async () => (await import('./pages/users/auth/sign-up/sign-up.module')).SignUpModule },
 	{ path: 'users/sign-in', loadChildren: async () => (await import('./pages/users/auth/sign-in/sign-in.module')).SignInModule }
-
 ];
 
 @NgModule({

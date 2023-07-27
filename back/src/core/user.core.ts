@@ -33,8 +33,6 @@ export default class CoreUser {
 	async add(user: User): Promise<number[]> {
 		try {
 			const userCreated = await knex("USER").insert({
-				FIRSTNAME: user.FIRSTNAME,
-				LASTNAME: user.LASTNAME,
 				EMAIL: user.EMAIL,
 				USERNAME: user.USERNAME,
 				PASSWORD: user.PASSWORD,
@@ -56,7 +54,7 @@ export default class CoreUser {
 	 */
 	async isExisting(email: string): Promise<boolean> {
 		try {
-			const user = await knex.select("*").from("USER").where("EMAIL", email);
+			const user = await knex.select("*").from("USER").where("EMAIL", email)
 
 			if (user.length <= 0) throw new InternalError(Error_user.CREATE.ALREADY_EXISTS);
 			return true;

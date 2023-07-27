@@ -13,7 +13,7 @@ export class UserService {
 	constructor(
 		private readonly _http: HttpClient,
 		public jwtHelper: JwtHelperService
-	) {}
+	) { }
 
 	signUp(user: User): Observable<APIResult> {
 		const headers = new HttpHeaders({
@@ -24,12 +24,22 @@ export class UserService {
 	}
 
 	signIn(user: User): Observable<APIResult> {
-		console.log("environment > ", environment);
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
 
 		return this._http.post<APIResult>(`${environment.apiURL}/user/sign-in`, { user }, { headers });
+	}
+
+	getByToken(): Observable<APIResult> {
+		const token = localStorage.getItem("token");
+
+		const headers = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`
+		});
+
+		return this._http.get<APIResult>(`${environment.apiURL}/user/getByToken`, { headers });
 	}
 
 	public isAuthenticated(): boolean {

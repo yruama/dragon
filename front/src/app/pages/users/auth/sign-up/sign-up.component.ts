@@ -13,8 +13,6 @@ import { User } from 'src/app/types/user';
 })
 export class SignUpComponent {
   user: User = {
-    FIRSTNAME: 'Amaury',
-    LASTNAME: 'LAROZE',
     EMAIL: 'amaurylaroze@gmail.com',
     USERNAME: 'Yruama',
     PASSWORD: ''
@@ -46,6 +44,7 @@ export class SignUpComponent {
           summary: this.TranslateService.instant('TOAST.register_error'),
         });
         console.error("[SignIn] : ", err)
+        this.buttonLoading = false;
       }, complete: () => {
         this.buttonLoading = false;
       }

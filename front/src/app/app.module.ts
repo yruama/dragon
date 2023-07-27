@@ -13,6 +13,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'primeng/toast';
+import { LoaderComponent } from "./components/loader/loader.component";
+import { LoaderService } from "./services/loader/loader.service";
 
 export function appInitializerFactory(translate: TranslateService) {
 	return () => new Promise<void>((resolve: any) => {
@@ -31,7 +34,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		LoaderComponent
 	],
 	imports: [
 		HttpClientModule,
@@ -47,7 +51,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 		}),
 		BrowserModule,
 		CommonModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		ToastModule
+
 	],
 	providers: [
 		{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
@@ -60,6 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 			deps: [TranslateService],
 			multi: true,
 		},
+		LoaderService
 	],
 	bootstrap: [AppComponent],
 })
