@@ -24,35 +24,35 @@ export class HeaderComponent {
 	darkMode = false;
 
 	menu: MenuBloc[] = [{
-		name: 'home',
+		name: this._translate.instant('GENERAL.home'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-house',
 		command: async () => { await this.Router.navigate(['/home']); }
 	}, {
-		name: 'pokedex',
+		name: this._translate.instant('GENERAL.pokedex'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-earth-europe',
 		command: async () => { await this.Router.navigate(['/pokedex']); }
 	}, {
-		name: 'Jeux vidéo',
+		name: this._translate.instant('GENERAL.video-games'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-gamepad',
-		command: async () => { await this.Router.navigate(['/pokedex']); }
+		command: async () => { await this.Router.navigate(['/video-games']); }
 	}, {
-		name: 'TCG',
+		name: this._translate.instant('GENERAL.tcg'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-dice',
-		command: async () => { await this.Router.navigate(['/pokedex']); }
+		command: async () => { await this.Router.navigate(['/tcg']); }
 	}, {
-		name: 'profile',
+		name: this._translate.instant('GENERAL.user'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-user',
-		command: async () => { await this.Router.navigate(['/pokedex']); }
+		command: async () => { await this.Router.navigate(['/user']); }
 	}];
 
 	items: MenuItem[] | undefined;
@@ -165,11 +165,11 @@ export class HeaderComponent {
 		this.currentLanguage = language;
 	}
 
-	changeTheme(name: string) {
+	changeTheme(name: string): void {
 		this._theme.switchTheme(name);
 	}
 
-	toggleTheme() {
+	toggleTheme(): void {
 		this.darkMode = !this.darkMode;
 	}
 
