@@ -1,0 +1,74 @@
+{
+    "CREATE": {
+        "CANNOT_ADD": {
+            "message": "Cannot add evolution",
+            "code": 400,
+            "description": "You're not able to add an evolution at the moment",
+        },
+        "ALREADY_EXISTS": {
+            "message": "Evolution already exists",
+            "code": 500,
+            "description": "The evolution you are trying to add already exists"
+        },
+        "PERMISSION_DENIED": {
+            "message": "Permission denied",
+            "code": 403,
+            "description": "You do not have permission to add an evolution"
+        }
+    },
+    "READ": {
+        "NOT_FOUND": {
+            "single": {
+                "message": "Evolution not found",
+                "code": 404,
+                "description": "The evolution you are looking for does not exist"
+            },
+            "multiple": {
+                "message": "Evolutions not found",
+                "code": 404,
+                "description": "The evolutions you are looking for do not exist"
+            }
+        },
+        "NOT_REACHABLE": {
+            "message": "Evolution not reachable",
+            "code": 500,
+            "description": "The evolutions are not available at the moment"
+        },
+        "PERMISSION_DENIED": {
+            "message": "Permission denied",
+            "code": 403,
+            "description": "You do not have permission to access evolutions"
+        }
+    },
+    "UPDATE": {
+        "CANNOT_UPDATE": {
+            "message": "Cannot update evolution",
+            "code": 400,
+            "description": "You're not able to update an evolution at the moment"
+        },
+        "PERMISSION_DENIED": {
+            "message": "Permission denied",
+            "code": 403,
+            "description": "You do not have permission to update an evolution"
+        }
+    },
+    "DELETE": {
+        "CANNOT_DELETE": {
+            "message": "Cannot delete evolution",
+            "code": 400,
+            "description": "The evolution you are trying to delete cannot be deleted"
+        },
+        "PERMISSION_DENIED": {
+            "message": "Permission denied",
+            "code": 403,
+            "description": "You do not have permission to delete an evolution"
+        }
+    },
+    "MISC": {
+        "WENT_WRONG": {
+            "message": "Something went wrong",
+            "code": 500,
+            "description": "Something went wrong while processing your request"
+        }
+    }
+}

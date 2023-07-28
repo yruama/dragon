@@ -1,4 +1,4 @@
-import httpCommon from "@http/common.json";
+import httpCommon from "@errors/http.json";
 import { FastifyReply } from "fastify";
 
 const replySuccess = async (result: any, replyObj: FastifyReply, restVerb: string): Promise<void> => {

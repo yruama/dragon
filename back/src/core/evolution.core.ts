@@ -1,5 +1,6 @@
 import { Evolution } from "@type/evolution";
 import { knex } from "../app";
+import Error_evolution from "@errors/evolution.json";
 
 export default class Core_Evolution {
 	async addEvolution(evolution: Evolution): Promise<number[]> {
@@ -29,7 +30,7 @@ export default class Core_Evolution {
 
 			return evolutionCreated;
 		} catch (error) {
-			console.error("Error on addEvolution : ", error);
+			console.error("[CORE_EVOLUTION.addEvolution] : ", error);
 			throw error;
 		}
 	}
@@ -38,10 +39,10 @@ export default class Core_Evolution {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("ID", id);
 
-			if (evolution.length > 0) return evolution[0];
-			else throw "No evolution found with this id : " + id;
+			if (evolution.length <= 0) throw new InternalError(Error_evolution.READ.NOT_FOUND.single);
+			return evolution[0];
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_EVOLUTION.getEvolution] : ", error);
 			throw error;
 		}
 	}
@@ -50,10 +51,10 @@ export default class Core_Evolution {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("CHAIN_ID", chainId);
 
-			if (evolution.length > 0) return evolution;
-			else return [];
+			if (evolution.length <= 0) throw new InternalError(Error_evolution.READ.NOT_FOUND.multiple);
+			return evolution;
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_EVOLUTION.getEvolutionByChainID] : ", error);
 			throw error;
 		}
 	}

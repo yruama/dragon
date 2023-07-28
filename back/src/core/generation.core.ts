@@ -1,17 +1,16 @@
 import { Generation } from "@type/generation";
 import { knex } from "../app";
-import httpCommon from "@http/common.json";
-import { strict as assert } from "node:assert";
+import Error_generation from "@errors/generation.json";
 
-export default class Core_Generation {
+export default class CoreGeneration {
 	async getGeneration(no: number): Promise<Generation> {
 		try {
 			const generation: any[] = []; // await knex.select("*").from("GENERATION").where("GENERATION_NO", no);
 
-			if (generation.length <= 0) throw new InternalError(httpCommon.SERVER_ERROR.internal_server_error);
+			if (generation.length <= 0) throw new InternalError(Error_generation.READ.NOT_FOUND.single);
 			return generation[0];
 		} catch (error) {
-			console.error("Error on getGeneration : ", error);
+			console.error("[CORE_GENERATION.getGeneration] : ", error);
 			throw error;
 		}
 	}
@@ -20,10 +19,10 @@ export default class Core_Generation {
 		try {
 			const generation = await knex.select("*").from("GENERATION");
 
-			if (generation.length <= 0) throw new InternalError(httpCommon.SERVER_ERROR.internal_server_error);
+			if (generation.length <= 0) throw new InternalError(Error_generation.READ.NOT_FOUND.multiple);
 			return generation;
 		} catch (error) {
-			console.error("Error on getGenerations : ", error);
+			console.error("[CORE_GENERATION.getGenerations] : ", error);
 			throw error;
 		}
 	}

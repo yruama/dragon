@@ -1,8 +1,9 @@
 import { Pokelist } from "@type/pokelist";
 import { knex } from "../app";
+import Error_pokelist from "@errors/pokelist.json";
 
-export default class Core_Pokelist {
-	async addPokelist(pokelist: Pokelist, total: number): Promise<number[]> {
+export default class CorePokelist {
+	async add(pokelist: Pokelist, total: number): Promise<number[]> {
 		try {
 			const newPokelist = await knex.insert({
 				NAME: pokelist.NAME,
@@ -14,42 +15,42 @@ export default class Core_Pokelist {
 
 			return newPokelist;
 		} catch (error) {
-			console.error("Error on addPokelist : ", error);
+			console.error("[CORE_POKELIST.addPokelist] : ", error);
 			throw error;
 		}
 	}
 
-	async getPokelist(id: number, userId: number): Promise<Pokelist> {
+	async get(id: number, userId: number): Promise<Pokelist> {
 		try {
 			const pokelist = await knex.select("*").from("POKELIST").where("ID", id).andWhere("USER_ID", userId);
 
-			if (pokelist.length > 0) return pokelist[0];
-			else throw "No pokelist found with this id : " + id;
+			if (pokelist.length > 0) throw new InternalError(Error_pokelist.READ.NOT_FOUND.single);
+			return pokelist[0];
 		} catch (error) {
-			console.error("Error on getPokelist : ", error);
+			console.error("[CORE_POKELIST.get] : ", error);
 			throw error;
 		}
 	}
 
-	async deletePokelist(id: number, userId: number): Promise<number> {
+	async delete(id: number, userId: number): Promise<number> {
 		try {
 			const pokelist = await knex("POKELIST").where("ID", id).andWhere("USER_ID", userId).del();
 
 			return pokelist;
 		} catch (error) {
-			console.error("Error on deletePokelist : ", error);
+			console.error("[CORE_POKELIST.deletePokelist] : ", error);
 			throw error;
 		}
 	}
 
-	async getPokelists(userId: number): Promise<Pokelist[]> {
+	async getAll(userId: number): Promise<Pokelist[]> {
 		try {
 			const pokelist = await knex.select("*").from("POKELIST").where("USER_ID", userId);
 
 			if (pokelist.length > 0) return pokelist;
 			else throw "No pokelist found";
 		} catch (error) {
-			console.error("Error on getPokelists : ", error);
+			console.error("[CORE_POKELIST.getPokelists] : ", error);
 			throw error;
 		}
 	}

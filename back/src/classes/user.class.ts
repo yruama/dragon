@@ -3,6 +3,7 @@ import Core_User from "../core/user.core";
 import _bcrypt from "bcrypt";
 import { app } from "../app";
 import Core_Generation from "../core/generation.core";
+import Error_user from "@errors/user.json";
 
 export default class Class_User {
 	private readonly _user: Core_User;
@@ -26,13 +27,13 @@ export default class Class_User {
 
 					return userData;
 				} else {
-					throw "Invalid credentials.";
+					throw new InternalError(Error_user.MISC.NOT_AUTHENTIFIED);
 				}
 			} else {
-				throw "Invalid credentials.";
+				throw new InternalError(Error_user.READ.NOT_FOUND.single);
 			}
 		} catch (error) {
-			console.error("Error on signIn : ", error);
+			console.error("[CORE_USER.signIn] : ", error);
 			throw error;
 		}
 	}
@@ -52,10 +53,10 @@ export default class Class_User {
 
 				return user;
 			} else {
-				throw "Email already exist";
+				throw new InternalError(Error_user.CREATE.EMAIL_ALREADY_EXIST);
 			}
 		} catch (error) {
-			console.error("Error on signUp : ", error);
+			console.error("[CORE_USER.signUp] : ", error);
 			throw error;
 		}
 	}
