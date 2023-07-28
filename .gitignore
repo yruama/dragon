@@ -27,6 +27,7 @@ yarn-error.log
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+.vscode
 
 # Miscellaneous
 /.angular/cache
@@ -45,3 +46,4 @@ Thumbs.db
 npm-debug.log
 /node_modules
 **/node_modules
+build
