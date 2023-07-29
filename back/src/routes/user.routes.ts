@@ -85,15 +85,32 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		}
 	});
 
+	/**
+	 * Verify if user isconnected
+	 * @memberof UserRoutes
+	 * @description Verify if user isconnected
+	 * @path {GET} /getByToken
+	 * @example_success
+	 * // returns a boolean
+	 * {
+	 * 		"statusCode": 200,
+	 * 		"data": true
+	 * }
+	 * @example_error
+	 * // returns an error
+	 * {
+	 * 		"statusCode": 500,
+	 * 		"error": {
+	 * 			"message": "Internal Server Error",
+	 * 			"description": "Error description"	
+	 * 		}
+	 * 	}
+	 */
 	fastify.get("/getByToken", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply): Promise<void> => {
 		try {
 
 			if (request.user) await replySuccess(true, reply, "get");
-			else throw new InternalError({
-				message: "Not connected",
-				code: 500,
-				description: ''
-			});
+			else await replySuccess(false, reply, "get");
 
 		} catch (error) {
 			await replyError(error, reply);

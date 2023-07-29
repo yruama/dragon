@@ -1,8 +1,9 @@
-import { ViewEncapsulation } from '@angular/core';
+import { ViewChild, ViewEncapsulation } from '@angular/core';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'primeng/api';
+import { GlobalService } from 'src/app/services/global/global.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ThemeService } from 'src/app/theme.service';
 
@@ -12,6 +13,7 @@ interface MenuBloc {
 	isActive: boolean;
 	icon: string;
 	command: any;
+	key: string;
 }
 
 @Component({
@@ -21,6 +23,9 @@ interface MenuBloc {
 	encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent {
+	//@ts-ignore
+	@ViewChild('profileButton') profileButton: any;
+
 	darkMode = false;
 
 	menu: MenuBloc[] = [{
@@ -28,31 +33,36 @@ export class HeaderComponent {
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-house',
-		command: async () => { await this.Router.navigate(['/']); }
+		command: async () => { await this.Router.navigate(['/']); },
+		key: 'home'
 	}, {
 		name: this._translate.instant('GENERAL.pokedex'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-earth-europe',
-		command: async () => { await this.Router.navigate(['/pokedex']); }
+		command: async () => { await this.Router.navigate(['/pokedex']); },
+		key: 'pokedex'
 	}, {
 		name: this._translate.instant('GENERAL.video-games'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-gamepad',
-		command: async () => { await this.Router.navigate(['/video-games']); }
+		command: async () => { await this.Router.navigate(['/video-games']); },
+		key: 'video-games'
 	}, {
 		name: this._translate.instant('GENERAL.tcg'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-dice',
-		command: async () => { await this.Router.navigate(['/tcg']); }
+		command: async () => { await this.Router.navigate(['/tcg']); },
+		key: 'tcg'
 	}, {
 		name: this._translate.instant(localStorage.getItem('token') ? 'USER.profile' : 'USER.signin'),
 		isHovered: false,
 		isActive: false,
 		icon: 'fa-solid fa-user',
-		command: async () => { await this.Router.navigate([localStorage.getItem('token') ? '/users' : '/users/sign-in']); }
+		command: async () => { await this.Router.navigate([localStorage.getItem('token') ? '/users' : '/users/sign-in']); },
+		key: 'user'
 	}];
 
 	languages: Array<{ code: string; icon: string }> = [
@@ -94,14 +104,70 @@ export class HeaderComponent {
 		}
 	];
 
+	items = [
+		{
+			label: 'Options',
+			items: [
+				{
+					label: 'Update',
+					icon: 'pi pi-refresh',
+					command: () => {
+						console.log("Update")
+					}
+				},
+				{
+					label: this._translate.instant('USER.signoff'),
+					icon: 'pi pi-times',
+					command: () => {
+						this.GlobalService.userSignOff();
+					}
+				}
+			]
+		},
+		{
+			label: 'Navigate',
+			items: [
+				{
+					label: 'Angular',
+					icon: 'pi pi-external-link',
+					url: 'http://angular.io'
+				},
+				{
+					label: 'Router',
+					icon: 'pi pi-upload',
+					routerLink: '/fileupload'
+				}
+			]
+		}
+	];
+
 	currentLanguage: { code: string; icon: string } = this.languages[0];
 	constructor(
 		private readonly _translate: TranslateService,
 		public _user: UserService,
 		private readonly _router: Router,
 		private readonly _theme: ThemeService,
-		private readonly Router: Router
-	) { }
+		private readonly Router: Router,
+		private GlobalService: GlobalService
+	) {
+		Router.events.forEach((event) => {
+			if(event instanceof NavigationEnd) {
+				let url = event.url === '/' ? '/home' : event.url;
+
+				//On remet tout à false;
+				this.menu.forEach((_item: MenuBloc) => {
+					_item.isActive = false;
+				})
+
+				//On cherche un item à activer
+				const menuItem = this.menu.find((_item: MenuBloc) => { 
+					console.log("Item : ", _item)
+					return url.includes(_item.key)
+				 });
+				if (menuItem) menuItem.isActive = true;
+			}
+		  });
+	}
 
 	async ngOnInit(): Promise<void> {
 		const generationItems: MenuItem[] = [];
@@ -122,6 +188,12 @@ export class HeaderComponent {
 
 		// Find the current language or use default
 		this.currentLanguage = this.languages.find(language => language.code === this._translate.currentLang) ?? this.languages[0];
+
+		/* gestion connexion */
+		this.GlobalService.userConnected$.subscribe((userConnected) => {
+			console.log("setUpUserMenu")
+			this.setUpUserMenu(userConnected);
+		});
 	}
 
 	async signOff(): Promise<void> {
@@ -144,5 +216,32 @@ export class HeaderComponent {
 
 	async onCommandClick(command: () => Promise<void>): Promise<void> {
 		await command();
+	}
+
+	setUpUserMenu(userStatus: boolean) {
+
+		let menuItem: MenuBloc;
+
+		if (userStatus) {
+			menuItem = {
+				name: this._translate.instant('USER.profile'),
+				isHovered: false,
+				isActive: false,
+				icon: 'fa-solid fa-user',
+				command: async () => { this.profileButton.nativeElement.click(); },
+				key: `users`
+			}
+		} else {
+			menuItem = {
+				name: this._translate.instant('USER.signin'),
+				isHovered: false,
+				isActive: false,
+				icon: 'fa-solid fa-user',
+				command: async () => { await this.Router.navigate(['/users/sign-in']); },
+				key: 'user'
+			}
+		}
+
+		this.menu[this.menu.length - 1] = menuItem;
 	}
 }

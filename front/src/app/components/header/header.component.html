@@ -9,11 +9,17 @@
 			(mouseleave)="item.isHovered = false"
 		>
 			<i class="{{ item.icon }} mb-2 text-2xl"></i> {{ item.name }}
+
+			<span *ngIf="item.key === 'users'" style="z-index: 888;">
+				<button class="user-menu-button" pButton type="button" #profileButton (click)="myMenu.toggle($event)"></button>
+				<p-menu class="user-menu-dropdown" #myMenu [model]="items" [popup]="true"></p-menu>
+			</span>
 		</li>
 	</div>
 
 	<app-toggle-darkmode class="theme-switcher"></app-toggle-darkmode>
 </p-card>
+
 
 <!-- 
 	<p-menubar

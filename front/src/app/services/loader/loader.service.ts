@@ -9,7 +9,6 @@ export class LoaderService {
   constructor() { }
 
   private isLoading = new BehaviorSubject<boolean>(false);
-
   isLoading$ = this.isLoading.asObservable();
 
   show() {

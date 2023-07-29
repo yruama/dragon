@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
+import { GlobalService } from 'src/app/services/global/global.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/types/user';
 
@@ -23,18 +24,20 @@ export class SignInComponent {
   constructor(private UserService: UserService,
     private ToastService: MessageService,
     private TranslateService: TranslateService,
-    private Router: Router) { }
+    private Router: Router,
+    private GlobalService: GlobalService) { }
 
   signIn() {
     this.buttonLoading = true;
     this.UserService.signIn(this.user).subscribe({
       next: (data: any) => {
-        console.log("Data => ", data)
         localStorage.setItem('token', data.token);
         this.ToastService.add({
           severity: 'success',
           summary: this.TranslateService.instant('TOAST.connexion_success'),
         });
+
+        this.GlobalService.userSignIn();
 
         setTimeout(() => {
           this.Router.navigate(['/']);
