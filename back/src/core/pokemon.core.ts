@@ -1,11 +1,16 @@
 import { Pokemon } from "@type/pokemon";
 import { knex } from "../app";
-export default class Core_Pokemon {
-	async addPokemon(pokemon: Pokemon): Promise<number[]> {
-		try {
-			// await this._utils.downloadImage(pokemon.artwork, 'artwork/' + pokemon.id + '.png');
-			// await this._utils.downloadImage(pokemon.miniature, 'miniature/' + pokemon.id + '.png');
+import Error_pokemon from "@errors/pokemon.json";
 
+export default class CorePokemon {
+	/**
+	 * Add a pokemon in database
+	 * @param {Pokemon} pokemon
+	 * @returns {*}  {Promise<number[]>}
+	 * @memberof CorePokemon
+	 */
+	async add(pokemon: Pokemon): Promise<number[]> {
+		try {
 			const pokemonCreated = await knex("POKEMON").insert({
 				POKEMON_ID: pokemon.POKEMON_ID,
 				NAME_FR: pokemon.NAME_FR,
@@ -25,62 +30,93 @@ export default class Core_Pokemon {
 
 			return pokemonCreated;
 		} catch (error) {
-			console.error("Error on addPokemon : ", error);
+			console.error("[CORE_POKEMON.add] : ", error);
 			throw error;
 		}
 	}
 
-	async getPokemon(id: number): Promise<Pokemon> {
+	/**
+	 * Get a pokemon from database by his id
+	 * @param {number} id
+	 * @returns {*}  {Promise<Pokemon>}
+	 * @memberof CorePokemon
+	 */
+	async get(id: number): Promise<Pokemon> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").where("POKEMON_ID", id);
 
-			if (pokemon.length > 0) return pokemon[0];
-			else throw "No pokemon found with this id : " + id;
+			if (pokemon.length <= 0) throw new InternalError(Error_pokemon.READ.NOT_FOUND.single);
+			return pokemon[0];
 		} catch (error) {
-			console.error("Error on getPokemon : ", error);
+			console.error("[CORE_POKEMON.get] : ", error);
 			throw error;
 		}
 	}
 
-	async getPokemonsWithPagination(offset: number, limit: number): Promise<Pokemon[]> {
+	/**
+	 * Get pokemon by pagination
+	 * @param {number} offset
+	 * @param {number} limit
+	 * @returns {*}  {Promise<Pokemon[]>}
+	 * @memberof CorePokemon
+	 */
+	async getWithPagination(offset: number, limit: number): Promise<Pokemon[]> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").limit(limit).offset(offset).orderBy("POKEMON_ID", "asc");
 
-			if (pokemon.length > 0) return pokemon;
-			else throw "No pokemon found";
+			if (pokemon.length <= 0) throw new InternalError(Error_pokemon.READ.NOT_FOUND.multiple);
+			return pokemon;
 		} catch (error) {
-			console.error("Error on getPokemonsWithPagination : ", error);
+			console.error("[CORE_POKEMON.getWithPagination] : ", error);
 			throw error;
 		}
 	}
 
-	async getManyPokemon(pokemonIds: number[]): Promise<Pokemon[]> {
+	/**
+	 * Get many pokemon from database by their ids
+	 * @param {number[]} pokemonIds
+	 * @returns {*}  {Promise<Pokemon[]>}
+	 * @memberof CorePokemon
+	 */
+	async getMany(pokemonIds: number[]): Promise<Pokemon[]> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").whereIn("POKEMON_ID", pokemonIds);
 
-			if (pokemon.length > 0) return pokemon;
-			else throw "No pokemon found";
+			if (pokemon.length <= 0) throw new InternalError(Error_pokemon.READ.NOT_FOUND.multiple);
+			return pokemon;
 		} catch (error) {
-			console.error("Error on getManyPokemon : ", error);
+			console.error("[CORE_POKEMON.getMany] : ", error);
 			throw error;
 		}
 	}
 
-	async getPokemonOfUserPokedex(userId: number): Promise<Pokemon[]> {
+	/**
+	 * Get all pokémons from user pokedex
+	 * @param {number} userId
+	 * @returns {*}  {Promise<Pokemon[]>}
+	 * @memberof CorePokemon
+	 */
+	async getUserPokedex(userId: number): Promise<Pokemon[]> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON_OWNED").where("USER_ID", userId).orderBy("POKEMON_ID", "asc");
 
-			if (pokemon.length > 0) return pokemon;
-			else throw "No pokemon found";
+			if (pokemon.length <= 0) throw new InternalError(Error_pokemon.READ.NOT_FOUND.multiple);
+			return pokemon;
 		} catch (error) {
-			console.error("Error on getPokemonOfUserPokedex : ", error);
+			console.error("[CORE_POKEMON.getUserPokedex] : ", error);
 			throw error;
 		}
 	}
 
-	async addPokemonInUserPokedex(userId: number, pokemonIds: number[]): Promise<boolean> {
+	/**
+	 * Add many pokemons in user pokedex
+	 * @param {number} userId
+	 * @param {number[]} pokemonIds
+	 * @returns {*}  {Promise<boolean>}
+	 * @memberof CorePokemon
+	 */
+	async addManyToUserPokedex(userId: number, pokemonIds: number[]): Promise<boolean> {
 		try {
-			console.log("Pokemons Ids : ", pokemonIds);
 			for (const id of pokemonIds) {
 				await knex("POKEMON_OWNED").insert({
 					POKEMON_ID: id,
@@ -91,7 +127,7 @@ export default class Core_Pokemon {
 
 			return true;
 		} catch (error) {
-			console.error("Error on addPokemonInUserPokedex : ", error);
+			console.error("[CORE_POKEMON.addManyToUserPokedex] : ", error);
 			throw error;
 		}
 	}

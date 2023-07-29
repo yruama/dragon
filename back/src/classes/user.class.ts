@@ -1,29 +1,35 @@
 import { User } from "@type/user";
-import Core_User from "../core/user.core";
+import CoreUser from "../core/user.core";
 import _bcrypt from "bcrypt";
 import { app } from "../app";
-import Core_Generation from "../core/generation.core";
+import CoreGeneration from "../core/generation.core";
 import Error_user from "@errors/user.json";
 
-export default class Class_User {
-	private readonly _user: Core_User;
-	private readonly _generation: Core_Generation;
+export default class ClassUser {
+	private readonly coreUser: CoreUser;
+	private readonly coreGeneration: CoreGeneration;
 
 	constructor() {
-		console.log("Core_Pokemon constructor");
-		this._user = new Core_User();
-		this._generation = new Core_Generation();
+		this.coreUser = new CoreUser();
+		this.coreGeneration = new CoreGeneration();
 	}
 
+	/**
+	 * Sign in a user
+	 * @param {User} user
+	 * @returns {*}  {Promise<User>}
+	 * @memberof ClassUser
+	 */
 	async signIn(user: User): Promise<User> {
 		try {
-			const userData = await this._user.getUser(user.EMAIL);
+			const userData = await this.coreUser.getByEmail(user.EMAIL);
 
 			if (userData) {
 				if (_bcrypt.compareSync(user.PASSWORD, userData.PASSWORD)) {
-					const token = app.jwt.sign({ email: userData.EMAIL, id: userData.ID });
+					// temp, à fix
+					const token = app.jwt.sign({ email: userData.EMAIL, id: userData.ID } as any);
 					userData.token = token;
-					userData.PASSWORD = "";
+					delete (userData as Partial<User>).PASSWORD;
 
 					return userData;
 				} else {
@@ -33,30 +39,33 @@ export default class Class_User {
 				throw new InternalError(Error_user.READ.NOT_FOUND.single);
 			}
 		} catch (error) {
-			console.error("[CORE_USER.signIn] : ", error);
+			console.error("[CLASS_USER.signIn] : ", error);
 			throw error;
 		}
 	}
 
+	/**
+	 * Sign up a user
+	 * @param {User} user
+	 * @returns {*}  {Promise<User>}
+	 * @memberof ClassUser
+	 */
 	async signUp(user: User): Promise<User> {
 		try {
-			const userData = await this._user.userExisting(user.EMAIL);
+			// check if user already exist, no need to throw, the error is handled in the core
+			await this.coreUser.isExisting(user.EMAIL);
 
-			if (!userData) {
-				const salt = _bcrypt.genSaltSync(10);
-				const cryptedPassword = _bcrypt.hashSync(user.PASSWORD, salt);
+			const salt = _bcrypt.genSaltSync(10);
+			const cryptedPassword = _bcrypt.hashSync(user.PASSWORD, salt);
 
-				user.PASSWORD = cryptedPassword;
+			user.PASSWORD = cryptedPassword;
 
-				await this._user.addUser(user);
-				await this._generation.getGeneration(0);
+			await this.coreUser.add(user);
+			await this.coreGeneration.get(0);
 
-				return user;
-			} else {
-				throw new InternalError(Error_user.CREATE.EMAIL_ALREADY_EXIST);
-			}
+			return user;
 		} catch (error) {
-			console.error("[CORE_USER.signUp] : ", error);
+			console.error("[CLASS_USER.signUp] : ", error);
 			throw error;
 		}
 	}

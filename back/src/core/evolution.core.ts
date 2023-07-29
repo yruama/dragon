@@ -2,8 +2,14 @@ import { Evolution } from "@type/evolution";
 import { knex } from "../app";
 import Error_evolution from "@errors/evolution.json";
 
-export default class Core_Evolution {
-	async addEvolution(evolution: Evolution): Promise<number[]> {
+export default class CoreEvolution {
+	/**
+	 * Add a new evolution to database
+	 * @param {Evolution} evolution
+	 * @returns {*}  {Promise<number[]>}
+	 * @memberof CoreEvolution
+	 */
+	async add(evolution: Evolution): Promise<number[]> {
 		try {
 			const evolutionCreated = await knex("EVOLUTION").insert({
 				GENDER: evolution.GENDER,
@@ -30,24 +36,36 @@ export default class Core_Evolution {
 
 			return evolutionCreated;
 		} catch (error) {
-			console.error("[CORE_EVOLUTION.addEvolution] : ", error);
+			console.error("[CORE_EVOLUTION.add] : ", error);
 			throw error;
 		}
 	}
 
-	async getEvolution(id: number): Promise<Evolution> {
+	/**
+	 * Get an evolution from database by his id
+	 * @param {number} id
+	 * @returns {*}  {Promise<Evolution>}
+	 * @memberof CoreEvolution
+	 */
+	async get(id: number): Promise<Evolution> {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("ID", id);
 
 			if (evolution.length <= 0) throw new InternalError(Error_evolution.READ.NOT_FOUND.single);
 			return evolution[0];
 		} catch (error) {
-			console.error("[CORE_EVOLUTION.getEvolution] : ", error);
+			console.error("[CORE_EVOLUTION.get] : ", error);
 			throw error;
 		}
 	}
 
-	async getEvolutionByChainID(chainId: number): Promise<Evolution[]> {
+	/**
+	 * Get evolution by chain id
+	 * @param {number} chainId
+	 * @returns {*}  {Promise<Evolution[]>}
+	 * @memberof CoreEvolution
+	 */
+	async getByChainID(chainId: number): Promise<Evolution[]> {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("CHAIN_ID", chainId);
 

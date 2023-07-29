@@ -1,8 +1,15 @@
 import { Shape } from "@type/shape";
 import { knex } from "../app";
+import Error_shape from "@errors/shape.json";
 
-export default class Core_Shape {
-	async addShape(shape: Shape): Promise<number[]> {
+export default class CoreShape {
+	/**
+	 * Add a new shape in database
+	 * @param {Shape} shape
+	 * @returns {*}  {Promise<number[]>}
+	 * @memberof CoreShape
+	 */
+	async add(shape: Shape): Promise<number[]> {
 		try {
 			const shapeCreated = await knex("POKEMON").insert({
 				NAME: shape.NAME
@@ -10,43 +17,60 @@ export default class Core_Shape {
 
 			return shapeCreated;
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_SHAPE.add] : ", error);
 			throw error;
 		}
 	}
 
-	async getShape(id: number): Promise<Shape> {
+	/**
+	 * Get a shape from database by his id
+	 * @param {number} id
+	 * @returns {*}  {Promise<Shape>}
+	 * @memberof CoreShape
+	 */
+	async get(id: number): Promise<Shape> {
 		try {
 			const shape = await knex.select("*").from("SHAPE").where("ID", id);
 
-			if (shape.length > 0) return shape[0];
-			else throw "No shape found with this id : " + id;
+			if (shape.length <= 0) throw new InternalError(Error_shape.READ.NOT_FOUND.single);
+			return shape[0];
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_SHAPE.get] : ", error);
 			throw error;
 		}
 	}
 
-	async getShapeByEnglishName(name: string): Promise<Shape> {
+	/**
+	 * Get a shape by his english name
+	 * @param {string} name
+	 * @returns {*}  {Promise<Shape>}
+	 * @memberof CoreShape
+	 */
+	async getByEnglishName(name: string): Promise<Shape> {
 		try {
 			const shape = await knex.select("*").from("SHAPE").where("NAME", name);
 
-			if (shape.length > 0) return shape[0];
-			else throw "No shape found with this name : " + name;
+			if (shape.length <= 0) throw new InternalError(Error_shape.READ.NOT_FOUND.single);
+			return shape[0];
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_SHAPE.getByEnglishName] : ", error);
 			throw error;
 		}
 	}
 
-	async getShapes(): Promise<Shape[]> {
+	/**
+	 * Get all shape from database
+	 * @returns {*}  {Promise<Shape[]>}
+	 * @memberof CoreShape
+	 */
+	async getAll(): Promise<Shape[]> {
 		try {
 			const shape = await knex.select("*").from("SHAPE");
 
-			if (shape.length > 0) return shape;
-			else throw "No shape found";
+			if (shape.length <= 0) throw new InternalError(Error_shape.READ.NOT_FOUND.multiple);
+			return shape;
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_SHAPE.getAll] : ", error);
 			throw error;
 		}
 	}

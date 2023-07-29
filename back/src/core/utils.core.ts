@@ -1,6 +1,12 @@
 import axios from "axios";
 import fs from "fs";
 
+/**
+ * Download image from url and save it in assets folder
+ * @param {string} url
+ * @param {string} filename
+ * @returns {*}  {Promise<void>}
+ */
 const downloadImage = async (url: string, filename: string): Promise<void> => {
 	console.log("'./src/assets/' + filename => ", "./src/assets/" + filename);
 	const response = await axios.get(url, { responseType: "arraybuffer" });
@@ -11,6 +17,10 @@ const downloadImage = async (url: string, filename: string): Promise<void> => {
 	});
 };
 
+/**
+ * Set error/warn logs red and add stack trace
+ * @returns {*}  {boolean}
+ */
 const consoleErrorWithline = (): boolean => {
 	const originalMethodError = console.error;
 	console.error = (...args) => {

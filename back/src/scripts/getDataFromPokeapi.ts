@@ -2,13 +2,13 @@
 import axios from "axios";
 import fs from "fs";
 
-import Core_Type from "../core/type.core";
-import Core_Pokemon from "../core/pokemon.core";
+import CoreType from "../core/type.core";
+import CorePokemon from "../core/pokemon.core";
 import { Pokemon, PokeInfos } from "../types/pokemon";
-import Core_Shape from "../core/shape.core";
+import CoreShape from "../core/shape.core";
 import { Talent } from "../types/talent";
-import Core_Talent from "../core/talent.core";
-import Core_Evolution from "../core/evolution.core";
+import CoreTalent from "../core/talent.core";
+import CoreEvolution from "../core/evolution.core";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -42,7 +42,6 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 		const pokemonData = await axios.get("https://pokeapi.co/api/v2/pokemon/" + i);
 		const pokemonSpeciesData = await axios.get("https://pokeapi.co/api/v2/pokemon-species/" + i);
 
-		// @ts-expect-error
 		const pokemonObject: Pokemon = {
 			POKEMON_ID: 0,
 			NAME_FR: "",
@@ -53,7 +52,7 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 			TYPE_1_ID: 0,
 			TYPE_2_ID: 0,
 			TALENT: "",
-			SHAPE: "",
+			SHAPE: 0,
 			GENERATION: 0,
 			INFORMATION: {
 				height: 0,
@@ -106,13 +105,15 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 		const types = pokemon.types.map((_type: any) => {
 			return { name: _type.type.name };
 		});
-		const coreTypes = new Core_Type();
+		const coreTypes = new CoreType();
 
 		if (types[0]) {
-			pokemonObject.TYPE_1_ID = (await coreTypes.getTypeByEnglishName(types[0].name)).ID;
+			const type = await coreTypes.getByEnglishName(types[0].name);
+			if (type && type.ID) pokemonObject.TYPE_1_ID = type.ID;
 		}
 		if (types[1]) {
-			pokemonObject.TYPE_2_ID = (await coreTypes.getTypeByEnglishName(types[1].name)).ID;
+			const type = await coreTypes.getByEnglishName(types[1].name);
+			if (type && type.ID) pokemonObject.TYPE_2_ID = type.ID;
 		}
 
 		const talents = [];
@@ -125,9 +126,13 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 
 		pokemonObject.CATEGORY = pokemonSpecies.genera.find((_genera: any) => _genera.language.name === "en").genus;
 		pokemonObject.TALENT = JSON.stringify(talents);
-		pokemonObject.SHAPE = pokemonSpecies?.shape
-			? (await new Core_Shape().getShapeByEnglishName(pokemonSpecies?.shape.name.replace("-", ""))).ID
-			: -1;
+		if (pokemonSpecies?.shape) {
+			const shape = await new CoreShape().getByEnglishName(pokemonSpecies?.shape.name.replace("-", ""));
+			if (shape && shape.ID) pokemonObject.SHAPE = shape.ID;
+		} else {
+			pokemonObject.SHAPE = -1;
+		}
+
 		pokemonObject.GENERATION = getGeneration(pokemonSpecies.generation.name.split("-")[1]);
 		pokemonObject.COLOR = pokemonSpecies.color.name;
 
@@ -135,7 +140,7 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 		console.log("pokemonSpecies.evolution_chain.url => ", pokemonSpecies.evolution_chain.url);
 		pokemonObject.EVOLUTION = parseInt(pokemonSpecies.evolution_chain.url.split("/").at(-2));
 
-		await new Core_Pokemon().addPokemon(pokemonObject);
+		await new CorePokemon().add(pokemonObject);
 	} catch (error) {
 		console.error("[getOnePokemon error ] => ", i, " - ", error);
 		throw "Error";
@@ -172,7 +177,7 @@ async function addEvolutions(url: string) {
 	const chainId = evolutionData.id;
 	const evolution = evolutionData.chain;
 
-	const evolutionChain = await new Core_Evolution().getEvolutionByChainID(chainId);
+	const evolutionChain = await new CoreEvolution().getByChainID(chainId);
 	if (evolutionChain.length === 0) addEvolution(evolution, evolutionObject, 0, chainId);
 }
 
@@ -203,7 +208,7 @@ async function addEvolution(evolution: any, evolutionObject: any, level: any, ch
 		evolutionObject.TRIGGER = e ? e.trigger.name : "";
 	}
 
-	await new Core_Evolution().addEvolution(evolutionObject);
+	await new CoreEvolution().add(evolutionObject);
 
 	if (evolution.evolves_to.length > 0) {
 		level = level + 1;
@@ -221,12 +226,12 @@ async function addEvolution(evolution: any, evolutionObject: any, level: any, ch
 async function getTypes() {
 	try {
 		const pokeType = await axios.get("https://pokeapi.co/api/v2/type/");
-		const coreType = new Core_Type();
+		const coreType = new CoreType();
 
 		console.log(pokeType.data.results);
 
 		for (const type of pokeType.data.results) {
-			coreType.addType({ NAME: type.name });
+			coreType.add({ NAME: type.name });
 		}
 	} catch (error) {
 		console.error(error);
@@ -236,12 +241,12 @@ async function getTypes() {
 async function getShapes() {
 	try {
 		const pokeShape = await axios.get("https://pokeapi.co/api/v2/pokemon-shape/");
-		const coreShape = new Core_Shape();
+		const coreShape = new CoreShape();
 
 		console.log(pokeShape.data.results);
 
 		for (const type of pokeShape.data.results) {
-			coreShape.addShape({ NAME: type.name });
+			coreShape.add({ NAME: type.name });
 		}
 	} catch (error) {
 		console.error(error);
@@ -277,8 +282,8 @@ async function getTalent() {
 					: ""
 		};
 
-		const coreTalent = new Core_Talent();
-		coreTalent.addTalent(talent);
+		const coreTalent = new CoreTalent();
+		coreTalent.add(talent);
 		i++;
 
 		await new Promise((resolve, reject) => {

@@ -15,7 +15,7 @@ export interface Pokemon {
 	TYPE_1_ID: number;
 	TYPE_2_ID: number;
 	TALENT: string;
-	SHAPE: string;
+	SHAPE: number;
 	GENERATION: number;
 	INFORMATION: PokeInfos;
 	EVOLUTION: number;

@@ -1,8 +1,15 @@
 import { Type } from "@type/type";
 import { knex } from "../app";
+import Error_type from "@errors/type.json";
 
-export default class Core_Type {
-	async addType(type: Type): Promise<number[]> {
+export default class CoreType {
+	/**
+	 * Add a new type in database
+	 * @param {Type} type
+	 * @returns {*}  {Promise<number[]>}
+	 * @memberof CoreType
+	 */
+	async add(type: Type): Promise<number[]> {
 		try {
 			const typeCreated = await knex("TYPE").insert({
 				NAME: type.NAME
@@ -10,43 +17,60 @@ export default class Core_Type {
 
 			return typeCreated;
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TYPE.add] : ", error);
 			throw error;
 		}
 	}
 
-	async getType(id: number): Promise<Type> {
+	/**
+	 * Get a type from database by his id
+	 * @param {number} id
+	 * @returns {*}  {Promise<Type>}
+	 * @memberof CoreType
+	 */
+	async get(id: number): Promise<Type> {
 		try {
 			const type = await knex.select("*").from("TYPE").where("ID", id);
 
-			if (type.length > 0) return type[0];
-			else throw "No type found with this id : " + id;
+			if (type.length <= 0) throw new InternalError(Error_type.READ.NOT_FOUND.single);
+			return type[0];
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TYPE.get] : ", error);
 			throw error;
 		}
 	}
 
-	async getTypeByEnglishName(name: string): Promise<Type> {
+	/**
+	 * Get a type by his english name
+	 * @param {string} name
+	 * @returns {*}  {Promise<Type>}
+	 * @memberof CoreType
+	 */
+	async getByEnglishName(name: string): Promise<Type> {
 		try {
 			const type = await knex.select("*").from("TYPE").where("NAME", name);
 
-			if (type.length > 0) return type[0];
-			else throw "No type found with this name : " + name;
+			if (type.length <= 0) throw new InternalError(Error_type.READ.NOT_FOUND.single);
+			return type[0];
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TYPE.getByEnglishName] : ", error);
 			throw error;
 		}
 	}
 
-	async getTypes(): Promise<Type[]> {
+	/**
+	 * Get all types from database
+	 * @returns {*}  {Promise<Type[]>}
+	 * @memberof CoreType
+	 */
+	async getAll(): Promise<Type[]> {
 		try {
 			const type = await knex.select("*").from("TYPE");
 
-			if (type.length > 0) return type;
-			else throw "No type found";
+			if (type.length <= 0) throw new InternalError(Error_type.READ.NOT_FOUND.multiple);
+			return type;
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TYPE.getAll] : ", error);
 			throw error;
 		}
 	}

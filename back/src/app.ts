@@ -57,8 +57,8 @@ app.register(cors, {
 	// Run the server!
 	try {
 		setGlobals();
-		await app.listen({ port: 3000 });
 		consoleErrorWithline();
+		await app.listen({ port: 3000 });
 		// app.blipp();
 	} catch (err) {
 		console.error("Error on main : ", err);

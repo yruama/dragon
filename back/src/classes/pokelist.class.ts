@@ -1,36 +1,47 @@
 import { Pokelist } from "@type/pokelist";
-import Core_Pokelist from "../core/pokelist.core";
-import Core_Generation from "../core/generation.core";
-import Core_Pokemon from "../core/pokemon.core";
+import CorePokelist from "../core/pokelist.core";
+import CoreGeneration from "../core/generation.core";
+import CorePokemon from "../core/pokemon.core";
 
-export default class Class_Pokelist {
-	private readonly _pokelist: Core_Pokelist;
-	private readonly _pokemon: Core_Pokemon;
-	private readonly _generations: Core_Generation;
+export default class ClassPokelist {
+	private readonly corePokelist: CorePokelist;
+	private readonly corePokemon: CorePokemon;
+	private readonly coreGeneration: CoreGeneration;
 
 	constructor() {
-		this._pokelist = new Core_Pokelist();
-		this._generations = new Core_Generation();
-		this._pokemon = new Core_Pokemon();
+		this.corePokelist = new CorePokelist();
+		this.coreGeneration = new CoreGeneration();
+		this.corePokemon = new CorePokemon();
 	}
 
-	async addPokelist(pokelist: Pokelist): Promise<number[]> {
+	/**
+	 * Add a new pokelist
+	 * @param {Pokelist} pokelist
+	 * @returns {*}  {Promise<number[]>}
+	 * @memberof ClassPokelist
+	 */
+	async add(pokelist: Pokelist): Promise<number[] | boolean> {
 		try {
 			// A Refaire suite aux changements du back
 			console.log("pokelist : ", pokelist);
 			return true;
 		} catch (error) {
-			console.error("Error on addPokelist : ", error);
+			console.error("[CLASS_POKELIST.add] : ", error);
 			throw error;
 		}
 	}
 
-	async getPokeList(): Promise<boolean> {
+	/**
+	 * Get a user pokelist
+	 * @returns {*}  {Promise<boolean>}
+	 * @memberof ClassPokelist
+	 */
+	async get(): Promise<boolean> {
 		try {
 			// A Refaire suite aux changements du back
 			return true;
 		} catch (error) {
-			console.error("Error on getPokeList : ", error);
+			console.error("[CLASS_POKELIST.get] : ", error);
 			throw error;
 		}
 	}

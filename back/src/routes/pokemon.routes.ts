@@ -1,57 +1,215 @@
 import { FastifyReply } from "fastify";
 import { RequestRouteOptions } from "fastify/types/request";
-import Core_Pokemon from "../core/pokemon.core";
-import { replySuccess, errorFormat } from "@core/route.core";
+import CorePokemon from "../core/pokemon.core";
+import { replySuccess, replyError } from "@core/route.core";
 import { FastifyInstanceDecorated, RequestType } from "@type/route";
 
-const corePokemon = new Core_Pokemon();
+const corePokemon = new CorePokemon();
 
 async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOptions): Promise<void> {
+	/**
+	 * Get all pokemons route
+	 * @memberof PokemonRoutes
+	 * @description Get all pokemons route
+	 * @path {GET} /pokemon
+	 * @query {number} [offset] - Offset
+	 * @query {number} [limit] - Limit
+	 * @example_success
+	 * // returns an array of pokemons
+	 * {
+	 * 		"statusCode": 200,
+	 * 		"data": [
+	 * 			{
+	 * 				"ID": 1,
+	 * 				"POKEMON_ID": 1,
+	 * 				"NAME_EN": "Bulbasaur",
+	 * 				"TYPE_1_ID": "Grass",
+	 * 				"SHAPE": 3,
+	 * 				"GENERATION": 1,
+	 * 				...
+	 * 			}
+	 * 		]
+	 * }
+	 * @example_error
+	 * // returns an error
+	 * {
+	 * 		"statusCode": 500,
+	 * 		"error": {
+	 * 			"message": "Internal Server Error",
+	 * 			"description": "Error description"	
+	 * 		}
+	 * 	}
+	 */
 	fastify.get("/", async (request: RequestType, reply: FastifyReply) => {
 		try {
 			const offset = request.query.offset ? parseInt(request.query.offset) : 1;
 			const limit = request.query.limit ? parseInt(request.query.limit) : 25;
 
-			const pokemons = await corePokemon.getPokemonsWithPagination(offset, limit);
+			const pokemons = await corePokemon.getWithPagination(offset, limit);
 			await replySuccess(pokemons, reply, "get");
 		} catch (error) {
-			await reply.send(errorFormat(error));
+			await replyError(error, reply);
 		}
 	});
 
+	/**
+	 * Get user pokedex route
+	 * @memberof PokemonRoutes
+	 * @description Get user pokedex route
+	 * @path {GET} /pokemon/user-pokedex
+	 * @example_success
+	 * // returns an array of pokemons
+	 * {
+	 * 		"statusCode": 200,
+	 * 		"data": [
+	 * 			{
+	 * 				"ID": 1,
+	 * 				"POKEMON_ID": 1,
+	 * 				"NAME_EN": "Bulbasaur",
+	 * 				"TYPE_1_ID": "Grass",
+	 * 				"SHAPE": 3,
+	 * 				"GENERATION": 1,
+	 * 				...
+	 * 			}
+	 * 		]
+	 * }
+	 * @example_error
+	 * // returns an error
+	 * {
+	 * 		"statusCode": 500,
+	 * 		"error": {
+	 * 			"message": "Internal Server Error",
+	 * 			"description": "Error description"
+	 * 		}
+	 * 	}
+	 */
 	fastify.get("/user-pokedex", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
 		try {
-			const pokemons = await corePokemon.getPokemonOfUserPokedex(request.user.id);
+			const pokemons = await corePokemon.getUserPokedex(request.user.id);
 			await replySuccess(pokemons, reply, "get");
 		} catch (error) {
-			await reply.send(errorFormat(error));
+			await replyError(error, reply);
 		}
 	});
 
+	/**
+	 * Add pokemon to user pokedex route
+	 * @memberof PokemonRoutes
+	 * @description Add pokemon to user pokedex route
+	 * @path {POST} /pokemon/user-pokedex
+	 * @body {number[]} pokemonIds - Pokemon ids
+	 * @example_success
+	 * // returns an array of pokemons
+	 * {
+	 * 		"statusCode": 200,
+	 * 		"data": [
+	 * 			{
+	 * 				"ID": 1,
+	 * 				"POKEMON_ID": 1,
+	 * 				"NAME_EN": "Bulbasaur",
+	 * 				"TYPE_1_ID": "Grass",
+	 * 				"SHAPE": 3,
+	 * 				"GENERATION": 1,
+	 * 				...
+	 * 			}
+	 * 		]
+	 * }
+	 * @example_error
+	 * // returns an error
+	 * {
+	 * 		"statusCode": 500,
+	 * 		"error": {
+	 * 			"message": "Internal Server Error",
+	 * 			"description": "Error description"
+	 * 		}
+	 * 	}
+	 */
 	fastify.post("/user-pokedex", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
 		try {
-			const pokemon = await corePokemon.addPokemonInUserPokedex(request.user.id, request.body.pokemonIds);
+			const pokemon = await corePokemon.addManyToUserPokedex(request.user.id, request.body.pokemonIds);
 			await replySuccess(pokemon, reply, "post");
 		} catch (error) {
-			await reply.send(errorFormat(error));
+			await replyError(error, reply);
 		}
 	});
 
+	/**
+	 * Get many pokemons route
+	 * @memberof PokemonRoutes
+	 * @description Get many pokemons route
+	 * @path {POST} /pokemon/getMany
+	 * @body {number[]} pokemonIds - Pokemon ids
+	 * @example_success
+	 * // returns an array of pokemons
+	 * {
+	 * 		"statusCode": 200,
+	 * 		"data": [
+	 * 			{
+	 * 				"ID": 1,
+	 * 				"POKEMON_ID": 1,
+	 * 				"NAME_EN": "Bulbasaur",
+	 * 				"TYPE_1_ID": "Grass",
+	 * 				"SHAPE": 3,
+	 * 				"GENERATION": 1,
+	 * 				...
+	 * 			}
+	 * 		]
+	 * }
+	 * @example_error
+	 * // returns an error
+	 * {
+	 * 		"statusCode": 500,
+	 * 		"error": {
+	 * 			"message": "Internal Server Error",
+	 * 			"description": "Error description"
+	 * 		}
+	 * 	}
+	 */
 	fastify.post("/getMany", async (request: RequestType, reply: FastifyReply) => {
 		try {
-			const pokemons = await corePokemon.getManyPokemon(request.body.pokemonIds);
+			const pokemons = await corePokemon.getMany(request.body.pokemonIds);
 			await replySuccess(pokemons, reply, "get");
 		} catch (error) {
-			await reply.send(errorFormat(error));
+			await replyError(error, reply);
 		}
 	});
 
+	/**
+	 * Get pokemon by id route
+	 * @memberof PokemonRoutes
+	 * @description Get pokemon by id route
+	 * @path {GET} /pokemon/:id
+	 * @param {number} id - Pokemon id
+	 * @example_success
+	 * // returns a pokemon
+	 * {
+	 * 		"statusCode": 200,
+	 * 		"data": {
+	 * 			"ID": 1,
+	 * 			"POKEMON_ID": 1,
+	 * 			"NAME_EN": "Bulbasaur",
+	 * 			"TYPE_1_ID": "Grass",
+	 * 			"SHAPE": 3,
+	 * 			"GENERATION": 1,
+	 * 			...
+	 * 		}
+	 * }
+	 * @example_error
+	 * // returns an error
+	 * {
+	 * 		"statusCode": 500,
+	 * 		"error": {
+	 * 			"message": "Internal Server Error",
+	 * 			"description": "Error description"
+	 * 		}
+	 * 	}
+	 */
 	fastify.get("/:id", async (request: RequestType, reply: FastifyReply) => {
 		try {
-			const pokemon = await corePokemon.getPokemon(parseInt(request.params.id));
+			const pokemon = await corePokemon.get(parseInt(request.params.id));
 			await replySuccess(pokemon, reply, "get");
 		} catch (error) {
-			await reply.send(errorFormat(error));
+			await replyError(error, reply);
 		}
 	});
 }

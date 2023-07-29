@@ -1,8 +1,15 @@
 import { Talent } from "@type/talent";
 import { knex } from "../app";
+import Error_talent from "@errors/talent.json";
 
-export default class Core_Talent {
-	async addTalent(talent: Talent): Promise<number[]> {
+export default class CoreTalent {
+	/**
+	 * Add a new talent in database
+	 * @param {Talent} talent
+	 * @returns {*}  {Promise<number[]>}
+	 * @memberof CoreTalent
+	 */
+	async add(talent: Talent): Promise<number[]> {
 		try {
 			const talentCreated = await knex("TALENT").insert({
 				NAME_FR: talent.NAME_FR,
@@ -13,43 +20,60 @@ export default class Core_Talent {
 
 			return talentCreated;
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TALENT.add] : ", error);
 			throw error;
 		}
 	}
 
-	async getTalentByEnglishName(name: string): Promise<Talent> {
+	/**
+	 * Get a talent from his english name
+	 * @param {string} name
+	 * @returns {*}  {Promise<Talent>}
+	 * @memberof CoreTalent
+	 */
+	async getByEnglishName(name: string): Promise<Talent> {
 		try {
 			const talent = await knex.select("*").from("TALENT").where("NAME_EN", name);
 
-			if (talent.length > 0) return talent[0];
-			else throw "No talent found with this name : " + name;
+			if (talent.length <= 0) throw new InternalError(Error_talent.READ.NOT_FOUND.single);
+			return talent[0];
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TALENT.getByEnglishName] : ", error);
 			throw error;
 		}
 	}
 
-	async getTalent(id: number): Promise<Talent> {
+	/**
+	 * Get a talent by his id
+	 * @param {number} id
+	 * @returns {*}  {Promise<Talent>}
+	 * @memberof CoreTalent
+	 */
+	async get(id: number): Promise<Talent> {
 		try {
 			const talent = await knex.select("*").from("TALENT").where("ID", id);
 
-			if (talent.length > 0) return talent[0];
-			else throw "No talent found with this id : " + id;
+			if (talent.length <= 0) throw new InternalError(Error_talent.READ.NOT_FOUND.single);
+			return talent[0];
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TALENT.get] : ", error);
 			throw error;
 		}
 	}
 
-	async getTalents(): Promise<Talent[]> {
+	/**
+	 * Get all talents
+	 * @returns {*}  {Promise<Talent[]>}
+	 * @memberof CoreTalent
+	 */
+	async getAll(): Promise<Talent[]> {
 		try {
 			const talent = await knex.select("*").from("TALENT");
 
-			if (talent.length > 0) return talent;
-			else throw "No talent found";
+			if (talent.length <= 0) throw new InternalError(Error_talent.READ.NOT_FOUND.multiple);
+			return talent;
 		} catch (error) {
-			console.error("Error => ", error);
+			console.error("[CORE_TALENT.getAll] : ", error);
 			throw error;
 		}
 	}

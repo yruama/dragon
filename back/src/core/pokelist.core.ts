@@ -3,6 +3,13 @@ import { knex } from "../app";
 import Error_pokelist from "@errors/pokelist.json";
 
 export default class CorePokelist {
+	/**
+	 * Add a new pokelist in database
+	 * @param {Pokelist} pokelist
+	 * @param {number} total
+	 * @returns {*}  {Promise<number[]>}
+	 * @memberof CorePokelist
+	 */
 	async add(pokelist: Pokelist, total: number): Promise<number[]> {
 		try {
 			const newPokelist = await knex.insert({
@@ -15,11 +22,18 @@ export default class CorePokelist {
 
 			return newPokelist;
 		} catch (error) {
-			console.error("[CORE_POKELIST.addPokelist] : ", error);
+			console.error("[CORE_POKELIST.add] : ", error);
 			throw error;
 		}
 	}
 
+	/**
+	 * Get a pokelist from database by his id
+	 * @param {number} id
+	 * @param {number} userId
+	 * @returns {*}  {Promise<Pokelist>}
+	 * @memberof CorePokelist
+	 */
 	async get(id: number, userId: number): Promise<Pokelist> {
 		try {
 			const pokelist = await knex.select("*").from("POKELIST").where("ID", id).andWhere("USER_ID", userId);
@@ -32,25 +46,38 @@ export default class CorePokelist {
 		}
 	}
 
+	/**
+	 * Delete a pokelist from database by his id and userId
+	 * @param {number} id
+	 * @param {number} userId
+	 * @returns {*}  {Promise<number>}
+	 * @memberof CorePokelist
+	 */
 	async delete(id: number, userId: number): Promise<number> {
 		try {
 			const pokelist = await knex("POKELIST").where("ID", id).andWhere("USER_ID", userId).del();
 
 			return pokelist;
 		} catch (error) {
-			console.error("[CORE_POKELIST.deletePokelist] : ", error);
+			console.error("[CORE_POKELIST.delete] : ", error);
 			throw error;
 		}
 	}
 
-	async getAll(userId: number): Promise<Pokelist[]> {
+	/**
+	 * Get all pokelists from database by userId
+	 * @param {number} userId
+	 * @returns {*}  {Promise<Pokelist[]>}
+	 * @memberof CorePokelist
+	 */
+	async getAllByUser(userId: number): Promise<Pokelist[]> {
 		try {
 			const pokelist = await knex.select("*").from("POKELIST").where("USER_ID", userId);
 
-			if (pokelist.length > 0) return pokelist;
-			else throw "No pokelist found";
+			if (pokelist.length <= 0) throw new InternalError(Error_pokelist.READ.NOT_FOUND.multiple);
+			return pokelist;
 		} catch (error) {
-			console.error("[CORE_POKELIST.getPokelists] : ", error);
+			console.error("[CORE_POKELIST.getAll] : ", error);
 			throw error;
 		}
 	}
