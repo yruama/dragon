@@ -160,10 +160,7 @@ export class HeaderComponent {
 				})
 
 				//On cherche un item à activer
-				const menuItem = this.menu.find((_item: MenuBloc) => { 
-					console.log("Item : ", _item)
-					return url.includes(_item.key)
-				 });
+				const menuItem = this.menu.find((_item: MenuBloc) => { url.includes(_item.key) });
 				if (menuItem) menuItem.isActive = true;
 			}
 		  });
@@ -191,7 +188,6 @@ export class HeaderComponent {
 
 		/* gestion connexion */
 		this.GlobalService.userConnected$.subscribe((userConnected) => {
-			console.log("setUpUserMenu")
 			this.setUpUserMenu(userConnected);
 		});
 	}
