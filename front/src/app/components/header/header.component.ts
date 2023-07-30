@@ -160,7 +160,7 @@ export class HeaderComponent {
 				})
 
 				//On cherche un item à activer
-				const menuItem = this.menu.find((_item: MenuBloc) => { url.includes(_item.key) });
+				const menuItem = this.menu.find((_item: MenuBloc) => url.includes(_item.key));
 				if (menuItem) menuItem.isActive = true;
 			}
 		  });
