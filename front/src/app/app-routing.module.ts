@@ -6,6 +6,7 @@ const routes: Routes = [
 	{ path: '', loadChildren: async () => (await import('./pages/home/home.module')).HomeModule },
 	{ path: 'users', loadChildren: async () => (await import('./pages/users/users.module')).UsersModule },
 	{ path: 'pokedex', loadChildren: async () => (await import('./pages/pokedex/pokedex.module')).PokedexModule },
+	{ path: 'tcg', loadChildren: async () => (await import('./pages/pokelist/pokelist.module')).PokelistModule },
 	{ path: 'users/sign-up', loadChildren: async () => (await import('./pages/users/auth/sign-up/sign-up.module')).SignUpModule },
 	{ path: 'users/sign-in', loadChildren: async () => (await import('./pages/users/auth/sign-in/sign-in.module')).SignInModule }
 ];

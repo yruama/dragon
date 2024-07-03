@@ -17,7 +17,6 @@ import { NgModule } from "@angular/core";
 import { ToastModule } from 'primeng/toast';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateService } from '@ngx-translate/core';
-import { PokelistComponent } from './pages/pokelist/pokelist.component';
 
 export function appInitializerFactory(translate: TranslateService) {
 	return () => new Promise<void>((resolve: any) => {
@@ -37,8 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
 	declarations: [
 		AppComponent,
-		LoaderComponent,
-  PokelistComponent
+		LoaderComponent
 	],
 	imports: [
 		HttpClientModule,

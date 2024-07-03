@@ -1,11 +1,12 @@
-import { ViewChild, ViewEncapsulation } from '@angular/core';
-import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'primeng/api';
+import { ViewChild, ViewEncapsulation } from '@angular/core';
+
+import { Component } from '@angular/core';
 import { GlobalService } from 'src/app/services/global/global.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { MenuItem } from 'primeng/api';
 import { ThemeService } from 'src/app/theme.service';
+import { TranslateService } from '@ngx-translate/core';
+import { UserService } from 'src/app/services/user/user.service';
 
 interface MenuBloc {
 	name: string;
