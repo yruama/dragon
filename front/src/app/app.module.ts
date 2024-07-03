@@ -1,21 +1,23 @@
-import { NgModule } from "@angular/core";
-import { AppComponent } from "./app.component";
-import { TranslateLoader, TranslateModule, TranslateStore } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { JwtHelperService, JWT_OPTIONS } from "@auth0/angular-jwt";
-import { AuthGuardService } from "./services/auth-guard/auth-guard.service";
-import { MessageService } from "primeng/api";
-import { AppRoutingModule } from "./app-routing.module";
-import { HeaderModule } from "./components/header/header.module";
+import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
+import { TranslateLoader, TranslateModule, TranslateStore } from "@ngx-translate/core";
+
 import { APP_INITIALIZER } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
+import { AppComponent } from "./app.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { AuthGuardService } from "./services/auth-guard/auth-guard.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastModule } from 'primeng/toast';
+import { BrowserModule } from "@angular/platform-browser";
+import { CommonModule } from "@angular/common";
+import { HeaderModule } from "./components/header/header.module";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { LoaderService } from "./services/loader/loader.service";
+import { MessageService } from "primeng/api";
+import { NgModule } from "@angular/core";
+import { ToastModule } from 'primeng/toast';
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateService } from '@ngx-translate/core';
+import { PokelistComponent } from './pages/pokelist/pokelist.component';
 
 export function appInitializerFactory(translate: TranslateService) {
 	return () => new Promise<void>((resolve: any) => {
@@ -35,7 +37,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
 	declarations: [
 		AppComponent,
-		LoaderComponent
+		LoaderComponent,
+  PokelistComponent
 	],
 	imports: [
 		HttpClientModule,

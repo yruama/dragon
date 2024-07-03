@@ -1,8 +1,9 @@
+import { FastifyInstanceDecorated, RequestType } from "@type/route";
+import { replyError, replySuccess } from "@core/route.core";
+
+import CorePokemon from "../core/pokemon.core";
 import { FastifyReply } from "fastify";
 import { RequestRouteOptions } from "fastify/types/request";
-import CorePokemon from "../core/pokemon.core";
-import { replySuccess, replyError } from "@core/route.core";
-import { FastifyInstanceDecorated, RequestType } from "@type/route";
 
 const corePokemon = new CorePokemon();
 
@@ -44,8 +45,9 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 		try {
 			const offset = request.query.offset ? parseInt(request.query.offset) : 1;
 			const limit = request.query.limit ? parseInt(request.query.limit) : 25;
+			const max = request.query.limit ? parseInt(request.query.max) : null;
 
-			const pokemons = await corePokemon.getWithPagination(offset, limit);
+			const pokemons = await corePokemon.getWithPagination(offset, limit, max);
 			await replySuccess(pokemons, reply, "get");
 		} catch (error) {
 			await replyError(error, reply);

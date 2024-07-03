@@ -1,6 +1,7 @@
+import Error_pokemon from "@errors/pokemon.json";
 import { Pokemon } from "@type/pokemon";
 import { knex } from "../app";
-import Error_pokemon from "@errors/pokemon.json";
+import { parserObject } from "./utils.core";
 
 export default class CorePokemon {
 	/**
@@ -60,12 +61,15 @@ export default class CorePokemon {
 	 * @returns {*}  {Promise<Pokemon[]>}
 	 * @memberof CorePokemon
 	 */
-	async getWithPagination(offset: number, limit: number): Promise<Pokemon[]> {
+	async getWithPagination(offset: number, limit: number, max: number | null): Promise<Pokemon[]> {
 		try {
+			// Dans le cas ou on veut une seule génération par exemple
+			if (max && offset + limit > max) limit = max - offset;
 			const pokemon = await knex.select("*").from("POKEMON").limit(limit).offset(offset).orderBy("POKEMON_ID", "asc");
 
 			if (pokemon.length <= 0) throw new InternalError(Error_pokemon.READ.NOT_FOUND.multiple);
-			return pokemon;
+
+			return parserObject(pokemon);
 		} catch (error) {
 			console.error("[CORE_POKEMON.getWithPagination] : ", error);
 			throw error;

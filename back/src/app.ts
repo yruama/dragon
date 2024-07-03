@@ -1,13 +1,15 @@
+import * as Knex from "knex";
+
+import fastify, { FastifyReply, FastifyRequest } from "fastify";
+
+import blippPlugin from "fastify-blipp";
+import { consoleErrorWithline } from "@core/utils.core";
+import cors from "@fastify/cors";
 /* eslint-disable */
 import dotenv from "dotenv";
-import fastify, { FastifyReply, FastifyRequest } from "fastify";
-import blippPlugin from "fastify-blipp";
-import cors from "@fastify/cors";
-import path from "path";
-import * as Knex from "knex";
-import jwt from "@fastify/jwt";
 import fastifyStatic from "@fastify/static";
-import { consoleErrorWithline } from "@core/utils.core";
+import jwt from "@fastify/jwt";
+import path from "path";
 import { setGlobals } from "./config/global";
 
 dotenv.config();
@@ -51,6 +53,7 @@ app.register(import("./routes/pokemon.routes") as any, { prefix: "api/v1/pokemon
 app.register(import("./routes/user.routes") as any, { prefix: "api/v1/user" });
 app.register(import("./routes/pokelist.routes") as any, { prefix: "api/v1/pokelist" });
 app.register(import("./routes/generation.routes") as any, { prefix: "api/v1/generation" });
+app.register(import("./routes/type.routes") as any, { prefix: "api/v1/type" });
 app.register(cors, {
 	// put your options here
 });

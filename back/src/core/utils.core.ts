@@ -75,4 +75,26 @@ const consoleErrorWithline = (): boolean => {
 	return true;
 };
 
-export { downloadImage, consoleErrorWithline };
+const isJsonString = (str: string): boolean => {
+	try {
+	  JSON.parse(str);
+	  return true;
+	} catch (e) {
+	  return false;
+	}
+  }
+
+const parserObject = (obj: any): any => {
+    if (typeof obj === 'string' && isJsonString(obj)) {
+      return parserObject(JSON.parse(obj));
+    } else if (typeof obj === 'object' && obj !== null) {
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          obj[key] = parserObject(obj[key]);
+        }
+      }
+    }
+    return obj;
+  }
+
+export { downloadImage, consoleErrorWithline, parserObject };

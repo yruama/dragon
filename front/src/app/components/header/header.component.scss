@@ -1,4 +1,9 @@
 .header-card {
+	display: block;
+    position: fixed;
+    width: 100%;
+    top: 0;
+	
 	.p-card {
 		height: 90px;
 		display: flex;
