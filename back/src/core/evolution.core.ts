@@ -1,6 +1,6 @@
+import Error_evolution from "@errors/evolution.json";
 import { Evolution } from "@type/evolution";
 import { knex } from "../app";
-import Error_evolution from "@errors/evolution.json";
 
 export default class CoreEvolution {
 	/**
@@ -51,7 +51,7 @@ export default class CoreEvolution {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("ID", id);
 
-			if (evolution.length <= 0) throw new InternalError(Error_evolution.READ.NOT_FOUND.single);
+			if (evolution.length <= 0) throw new InternalError(Error_evolution.READ.NOT_FOUND.multiple);
 			return evolution[0];
 		} catch (error) {
 			console.error("[CORE_EVOLUTION.get] : ", error);
@@ -61,11 +61,11 @@ export default class CoreEvolution {
 
 	/**
 	 * Get evolution by chain id
-	 * @param {number} chainId
+	 * @param {string} chainId
 	 * @returns {*}  {Promise<Evolution[]>}
 	 * @memberof CoreEvolution
 	 */
-	async getByChainID(chainId: number): Promise<Evolution[]> {
+	async getByChainID(chainId: string): Promise<Evolution[]> {
 		try {
 			const evolution = await knex.select("*").from("EVOLUTION").where("CHAIN_ID", chainId);
 

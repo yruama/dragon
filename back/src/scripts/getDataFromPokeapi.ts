@@ -1,14 +1,15 @@
+import { PokeInfos, Pokemon } from "../types/pokemon";
+
+import CoreEvolution from "../core/evolution.core";
+import CorePokemon from "../core/pokemon.core";
+import CoreShape from "../core/shape.core";
+import CoreTalent from "../core/talent.core";
+import CoreType from "../core/type.core";
+import { Talent } from "../types/talent";
 /* eslint-disable */
 import axios from "axios";
 import fs from "fs";
 
-import CoreType from "../core/type.core";
-import CorePokemon from "../core/pokemon.core";
-import { Pokemon, PokeInfos } from "../types/pokemon";
-import CoreShape from "../core/shape.core";
-import { Talent } from "../types/talent";
-import CoreTalent from "../core/talent.core";
-import CoreEvolution from "../core/evolution.core";
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -49,8 +50,8 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 			DESCRIPTION_FR: "",
 			DESCRIPTION_EN: "",
 			CATEGORY: "",
-			TYPE_1_ID: 0,
-			TYPE_2_ID: 0,
+			TYPE_ID_1: 0,
+			TYPE_ID_2: 0,
 			TALENT: "",
 			SHAPE: 0,
 			GENERATION: 0,
@@ -109,11 +110,11 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 
 		if (types[0]) {
 			const type = await coreTypes.getByEnglishName(types[0].name);
-			if (type && type.ID) pokemonObject.TYPE_1_ID = type.ID;
+			if (type && type.ID) pokemonObject.TYPE_ID_1 = type.ID;
 		}
 		if (types[1]) {
 			const type = await coreTypes.getByEnglishName(types[1].name);
-			if (type && type.ID) pokemonObject.TYPE_2_ID = type.ID;
+			if (type && type.ID) pokemonObject.TYPE_ID_2 = type.ID;
 		}
 
 		const talents = [];
@@ -136,7 +137,7 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 		pokemonObject.GENERATION = getGeneration(pokemonSpecies.generation.name.split("-")[1]);
 		pokemonObject.COLOR = pokemonSpecies.color.name;
 
-		addEvolutions(pokemonSpecies.evolution_chain.url);
+		//addEvolutions(pokemonSpecies.evolution_chain.url);
 		console.log("pokemonSpecies.evolution_chain.url => ", pokemonSpecies.evolution_chain.url);
 		pokemonObject.EVOLUTION = parseInt(pokemonSpecies.evolution_chain.url.split("/").at(-2));
 

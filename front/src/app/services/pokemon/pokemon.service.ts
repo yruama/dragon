@@ -11,7 +11,7 @@ import { environment } from "src/environments/environment";
 export class PokemonService {
 	constructor(private readonly _http: HttpClient) { }
 
-	getPokemon(id: number): Observable<APIResult> {
+	getPokemon(id: string): Observable<APIResult> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
@@ -25,6 +25,14 @@ export class PokemonService {
 		});
 
 		return this._http.get<APIResult>(`${environment.apiURL}/pokemon?offset=${offset}&limit=${limit}&max=${max}`, { headers });
+	}
+
+	getPokemonEvolutions(chainId: string): Observable<APIResult> {
+		const headers = new HttpHeaders({
+			"Content-Type": "application/json"
+		});
+
+		return this._http.get<APIResult>(`${environment.apiURL}/pokemon/evolutions/${chainId}`, { headers });
 	}
 
 	getUserPokedex(): Observable<APIResult> {

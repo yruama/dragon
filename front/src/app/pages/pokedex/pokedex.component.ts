@@ -6,11 +6,6 @@ import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
 import { TypeService } from 'src/app/services/type/type.service';
 import { environment } from 'src/environments/environment';
 
-interface PokemonWithTypeData extends Pokemon {
-  TYPE_1_NAME: string;
-  TYPE_2_NAME: string
-}
-
 @Component({
   selector: 'app-pokedex',
   templateUrl: './pokedex.component.html',
@@ -19,7 +14,7 @@ interface PokemonWithTypeData extends Pokemon {
 export class PokedexComponent implements OnInit {
 
   env = environment;
-  pokemons: PokemonWithTypeData[] = [];
+  pokemons: Pokemon[] = [];
   generations: any;
   type: any;
   currentGeneration = -2;
@@ -40,21 +35,7 @@ export class PokedexComponent implements OnInit {
               private TypeService: TypeService) {}
 
   ngOnInit(): void {
-    this.getType();
-  }
-
-  getType() {
-    this.TypeService.getTypes().subscribe({
-      next: (data: any) => {
-        console.log("TYPE : ", data)
-
-        this.type = data;
-      }, error: (err) => {
-        
-      }, complete: () => {
-        this.getGeneration();
-      }
-    })
+    this.getGeneration();
   }
 
   getGeneration() {
@@ -113,11 +94,6 @@ export class PokedexComponent implements OnInit {
     this.PokemonService.getPokemons(this.pagination.offset, this.pagination.limit, this.pagination.max).subscribe({
       next: (data: any) => {
        this.pokemons = data;
-
-       for (const pokemon of this.pokemons) {
-        if (pokemon.TYPE_ID_1) pokemon.TYPE_1_NAME = this.type.find((t: any) => t.ID === pokemon.TYPE_ID_1)?.NAME
-        if (pokemon.TYPE_ID_2) pokemon.TYPE_2_NAME = this.type.find((t: any) => t.ID === pokemon.TYPE_ID_2)?.NAME
-       }
 
        console.log("Pokemons : ", data)
       }, error: (err) => {

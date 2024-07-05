@@ -12,8 +12,8 @@ export interface Pokemon {
 	DESCRIPTION_FR: string;
 	DESCRIPTION_EN: string;
 	CATEGORY: string;
-	TYPE_1_ID: number;
-	TYPE_2_ID: number;
+	TYPE_ID_1: number;
+	TYPE_ID_2: number;
 	TALENT: string;
 	SHAPE: number;
 	GENERATION: number;
@@ -23,3 +23,8 @@ export interface Pokemon {
 	artwork: string;
 	miniature: string;
 }
+
+export interface PokemonWithTypeData extends Pokemon {
+	TYPE_1_NAME?: string;
+	TYPE_2_NAME?: string;
+  }

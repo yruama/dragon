@@ -12,8 +12,10 @@ export interface Pokemon {
 	SHAPE: string;
 	GENERATION: number;
 	INFORMATION: PokeInformations;
-	EVOLUTION: number;
+	EVOLUTION_ID: string;
 	COLOR: string;
+	TYPE_1_NAME?: string;
+	TYPE_2_NAME?: string;
 	owned: boolean;
 }
 

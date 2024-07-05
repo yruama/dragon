@@ -16,7 +16,7 @@
 
 <div class="container">
 
-    <div class="pokemons-list" [id]="'pokemon-' + pokemon.POKEMON_ID" *ngFor="let pokemon of pokemons; let i = index">
+    <div class="pokemons-list" [routerLink]="['/pokedex', pokemon.POKEMON_ID]" [id]="'pokemon-' + pokemon.POKEMON_ID" *ngFor="let pokemon of pokemons; let i = index">
 
         <div>
             <div class="pokemons-list__artwork">

@@ -8,11 +8,13 @@ import { SidebarModule } from 'primeng/sidebar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ZeroPaddingPipe } from 'src/app/pipe/zeropadding/zeropadding.pipe';
+import { PokemonComponent } from './pokemon/pokemon.component';
 
 @NgModule({
   declarations: [
 		PokedexComponent,
-    ZeroPaddingPipe
+    ZeroPaddingPipe,
+    PokemonComponent
 	],
 	imports: [
 		PokedexRoutingModule,

@@ -38,16 +38,16 @@ export default class CorePokemon {
 
 	/**
 	 * Get a pokemon from database by his id
-	 * @param {number} id
+	 * @param {string} id
 	 * @returns {*}  {Promise<Pokemon>}
 	 * @memberof CorePokemon
 	 */
-	async get(id: number): Promise<Pokemon> {
+	async get(id: string): Promise<Pokemon> {
 		try {
 			const pokemon = await knex.select("*").from("POKEMON").where("POKEMON_ID", id);
 
 			if (pokemon.length <= 0) throw new InternalError(Error_pokemon.READ.NOT_FOUND.single);
-			return pokemon[0];
+			return parserObject(pokemon[0]);
 		} catch (error) {
 			console.error("[CORE_POKEMON.get] : ", error);
 			throw error;
@@ -61,10 +61,8 @@ export default class CorePokemon {
 	 * @returns {*}  {Promise<Pokemon[]>}
 	 * @memberof CorePokemon
 	 */
-	async getWithPagination(offset: number, limit: number, max: number | null): Promise<Pokemon[]> {
+	async getWithPagination(offset: number, limit: number): Promise<Pokemon[]> {
 		try {
-			// Dans le cas ou on veut une seule génération par exemple
-			if (max && offset + limit > max) limit = max - offset;
 			const pokemon = await knex.select("*").from("POKEMON").limit(limit).offset(offset).orderBy("POKEMON_ID", "asc");
 
 			if (pokemon.length <= 0) throw new InternalError(Error_pokemon.READ.NOT_FOUND.multiple);

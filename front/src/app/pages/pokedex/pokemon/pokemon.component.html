@@ -1,0 +1,44 @@
+<div *ngIf="!isLoading" class="container">
+
+    <div class="heaedr">
+        <div class="title"> {{ pokemon.NAME_FR }} </div>
+    </div>
+
+    <div class="content">
+
+        <div class="toto">
+            <div class="image">
+                <img [src]="env.assetsURL + '/artwork/' + pokemon.POKEMON_ID + '.png'" alt="">
+            </div>
+    
+            <div class="data">
+                <div>
+                    <div class="description">
+                        {{ pokemon.DESCRIPTION_FR }}
+                    </div>
+        
+                    <div class="stats">
+                       <span *ngIf="pokemon.TYPE_ID_1 !== 0" [pTooltip]="'TYPE.' + pokemon.TYPE_1_NAME  | translate"  tooltipPosition="top">
+                            <img [src]="env.assetsURL + '/types/' + pokemon.TYPE_ID_1 + '.png'" alt="">
+                        </span>
+                        <span *ngIf="pokemon.TYPE_ID_2 !== 0" [pTooltip]="'TYPE.' + pokemon.TYPE_2_NAME  | translate" tooltipPosition="top"> 
+                            <img [src]="env.assetsURL + '/types/' + pokemon.TYPE_ID_2 + '.png'" alt="">
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+       
+
+        <div class="evolve">
+            <div class="evolve__image" *ngFor="let pokemon of evolutions">
+                <img [src]="env.assetsURL + '/artwork/' + pokemon.POKEMON_ID + '.png'" alt="">
+            </div>
+        </div>
+
+    </div>
+
+    
+
+</div>
