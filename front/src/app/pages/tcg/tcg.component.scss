@@ -71,6 +71,12 @@
     padding-bottom: 16px;
 }
 
+th.sticky, td.sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    left: 0;
+    box-shadow: 2px 0px 2px black;
+}
 
 //   table{
 //     border-collapse: collapse;
