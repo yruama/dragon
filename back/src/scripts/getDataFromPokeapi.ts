@@ -10,9 +10,6 @@ import { Talent } from "../types/talent";
 import axios from "axios";
 import fs from "fs";
 
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
-
 async function start() {
 	console.log("Start !");
 
@@ -23,7 +20,7 @@ async function start() {
 	// getXPokemon(133, 1);
 	// getXPokemon(2, 1011);
 	// updatePokemonFromFile(0)
-	// getTalent();
+	 getTalent();
 }
 
 async function getXPokemon(start: number, end: number) {
@@ -255,7 +252,7 @@ async function getShapes() {
 }
 
 async function getTalent() {
-	const allTalent = await axios.get("https://pokeapi.co/api/v2/ability/?offset=00&limit=360");
+	const allTalent = await axios.get("https://pokeapi.co/api/v2/ability/?offset=00&limit=960");
 
 	let i = 1;
 	for (const url of allTalent.data.results) {
@@ -276,11 +273,12 @@ async function getTalent() {
 					: "",
 			DESCRIPTION_FR:
 				talentData.flavor_text_entries.length > 0
-					? talentData.flavor_text_entries
-							.filter((_flavor: any) => _flavor.language.name == "fr")
+					? (talentData.flavor_text_entries
+							.filter((_flavor: any) => _flavor.language.name == "fr"))
 							.at(-1)
-							.flavor_text.replace("\n", " ")
-					: ""
+							?.flavor_text.replace("\n", " ") ?? ""
+					: "",
+					TALENT_ID: i.toString()
 		};
 
 		const coreTalent = new CoreTalent();

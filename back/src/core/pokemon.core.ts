@@ -19,13 +19,13 @@ export default class CorePokemon {
 				DESCRIPTION_FR: pokemon.DESCRIPTION_FR,
 				DESCRIPTION_EN: pokemon.DESCRIPTION_EN,
 				CATEGORY: pokemon.CATEGORY,
-				TYPE_ID_1: pokemon.TYPE_1_ID,
-				TYPE_ID_2: pokemon.TYPE_2_ID,
+				TYPE_ID_1: pokemon.TYPE_ID_1,
+				TYPE_ID_2: pokemon.TYPE_ID_2,
 				TALENT: pokemon.TALENT,
-				SHAPE_ID: pokemon.SHAPE,
+				SHAPE_ID: pokemon.SHAPE_ID,
 				GENERATION: pokemon.GENERATION,
 				INFORMATIONS: pokemon.INFORMATION,
-				EVOLUTION_ID: pokemon.EVOLUTION,
+				EVOLUTION_ID: pokemon.EVOLUTION_ID,
 				COLOR: pokemon.COLOR
 			});
 

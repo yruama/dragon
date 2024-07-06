@@ -12,7 +12,10 @@ export class PokemonService {
 	constructor(private readonly _http: HttpClient) { }
 
 	getPokemon(id: string): Observable<APIResult> {
+		const language = navigator.language || 'en';
+
 		const headers = new HttpHeaders({
+			'Accept-Language': language,
 			"Content-Type": "application/json"
 		});
 
@@ -20,7 +23,10 @@ export class PokemonService {
 	}
 
 	getPokemons(offset: number = 0, limit: number = 100, max?: number): Observable<APIResult> {
+		const language = navigator.language || 'en';
+
 		const headers = new HttpHeaders({
+			'Accept-Language': language,
 			"Content-Type": "application/json"
 		});
 
@@ -28,7 +34,10 @@ export class PokemonService {
 	}
 
 	getPokemonEvolutions(chainId: string): Observable<APIResult> {
+		const language = navigator.language || 'en';
+
 		const headers = new HttpHeaders({
+			'Accept-Language': language,
 			"Content-Type": "application/json"
 		});
 

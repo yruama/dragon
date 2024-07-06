@@ -38,20 +38,6 @@ export class PokemonComponent implements OnInit {
       }, error: (err) => {
         
       }, complete: () => {
-        this.getPokemonEvolutions();
-      }
-    })
-  }
-
-
-  getPokemonEvolutions() {
-    this.PokemonService.getPokemonEvolutions(this.pokemon.EVOLUTION_ID).subscribe({
-      next: (data: any) => {
-        console.log("Evolutions : ", data)
-        this.evolutions = data;
-      }, error: (err) => {
-        
-      }, complete: () => {
         this.isLoading = false;
       }
     })

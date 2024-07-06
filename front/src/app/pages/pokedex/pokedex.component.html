@@ -10,7 +10,7 @@
          (click)="selectGeneration(i)"
          [ngClass]="currentGeneration === i ? ' is-selected' : ''"
          *ngFor="let generation of generations; let i = index">
-            {{ 'Gen N°' + generation.GENERATION_NO }} - {{generation.NAME_FR }} 
+            {{ 'Gen N°' + generation.GENERATION_NO }} - {{ generation.NAME }} 
     </div>
 </div>
 
@@ -24,15 +24,11 @@
             </div>
             <div class="pokemons-list__number">N° {{ pokemon.POKEMON_ID | zeroPadding }}</div>
             <div class="pokemons-list__infos">
-                <div class="pokemons-list__name"> {{ pokemon.NAME_FR }} </div>
+                <div class="pokemons-list__name"> {{ pokemon.NAME }} </div>
                 <div class="pokemons-list__type">
-                    <span *ngIf="pokemon.TYPE_ID_1 !== 0" [pTooltip]="'TYPE.' + pokemon.TYPE_1_NAME  | translate"  tooltipPosition="top">
-                        <img [src]="env.assetsURL + '/types/' + pokemon.TYPE_ID_1 + '.png'" alt="">
+                    <span *ngFor="let type of pokemon.TYPE" [pTooltip]="'TYPE.' + type.name  | translate"  tooltipPosition="top">
+                        <img [src]="env.assetsURL + '/types/' + type.id + '.png'" alt="">
                     </span>
-                    <span *ngIf="pokemon.TYPE_ID_2 !== 0" [pTooltip]="'TYPE.' + pokemon.TYPE_2_NAME  | translate" tooltipPosition="top"> 
-                        <img [src]="env.assetsURL + '/types/' + pokemon.TYPE_ID_2 + '.png'" alt="">
-                    </span>
-    
                 </div>
             </div>
 

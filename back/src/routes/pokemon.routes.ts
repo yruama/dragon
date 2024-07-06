@@ -48,8 +48,9 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 			const offset = request.query.offset ? parseInt(request.query.offset) : 1;
 			const limit = request.query.limit ? parseInt(request.query.limit) : 25;
 			const max = request.query.limit ? parseInt(request.query.max) : null;
+			const language = request.headers['accept-language'] || 'en-GB';
 
-			const pokemons = await classPokemon.getWithPagination(offset, limit, max);
+			const pokemons = await classPokemon.getWithPagination(offset, limit, max, language);
 			await replySuccess(pokemons, reply, "get");
 		} catch (error) {
 			await replyError(error, reply);
@@ -249,7 +250,9 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 	 */
 	fastify.get("/:id", async (request: RequestType, reply: FastifyReply) => {
 		try {
-			const pokemon = await classPokemon.get(request.params.id);
+			const language = request.headers['accept-language'] || 'en-GB';
+			const pokemon = await classPokemon.get(request.params.id, language);
+
 			await replySuccess(pokemon, reply, "get");
 		} catch (error) {
 			await replyError(error, reply);

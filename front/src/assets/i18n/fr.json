@@ -22,6 +22,21 @@
 			"pt": "Português"
 		}
 	},
+	"POKEMON": {
+		"height": "Taille",
+		"talent": "Talent",
+		"weight": "Poids",
+		"category": "Catégorie",
+		"shape": "Forme",
+		"statistics": {
+			"hp": "PV",
+			"attack": "Attaque",
+			"defense": "Défense",
+			"speed": "Vitesse",
+			"special-attack": "Attaque sépcial",
+			"special-defense": "Défense spécial"
+		}
+	},
 	"POKELIST": {
 		"name": "Nom de la liste",
 		"génération": "Génération de la liste",

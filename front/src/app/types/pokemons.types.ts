@@ -1,36 +1,39 @@
 export interface Pokemon {
 	ID?: number;
 	POKEMON_ID: number;
-	NAME_FR: string;
-	NAME_EN: string;
-	DESCRIPTION_FR: string;
-	DESCRIPTION_EN: string;
+	NAME: string;
+	DESCRIPTION: string;
 	CATEGORY: string;
-	TYPE_ID_1: number;
-	TYPE_ID_2: number;
-	TALENT: string;
+	TALENT: PokeTalent[];
 	SHAPE: string;
 	GENERATION: number;
-	INFORMATION: PokeInformations;
-	EVOLUTION_ID: string;
+	INFORMATIONS: PokeInformations;
+	EVOLUTION: PokemonEvolve[];
 	COLOR: string;
-	TYPE_1_NAME?: string;
-	TYPE_2_NAME?: string;
+	TYPE: PokeType[];
 	owned: boolean;
 }
 
-export interface PokeKeyName {
-	name: string;
-	language: string;
-}
-
-export interface PokeStats {
-	value: number;
-	name: string;
+export interface PokemonEvolve {
+	ID?: number;
+	POKEMON_ID: number;
+	NAME: string;
+	TYPE: PokeType[];
 }
 
 export interface PokeInformations {
 	height: number;
 	weight: number;
-	statistics: string;
+	statistics: { value: number, name:any }[];
+}
+
+export interface PokeTalent {
+	name: string,
+	description: string,
+	hidden: boolean
+}
+
+export interface PokeType {
+	id: string,
+	name: string
 }

@@ -1,6 +1,6 @@
+import Error_talent from "@errors/talent.json";
 import { Talent } from "@type/talent";
 import { knex } from "../app";
-import Error_talent from "@errors/talent.json";
 
 export default class CoreTalent {
 	/**
@@ -15,7 +15,8 @@ export default class CoreTalent {
 				NAME_FR: talent.NAME_FR,
 				NAME_EN: talent.NAME_EN,
 				DESCRIPTION_FR: talent.DESCRIPTION_FR,
-				DESCRIPTION_EN: talent.DESCRIPTION_EN
+				DESCRIPTION_EN: talent.DESCRIPTION_EN,
+				TALENT_ID: talent.TALENT_ID
 			});
 
 			return talentCreated;
@@ -51,7 +52,7 @@ export default class CoreTalent {
 	 */
 	async get(id: number): Promise<Talent> {
 		try {
-			const talent = await knex.select("*").from("TALENT").where("ID", id);
+			const talent = await knex.select("*").from("TALENT").where("TALENT_ID", id);
 
 			if (talent.length <= 0) throw new InternalError(Error_talent.READ.NOT_FOUND.single);
 			return talent[0];

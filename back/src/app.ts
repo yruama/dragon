@@ -11,6 +11,7 @@ import fastifyStatic from "@fastify/static";
 import jwt from "@fastify/jwt";
 import path from "path";
 import { setGlobals } from "./config/global";
+import start from "./scripts/getDataFromPokeapi";
 
 dotenv.config();
 
@@ -64,6 +65,7 @@ app.register(cors, {
 		setGlobals();
 		consoleErrorWithline();
 		await app.listen({ port: 3000 });
+		//start();
 		// app.blipp();
 	} catch (err) {
 		console.error("Error on main : ", err);

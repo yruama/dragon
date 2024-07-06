@@ -1,6 +1,6 @@
+import Error_shape from "@errors/shape.json";
 import { Shape } from "@type/shape";
 import { knex } from "../app";
-import Error_shape from "@errors/shape.json";
 
 export default class CoreShape {
 	/**

@@ -1,6 +1,6 @@
+import Error_type from "@errors/type.json";
 import { Type } from "@type/type";
 import { knex } from "../app";
-import Error_type from "@errors/type.json";
 
 export default class CoreType {
 	/**
@@ -28,7 +28,7 @@ export default class CoreType {
 	 * @returns {*}  {Promise<Type>}
 	 * @memberof CoreType
 	 */
-	async get(id: number): Promise<Type> {
+	async get(id: string): Promise<Type> {
 		try {
 			const type = await knex.select("*").from("TYPE").where("ID", id);
 
