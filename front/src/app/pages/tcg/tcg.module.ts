@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { TcgRoutingModule } from './tcg-routing.module';
+import { ForNumberPipe } from 'src/app/pipe/forNumber/for-number.pipe';
+import { NgModule } from '@angular/core';
 import { TcgComponent } from './tcg.component';
-
+import { TcgRoutingModule } from './tcg-routing.module';
 
 @NgModule({
   declarations: [
-    TcgComponent
+    TcgComponent,
+    ForNumberPipe
   ],
   imports: [
     CommonModule,
-    TcgRoutingModule
+    TcgRoutingModule,
   ]
 })
 export class TcgModule { }

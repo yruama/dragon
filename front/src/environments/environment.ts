@@ -3,7 +3,7 @@ interface Environment {
 	environmentName: string;
 	apiURL: string;
 	assetsURL: string;
-	POKEMONTCG_API_KEY: string;
+	tcgdexUrl: string;
 }
 
 export const environment: Environment = {
@@ -11,5 +11,5 @@ export const environment: Environment = {
 	environmentName: "",
 	apiURL: "",
 	assetsURL: "",
-	POKEMONTCG_API_KEY: ''
+	tcgdexUrl: "https://api.tcgdex.net/v2"
 };
