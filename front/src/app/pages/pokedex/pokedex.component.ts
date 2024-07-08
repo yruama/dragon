@@ -21,6 +21,7 @@ export class PokedexComponent implements OnInit {
   scrollTo = false;
   scrollToId = 0;
   sidebarVisible = false;
+  isLoading = true;
 
   pagination = {
     offset: 0,
@@ -77,7 +78,7 @@ export class PokedexComponent implements OnInit {
     this.buttonLoading = true;
     this.scrollTo = true;
     this.scrollToId = (this.pagination.offset + this.pagination.limit) > this.pagination.max ? this.pagination.max : this.pagination.offset + this.pagination.limit;
-    this.setPagination(this.pagination.offset, this.pagination.limit + 50, this.pagination.max);
+    this.setPagination(this.pagination.offset + 50, this.pagination.limit, this.pagination.max);
   }
 
   setPagination(offset: number, limit: number, max: number) {
@@ -87,20 +88,24 @@ export class PokedexComponent implements OnInit {
       max: max
     }
 
+    console.log("PAGINATION : ", this.pagination)
+
     this.getPokemons();
   }
 
   getPokemons() {
+    this.isLoading = true;
     this.PokemonService.getPokemons(this.pagination.offset, this.pagination.limit, this.pagination.max).subscribe({
       next: (data: any) => {
-       this.pokemons = data;
-
-       console.log("Pokemons : ", data)
+       this.pokemons = [... this.pokemons, ...data];
+       console.log("Data : ", data)
+       console.log("Pokemons : ", this.pokemons)
       }, error: (err) => {
         
       }, complete: () => {
         setTimeout(() => {
           this.buttonLoading = false;
+          this.isLoading = false;
           if (this.scrollTo) {
             const element = document.getElementById('pokemon-' + this.scrollToId);
             if (element) {

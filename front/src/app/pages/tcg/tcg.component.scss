@@ -31,11 +31,11 @@
     -o-transform:skew(-45deg,0deg) rotate(45deg);
     transform:skew(-45deg,0deg) rotate(45deg);
     position: absolute;
-    bottom: 12px; /* 40 cos(45) = 28 with an additional 2px margin*/
-    left: -25px; /*Because it looked good, but there is probably a mathematical link here as well*/
+    bottom: 12px; 
+    left: -25px; 
     display: inline-block;
     width: 100%;
-    width: 85px; /* 80 / cos(45) - 40 cos (45) = 85 where 80 is the height of the cell, 40 the width of the cell and 45 the transform angle*/
+    width: 85px;
     text-align: left;
     white-space: nowrap; /*whether to display in one line or not*/
   }
@@ -65,6 +65,17 @@
     height: 65px;
 }
 
+th.row-header {
+    box-shadow: none !important;
+    z-index: 0;
+}
+
+th.sticky-header {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Ensure header is above other content */
+}
 
 .toto {
     overflow-x: scroll !important;
@@ -76,6 +87,16 @@ th.sticky, td.sticky {
     position: sticky;
     left: 0;
     box-shadow: 2px 0px 2px black;
+    text-align: center;
+    z-index: 5;
+}
+
+td > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-bottom: -3px;
 }
 
 //   table{

@@ -3,6 +3,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CardsService } from 'src/app/services/cards/cards.service';
 import { Pokemon } from 'src/app/types/pokemons.types';
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { environment } from 'src/environments/environment';
+
+interface PokemonWithCards extends Pokemon {
+  cards?: any[]
+}
 
 @Component({
   selector: 'app-tcg',
@@ -16,7 +21,9 @@ export class TcgComponent implements OnInit {
     limit: 0,
     max: 0
   }
-  pokemons: Pokemon[] = [];
+  pokemons: PokemonWithCards[] = [];
+  cards = [];
+  env = environment;
 
   constructor(private CardsService: CardsService,
               private PokemonService: PokemonService) {}
@@ -29,7 +36,7 @@ export class TcgComponent implements OnInit {
       }, error: (err) => {
         
       }, complete: () => {
-        this.setPagination(0, 151, 151);
+        this.setPagination(0, 25, 25);
       }
     })
   }
@@ -43,7 +50,7 @@ export class TcgComponent implements OnInit {
       }, error: (err) => {
         
       }, complete: () => {
-
+        this.getCards();
       }
     })
   }
@@ -56,5 +63,20 @@ export class TcgComponent implements OnInit {
     }
 
     this.getPokemons();
+  }
+
+  async getCards() {
+    for (const pokemon of this.pokemons) {
+      this.CardsService.getCardsByName(pokemon.NAME).subscribe({
+        next: (data: any) => {
+         pokemon.cards = data;
+         console.log("Pokemons : ", pokemon)
+        }, error: (err) => {
+          
+        }, complete: () => {
+        }
+      })
+    }
+    
   }
 }
