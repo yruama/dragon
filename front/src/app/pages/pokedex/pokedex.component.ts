@@ -29,6 +29,8 @@ export class PokedexComponent implements OnInit {
     max: 0
   }
 
+  altered!: any;
+
   buttonLoading = false;
 
   constructor(private PokemonService: PokemonService,
@@ -36,7 +38,17 @@ export class PokedexComponent implements OnInit {
               private TypeService: TypeService) {}
 
   ngOnInit(): void {
-    this.getGeneration();
+   // this.getGeneration();
+
+    this.PokemonService.test().subscribe({
+      next: (data: any) => {
+        console.log("Data TEST : ", data)
+        this.altered = data;
+      }, error: (err) => {
+        
+      }, complete: () => {
+      }
+    })
   }
 
   getGeneration() {

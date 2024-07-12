@@ -55,6 +55,7 @@ app.register(import("./routes/user.routes") as any, { prefix: "api/v1/user" });
 app.register(import("./routes/pokelist.routes") as any, { prefix: "api/v1/pokelist" });
 app.register(import("./routes/generation.routes") as any, { prefix: "api/v1/generation" });
 app.register(import("./routes/type.routes") as any, { prefix: "api/v1/type" });
+app.register(import("./routes/test.routes") as any, { prefix: "api/v1/test" });
 app.register(cors, {
 	// put your options here
 });

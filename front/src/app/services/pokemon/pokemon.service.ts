@@ -63,4 +63,15 @@ export class PokemonService {
 
 		return this._http.post<APIResult>(`${environment.apiURL}/pokemon/user-pokedex`, { pokemonIds }, { headers });
 	}
+
+	test() {
+		const language = navigator.language || 'en';
+
+		const headers = new HttpHeaders({
+			'Accept-Language': language,
+			"Content-Type": "application/json"
+		});
+
+		return this._http.get<APIResult>(`${environment.apiURL}/test/`, { headers });
+	}
 }

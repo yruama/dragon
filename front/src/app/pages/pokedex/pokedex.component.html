@@ -1,5 +1,5 @@
 
-<div class="generations">
+<!--<div class="generations">
     <div class="generation" 
         (click)="selectGeneration(-1)"
         [ngClass]="currentGeneration === -1 ? ' is-selected' : ''"> 
@@ -54,4 +54,12 @@
 <p-sidebar [(visible)]="sidebarVisible">
     <app-filter></app-filter>
 </p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />
+<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />-->
+
+Altered
+
+<div class="altered" >
+
+    <img *ngFor="let img of altered" [src]="img.IMAGE" alt="">
+
+</div>
