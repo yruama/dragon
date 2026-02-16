@@ -38,9 +38,9 @@ export class PokedexComponent implements OnInit {
               private TypeService: TypeService) {}
 
   ngOnInit(): void {
-   // this.getGeneration();
+    this.getGeneration();
 
-    this.PokemonService.test().subscribe({
+    this.PokemonService.getPokemons().subscribe({
       next: (data: any) => {
         console.log("Data TEST : ", data)
         this.altered = data;

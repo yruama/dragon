@@ -12,13 +12,13 @@ export interface Pokemon {
 	DESCRIPTION_FR: string;
 	DESCRIPTION_EN: string;
 	CATEGORY: string;
-	TYPE_ID_1: string;
-	TYPE_ID_2: string;
+	TYPE_ID_1: any;
+	TYPE_ID_2: any;
 	TALENT: string;
 	SHAPE_ID: number;
 	GENERATION: number;
 	INFORMATIONS: PokeInfos;
-	EVOLUTION_ID: string;
+	EVOLUTION_ID: any;
 	COLOR: string;
 	artwork: string;
 	miniature: string;

@@ -1,19 +1,32 @@
 import * as Knex from "knex";
 
-import fastify, { FastifyReply, FastifyRequest } from "fastify";
+import fastify, { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequest } from "fastify";
 
 import blippPlugin from "fastify-blipp";
 import { consoleErrorWithline } from "@core/utils.core";
 import cors from "@fastify/cors";
-/* eslint-disable */
 import dotenv from "dotenv";
 import fastifyStatic from "@fastify/static";
+import generationRoutes from "./routes/generation.routes";
 import jwt from "@fastify/jwt";
 import path from "path";
+import pokelistRoutes from "./routes/pokelist.routes";
+// Import des routes en statique
+import pokemonRoutes from "./routes/pokemon.routes";
 import { setGlobals } from "./config/global";
 import start from "./scripts/getDataFromPokeapi";
+import testRoutes from "./routes/test.routes";
+import typeRoutes from "./routes/type.routes";
+import userRoutes from "./routes/user.routes";
 
 dotenv.config();
+
+// Déclaration de l'extension TypeScript pour la méthode authenticate
+declare module "fastify" {
+	export interface FastifyInstance {
+		authenticate: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+	}
+}
 
 export const knex = Knex.knex({
 	client: "mysql",
@@ -46,16 +59,16 @@ app.decorate("authenticate", async function (request: FastifyRequest, reply: Fas
 
 app.register(fastifyStatic, {
 	root: path.join(__dirname, "assets"),
-	prefix: "/assets/" // optional: default '/'
+	prefix: "/assets/"
 });
 
 app.register(blippPlugin);
-app.register(import("./routes/pokemon.routes") as any, { prefix: "api/v1/pokemon" });
-app.register(import("./routes/user.routes") as any, { prefix: "api/v1/user" });
-app.register(import("./routes/pokelist.routes") as any, { prefix: "api/v1/pokelist" });
-app.register(import("./routes/generation.routes") as any, { prefix: "api/v1/generation" });
-app.register(import("./routes/type.routes") as any, { prefix: "api/v1/type" });
-app.register(import("./routes/test.routes") as any, { prefix: "api/v1/test" });
+app.register(pokemonRoutes as FastifyPluginAsync, { prefix: "api/v1/pokemon" });
+app.register(userRoutes as FastifyPluginAsync, { prefix: "api/v1/user" });
+app.register(pokelistRoutes as FastifyPluginAsync, { prefix: "api/v1/pokelist" });
+app.register(generationRoutes as FastifyPluginAsync, { prefix: "api/v1/generation" });
+app.register(typeRoutes as FastifyPluginAsync, { prefix: "api/v1/type" });
+app.register(testRoutes as FastifyPluginAsync, { prefix: "api/v1/test" });
 app.register(cors, {
 	// put your options here
 });
@@ -67,10 +80,9 @@ app.register(cors, {
 		consoleErrorWithline();
 		await app.listen({ port: 3000 });
 		//start();
-		// app.blipp();
+		app.blipp();
 	} catch (err) {
 		console.error("Error on main : ", err);
-
 		app.log.error(err);
 		process.exit(1);
 	}

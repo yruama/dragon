@@ -11,7 +11,7 @@ export default class CoreShape {
 	 */
 	async add(shape: Shape): Promise<number[]> {
 		try {
-			const shapeCreated = await knex("POKEMON").insert({
+			const shapeCreated = await knex("SHAPE").insert({
 				NAME: shape.NAME
 			});
 
@@ -48,6 +48,7 @@ export default class CoreShape {
 	 */
 	async getByEnglishName(name: string): Promise<Shape> {
 		try {
+			console.log("SHAPE NAME : ", name)
 			const shape = await knex.select("*").from("SHAPE").where("NAME", name);
 
 			if (shape.length <= 0) throw new InternalError(Error_shape.READ.NOT_FOUND.single);

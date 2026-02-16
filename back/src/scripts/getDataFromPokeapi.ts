@@ -13,14 +13,14 @@ import fs from "fs";
 async function start() {
 	console.log("Start !");
 
-	// getShapes();
+	 //getShapes();
 	// getTypes();
 	// await prisma.pokemon.deleteMany({})
 	// getPokemonsFromFile()
 	// getXPokemon(133, 1);
-	// getXPokemon(2, 1011);
+	 //getXPokemon(12, 152);
 	// updatePokemonFromFile(0)
-	 getTalent();
+	 // getTalent();
 }
 
 async function getXPokemon(start: number, end: number) {
@@ -50,14 +50,14 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 			TYPE_ID_1: 0,
 			TYPE_ID_2: 0,
 			TALENT: "",
-			SHAPE: 0,
+			SHAPE_ID: 0,
 			GENERATION: 0,
-			INFORMATION: {
+			INFORMATIONS: {
 				height: 0,
 				weight: 0,
 				statistics: ""
 			},
-			EVOLUTION: 0,
+			EVOLUTION_ID: 0,
 			COLOR: "",
 			artwork: "",
 			miniature: ""
@@ -79,7 +79,7 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 		};
 
 		pokemonObject.POKEMON_ID = i;
-		pokemonObject.INFORMATION = pokeInfos;
+		pokemonObject.INFORMATIONS = pokeInfos;
 
 		pokemonObject.NAME_EN = pokemonSpecies.names.find((_name: any) => _name.language.name === "en").name;
 		pokemonObject.NAME_FR = pokemonSpecies.names.find((_name: any) => _name.language.name === "fr").name;
@@ -126,9 +126,9 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 		pokemonObject.TALENT = JSON.stringify(talents);
 		if (pokemonSpecies?.shape) {
 			const shape = await new CoreShape().getByEnglishName(pokemonSpecies?.shape.name.replace("-", ""));
-			if (shape && shape.ID) pokemonObject.SHAPE = shape.ID;
+			if (shape && shape.ID) pokemonObject.SHAPE_ID = shape.ID;
 		} else {
-			pokemonObject.SHAPE = -1;
+			pokemonObject.SHAPE_ID = -1;
 		}
 
 		pokemonObject.GENERATION = getGeneration(pokemonSpecies.generation.name.split("-")[1]);
@@ -136,7 +136,7 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 
 		//addEvolutions(pokemonSpecies.evolution_chain.url);
 		console.log("pokemonSpecies.evolution_chain.url => ", pokemonSpecies.evolution_chain.url);
-		pokemonObject.EVOLUTION = parseInt(pokemonSpecies.evolution_chain.url.split("/").at(-2));
+		pokemonObject.EVOLUTION_ID = parseInt(pokemonSpecies.evolution_chain.url.split("/").at(-2));
 
 		await new CorePokemon().add(pokemonObject);
 	} catch (error) {
