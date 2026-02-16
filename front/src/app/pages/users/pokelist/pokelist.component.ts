@@ -5,8 +5,7 @@ import TCGdex from '@tcgdex/sdk'
 @Component({
     selector: 'app-pokelist',
     templateUrl: './pokelist.component.html',
-    styleUrls: ['./pokelist.component.scss'],
-    standalone: false
+    styleUrls: ['./pokelist.component.scss']
 })
 export class PokelistComponent implements OnInit {
  

@@ -4,8 +4,7 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 @Component({
     selector: 'app-users',
     templateUrl: './users.component.html',
-    styleUrls: ['./users.component.scss'],
-    standalone: false
+    styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
 

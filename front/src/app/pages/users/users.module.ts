@@ -4,15 +4,12 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 
 @NgModule({
-	declarations: [
-		UsersComponent
-	],
-	imports: [
-		UsersRoutingModule,
-
-	],
-	exports: [
-		UsersComponent
-	]
+    imports: [
+        UsersRoutingModule,
+        UsersComponent,
+    ],
+    exports: [
+        UsersComponent
+    ]
 })
 export class UsersModule { }

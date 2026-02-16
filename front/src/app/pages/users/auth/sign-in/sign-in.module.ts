@@ -11,19 +11,17 @@ import { SignInComponent } from './sign-in.component';
 import { PasswordModule } from 'primeng/password';
 
 @NgModule({
-  declarations: [
-    SignInComponent
-  ],
-  imports: [
-    CommonModule,
-    SignInRoutingModule,
-    FormsModule,
-    TranslateModule,
-    ButtonModule,
-    CardModule,
-    InputTextModule,
-    FieldsetModule,
-    PasswordModule
-  ]
+    imports: [
+        CommonModule,
+        SignInRoutingModule,
+        FormsModule,
+        TranslateModule,
+        ButtonModule,
+        CardModule,
+        InputTextModule,
+        FieldsetModule,
+        PasswordModule,
+        SignInComponent
+    ]
 })
 export class SignInModule { }

@@ -1,16 +1,21 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/types/user';
+import { FieldsetModule } from 'primeng/fieldset';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [FieldsetModule, FormsModule, InputTextModule, PasswordModule, ButtonModule, RouterLink, TranslateModule]
 })
 export class SignUpComponent {
   user: User = {

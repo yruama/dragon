@@ -1,9 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-    name: 'zeroPadding',
-    standalone: false
-})
+@Pipe({ name: 'zeroPadding' })
 export class ZeroPaddingPipe implements PipeTransform {
   transform(value: number): string {
     if (isNaN(value) || value < 1 || value > 1000) {

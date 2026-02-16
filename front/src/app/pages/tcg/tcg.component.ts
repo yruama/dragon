@@ -4,6 +4,10 @@ import { CardsService } from 'src/app/services/cards/cards.service';
 import { Pokemon } from 'src/app/types/pokemons.types';
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
 import { environment } from 'src/environments/environment';
+import { ImageModule } from 'primeng/image';
+import { DefaultImageDirective } from '../../directive/default-image.directive';
+import { ForNumberPipe } from 'src/app/pipe/forNumber/for-number.pipe';
+import { CheckDoubleObject } from 'src/app/pipe/checkDoubleObject/checkDoubleObject.pipe';
 
 interface PokemonWithCards extends Pokemon {
   cards?: any[]
@@ -13,7 +17,7 @@ interface PokemonWithCards extends Pokemon {
     selector: 'app-tcg',
     templateUrl: './tcg.component.html',
     styleUrls: ['./tcg.component.scss'],
-    standalone: false
+    imports: [ImageModule, DefaultImageDirective, ForNumberPipe, CheckDoubleObject]
 })
 export class TcgComponent implements OnInit {
   sets: any = [];

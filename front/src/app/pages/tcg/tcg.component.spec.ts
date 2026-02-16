@@ -8,8 +8,8 @@ describe('TcgComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TcgComponent]
-    });
+    imports: [TcgComponent]
+});
     fixture = TestBed.createComponent(TcgComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

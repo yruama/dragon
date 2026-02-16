@@ -11,19 +11,17 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { PasswordModule } from 'primeng/password';
 
 @NgModule({
-  declarations: [
-    SignUpComponent
-  ],
-  imports: [
-    CommonModule,
-    SignUpRoutingModule,
-    FormsModule,
-    TranslateModule,
-    ButtonModule,
-    CardModule,
-    InputTextModule,
-    FieldsetModule,
-    PasswordModule
-  ]
+    imports: [
+        CommonModule,
+        SignUpRoutingModule,
+        FormsModule,
+        TranslateModule,
+        ButtonModule,
+        CardModule,
+        InputTextModule,
+        FieldsetModule,
+        PasswordModule,
+        SignUpComponent
+    ]
 })
 export class SignUpModule { }

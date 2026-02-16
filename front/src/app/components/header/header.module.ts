@@ -11,8 +11,7 @@ import { CardModule } from 'primeng/card';
 import { CommonModule } from "@angular/common";
 
 @NgModule({
-	declarations: [HeaderComponent, ToggleDarkmodeComponent],
-	imports: [ButtonModule, MenubarModule, DropdownModule, MenuModule, CommonModule, FormsModule, InputSwitchModule, CardModule],
-	exports: [HeaderComponent]
+    imports: [ButtonModule, MenubarModule, DropdownModule, MenuModule, CommonModule, FormsModule, InputSwitchModule, CardModule, HeaderComponent, ToggleDarkmodeComponent],
+    exports: [HeaderComponent]
 })
 export class HeaderModule { }

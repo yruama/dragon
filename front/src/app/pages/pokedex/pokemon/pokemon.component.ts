@@ -5,12 +5,14 @@ import { CardsService } from 'src/app/services/cards/cards.service';
 import { Pokemon } from 'src/app/types/pokemons.types';
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
 import { environment } from 'src/environments/environment';
+import { TooltipModule } from 'primeng/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-pokemon',
     templateUrl: './pokemon.component.html',
     styleUrls: ['./pokemon.component.scss'],
-    standalone: false
+    imports: [TooltipModule, TranslateModule]
 })
 export class PokemonComponent implements OnInit {
   id!: string;

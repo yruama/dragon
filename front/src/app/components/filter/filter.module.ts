@@ -3,10 +3,10 @@ import { FilterComponent } from './filter.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [FilterComponent],
-  imports: [
-    CommonModule
-  ],
-  exports: [FilterComponent]
+    imports: [
+        CommonModule,
+        FilterComponent
+    ],
+    exports: [FilterComponent]
 })
 export class FilterModule { }

@@ -1,17 +1,22 @@
+import { Router, RouterOutlet } from "@angular/router";
+
 import { Component } from "@angular/core";
-import { PrimeNGConfig } from "primeng/api";
-import { TranslateService } from "@ngx-translate/core";
 import { GlobalService } from "./services/global/global.service";
-import { ThemeService } from "./theme.service";
-import { UserService } from "./services/user/user.service";
-import { Router } from "@angular/router";
+import { HeaderComponent } from "./components/header/header.component";
+import { LoaderComponent } from "./components/loader/loader.component";
 import { LoaderService } from "./services/loader/loader.service";
+import { PrimeNGConfig } from "primeng/api";
+import { ThemeService } from "./theme.service";
+import { ToastModule } from 'primeng/toast';
+import { TranslateService } from "@ngx-translate/core";
+import { UserService } from "./services/user/user.service";
 
 @Component({
+	imports:[HeaderComponent, RouterOutlet, LoaderComponent, ToastModule],
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],
-    standalone: false
+    standalone: true
 })
 export class AppComponent {
 	title = "Pokedex";

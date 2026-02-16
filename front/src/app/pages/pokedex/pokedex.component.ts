@@ -1,16 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { FilterModule } from 'src/app/components/filter/filter.module';
 import { GenerationService } from 'src/app/services/generation/generation.service';
 import { Pokemon } from 'src/app/types/pokemons.types';
 import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { RouterLink } from '@angular/router';
+import { SidebarModule } from 'primeng/sidebar';
+import { TooltipModule } from 'primeng/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 import { TypeService } from 'src/app/services/type/type.service';
+import { ZeroPaddingPipe } from 'src/app/pipe/zeropadding/zeropadding.pipe';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-pokedex',
-    templateUrl: './pokedex.component.html',
-    styleUrls: ['./pokedex.component.scss'],
-    standalone: false
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    TooltipModule,
+    ButtonModule,
+    SidebarModule,
+    FilterModule,
+    ZeroPaddingPipe,
+    RouterLink
+  ],
+  selector: 'app-pokedex',
+  templateUrl: './pokedex.component.html',
+  styleUrls: ['./pokedex.component.scss']
 })
 export class PokedexComponent implements OnInit {
 
@@ -41,20 +59,21 @@ export class PokedexComponent implements OnInit {
   ngOnInit(): void {
     this.getGeneration();
 
-    this.PokemonService.getPokemons().subscribe({
-      next: (data: any) => {
-        console.log("Data TEST : ", data)
-        this.altered = data;
-      }, error: (err) => {
+    // this.PokemonService.getPokemons().subscribe({
+    //   next: (data: any) => {
+    //     console.log("getPokemons : ", data)
+    //     this.pokemons = data;
+    //   }, error: (err) => {
         
-      }, complete: () => {
-      }
-    })
+    //   }, complete: () => {
+    //   }
+    // })
   }
 
   getGeneration() {
     this.GenerationService.getGenerations().subscribe({
       next: (data: any) => {
+        console.log("getGenerations : ", data)
         this.generations = data;
       }, error: (err) => {
         

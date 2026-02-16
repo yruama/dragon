@@ -7,6 +7,11 @@ import { MenuItem } from 'primeng/api';
 import { ThemeService } from 'src/app/theme.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/services/user/user.service';
+import { CardModule } from 'primeng/card';
+import { NgClass } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { ToggleDarkmodeComponent } from './toggle-darkmode/toggle-darkmode.component';
 
 interface MenuBloc {
 	name: string;
@@ -22,7 +27,7 @@ interface MenuBloc {
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [CardModule, NgClass, ButtonModule, MenuModule, ToggleDarkmodeComponent]
 })
 export class HeaderComponent {
 	//@ts-ignore

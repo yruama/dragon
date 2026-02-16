@@ -1,9 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-    name: 'checkDoubleObject',
-    standalone: false
-})
+@Pipe({ name: 'checkDoubleObject' })
 export class CheckDoubleObject implements PipeTransform {
 	transform(value: any, arg1: any, arg2: any): any {
 

@@ -23,7 +23,6 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@tcgdex/sdk": "^2.5.1",
-    "flag-icons": "^6.9.1",
     "papaparse": "^5.4.1",
     "pokedex": "file:",
     "pokemon-tcg-scraper": "^0.0.5",

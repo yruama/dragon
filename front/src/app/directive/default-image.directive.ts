@@ -1,9 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
-@Directive({
-    selector: '[appDefaultImage]',
-    standalone: false
-})
+@Directive({ selector: '[appDefaultImage]' })
 export class DefaultImageDirective implements AfterViewInit {
   @Input() appDefaultImage!: string;
 

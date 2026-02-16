@@ -7,16 +7,14 @@ import { NgModule } from '@angular/core';
 import { TcgComponent } from './tcg.component';
 import { TcgRoutingModule } from './tcg-routing.module';
 @NgModule({
-  declarations: [
-    TcgComponent,
-    ForNumberPipe,
-    CheckDoubleObject,
-    DefaultImageDirective
-  ],
-  imports: [
-    CommonModule,
-    TcgRoutingModule,
-    ImageModule
-  ]
+    imports: [
+        CommonModule,
+        TcgRoutingModule,
+        ImageModule,
+        TcgComponent,
+        ForNumberPipe,
+        CheckDoubleObject,
+        DefaultImageDirective
+    ]
 })
 export class TcgModule { }

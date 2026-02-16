@@ -4,8 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'app-loader',
     templateUrl: './loader.component.html',
-    styleUrls: ['./loader.component.scss'],
-    standalone: false
+    styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent {
   private isLoading = new BehaviorSubject<boolean>(false);

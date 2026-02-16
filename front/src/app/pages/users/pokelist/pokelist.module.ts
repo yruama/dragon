@@ -4,15 +4,13 @@ import { PokelistComponent } from './pokelist.component';
 import { PokelistRoutingModule } from './pokelist-routing.module';
 
 @NgModule({
-  declarations: [
-    PokelistComponent
-  ],
-  imports: [
-    CommonModule,
-    PokelistRoutingModule
-  ],
-  exports: [
-    PokelistComponent
-  ]
+    imports: [
+        CommonModule,
+        PokelistRoutingModule,
+        PokelistComponent
+    ],
+    exports: [
+        PokelistComponent
+    ]
 })
 export class PokelistModule { }
