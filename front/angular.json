@@ -15,11 +15,12 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"builder": "@angular-devkit/build-angular:application",
 					"options": {
-						"outputPath": "../build",
-						"index": "src/index.html",
-						"main": "src/main.ts",
+						"outputPath": {
+              "base": "../build"
+            },
+            "index": "src/index.html",
 						"polyfills": ["zone.js"],
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
@@ -91,7 +92,10 @@
 							"src/styles.scss",
 							"node_modules/@fortawesome/fontawesome-free/css/all.min.css"
 						],
-						"scripts": ["node_modules/@fortawesome/fontawesome-free/js/all.min.js"]
+            "scripts": [
+              "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
+            ],
+            "browser": "src/main.ts"
 					},
 					"configurations": {
 						"production": {
@@ -115,10 +119,8 @@
 							],
 							"outputHashing": "all"
 						},
-						"development": {
-							"buildOptimizer": false,
-							"optimization": false,
-							"vendorChunk": true,
+            "development": {
+              "optimization": false,
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true,
