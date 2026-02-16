@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'zeroPadding'
+    name: 'zeroPadding',
+    standalone: false
 })
 export class ZeroPaddingPipe implements PipeTransform {
   transform(value: number): string {

@@ -2,7 +2,7 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/
 import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
 import { TranslateLoader, TranslateModule, TranslateStore } from "@ngx-translate/core";
 
-import { APP_INITIALIZER } from '@angular/core';
+import { inject, provideAppInitializer } from '@angular/core';
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthGuardService } from "./services/auth-guard/auth-guard.service";
@@ -55,12 +55,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         JwtHelperService,
         AuthGuardService,
         MessageService,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: appInitializerFactory,
-            deps: [TranslateService],
-            multi: true,
-        },
+        provideAppInitializer(() => {
+        const initializerFn = (appInitializerFactory)(inject(TranslateService));
+        return initializerFn();
+      }),
         LoaderService,
         provideHttpClient(withInterceptorsFromDi())
     ] })

@@ -7,10 +7,11 @@ import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/types/user';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SignInComponent {
   user: User = {

@@ -18,10 +18,11 @@ interface MenuBloc {
 }
 
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss'],
-	encapsulation: ViewEncapsulation.None
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class HeaderComponent {
 	//@ts-ignore

@@ -7,9 +7,10 @@ import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-pokemon',
-  templateUrl: './pokemon.component.html',
-  styleUrls: ['./pokemon.component.scss']
+    selector: 'app-pokemon',
+    templateUrl: './pokemon.component.html',
+    styleUrls: ['./pokemon.component.scss'],
+    standalone: false
 })
 export class PokemonComponent implements OnInit {
   id!: string;

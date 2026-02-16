@@ -3,9 +3,10 @@ import { GlobalService } from "src/app/services/global/global.service";
 import { ThemeService } from "src/app/theme.service";
 
 @Component({
-	selector: "app-toggle-darkmode",
-	templateUrl: "./toggle-darkmode.component.html",
-	styleUrls: ["./toggle-darkmode.component.scss"]
+    selector: "app-toggle-darkmode",
+    templateUrl: "./toggle-darkmode.component.html",
+    styleUrls: ["./toggle-darkmode.component.scss"],
+    standalone: false
 })
 export class ToggleDarkmodeComponent {
 	constructor(private readonly ThemeService: ThemeService,

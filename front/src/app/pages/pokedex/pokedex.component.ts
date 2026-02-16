@@ -7,9 +7,10 @@ import { TypeService } from 'src/app/services/type/type.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-pokedex',
-  templateUrl: './pokedex.component.html',
-  styleUrls: ['./pokedex.component.scss']
+    selector: 'app-pokedex',
+    templateUrl: './pokedex.component.html',
+    styleUrls: ['./pokedex.component.scss'],
+    standalone: false
 })
 export class PokedexComponent implements OnInit {
 

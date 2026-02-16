@@ -10,9 +10,10 @@ interface PokemonWithCards extends Pokemon {
 }
 
 @Component({
-  selector: 'app-tcg',
-  templateUrl: './tcg.component.html',
-  styleUrls: ['./tcg.component.scss']
+    selector: 'app-tcg',
+    templateUrl: './tcg.component.html',
+    styleUrls: ['./tcg.component.scss'],
+    standalone: false
 })
 export class TcgComponent implements OnInit {
   sets: any = [];

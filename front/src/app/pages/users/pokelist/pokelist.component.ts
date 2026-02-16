@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import TCGdex from '@tcgdex/sdk'
 
 @Component({
-  selector: 'app-pokelist',
-  templateUrl: './pokelist.component.html',
-  styleUrls: ['./pokelist.component.scss']
+    selector: 'app-pokelist',
+    templateUrl: './pokelist.component.html',
+    styleUrls: ['./pokelist.component.scss'],
+    standalone: false
 })
 export class PokelistComponent implements OnInit {
  
