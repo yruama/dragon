@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 import { PokeInfos, Pokemon } from "../types/pokemon";
 
 import CoreEvolution from "../core/evolution.core";
@@ -8,7 +11,6 @@ import CoreType from "../core/type.core";
 import { Talent } from "../types/talent";
 /* eslint-disable */
 import axios from "axios";
-import fs from "fs";
 
 async function start() {
 	console.log("Start !");
@@ -18,9 +20,34 @@ async function start() {
 	// await prisma.pokemon.deleteMany({})
 	// getPokemonsFromFile()
 	// getXPokemon(133, 1);
-	 //getXPokemon(12, 152);
+	 // getXPokemon(1, 1351);
 	// updatePokemonFromFile(0)
 	 // getTalent();
+	 getSprite(1010, 1011);
+}
+
+async function getSprite(min: number, max: number) {
+	const allPokemon: string[] = [];
+	console.log('MIN : ', min, " MAX : ", max)
+	for (let index = min; index < max; index++) {
+		
+		const pokemonData: any = await axios.get("https://pokeapi.co/api/v2/pokemon/" + index);
+		const assetsPath = path.join(__dirname, '../assets/miniature');
+		//const assetsPath = path.join(__dirname, '../assets/artwork');
+  
+		// Créer le dossier s'il n'existe pas
+		if (!fs.existsSync(assetsPath)) {
+			fs.mkdirSync(assetsPath, { recursive: true });
+		}
+
+		let filename = `${index}.png`; 
+		const filepath = path.join(assetsPath, filename);
+		
+		const img = await axios.get(pokemonData.data.sprites.front_default, { responseType: 'arraybuffer' });
+		//const img = await axios.get(pokemonData.data.sprites.other['official-artwork'].front_default, { responseType: 'arraybuffer' });
+		fs.writeFileSync(filepath, img.data);
+		console.log(`Image saved to ${filepath}`);
+	}
 }
 
 async function getXPokemon(start: number, end: number) {
@@ -135,7 +162,7 @@ async function getOnePokemonAndFormatIt(i: number): Promise<string> {
 		pokemonObject.COLOR = pokemonSpecies.color.name;
 
 		//addEvolutions(pokemonSpecies.evolution_chain.url);
-		console.log("pokemonSpecies.evolution_chain.url => ", pokemonSpecies.evolution_chain.url);
+		//console.log("pokemonSpecies.evolution_chain.url => ", pokemonSpecies.evolution_chain.url);
 		pokemonObject.EVOLUTION_ID = parseInt(pokemonSpecies.evolution_chain.url.split("/").at(-2));
 
 		await new CorePokemon().add(pokemonObject);

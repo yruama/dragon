@@ -59,15 +59,15 @@ export class PokedexComponent implements OnInit {
   ngOnInit(): void {
     this.getGeneration();
 
-    // this.PokemonService.getPokemons().subscribe({
-    //   next: (data: any) => {
-    //     console.log("getPokemons : ", data)
-    //     this.pokemons = data;
-    //   }, error: (err) => {
+    this.PokemonService.getPokemons().subscribe({
+      next: (data: any) => {
+        console.log("getPokemons : ", data)
+        this.pokemons = data;
+      }, error: (err) => {
         
-    //   }, complete: () => {
-    //   }
-    // })
+      }, complete: () => {
+      }
+    })
   }
 
   getGeneration() {

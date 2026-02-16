@@ -12,7 +12,6 @@ export default class CorePokemon {
 	 */
 	async add(pokemon: Pokemon): Promise<number[]> {
 		try {
-			console.log("pokemon => ", pokemon);
 			const pokemonCreated = await knex("POKEMON").insert({
 				POKEMON_ID: pokemon.POKEMON_ID,
 				NAME_FR: pokemon.NAME_FR,

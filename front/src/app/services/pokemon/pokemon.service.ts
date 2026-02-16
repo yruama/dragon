@@ -30,6 +30,8 @@ export class PokemonService {
 			"Content-Type": "application/json"
 		});
 
+		console.log(`${environment.apiURL}/pokemon?offset=${offset}&limit=${limit}&max=${max}`)
+
 		return this._http.get<APIResult>(`${environment.apiURL}/pokemon?offset=${offset}&limit=${limit}&max=${max}`, { headers });
 	}
 
