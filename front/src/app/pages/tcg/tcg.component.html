@@ -1,23 +1,30 @@
-     <div class="toto">
-      <table class="table table-header-rotated table-striped table-hover table-striped-column">
-        <thead>
-          <tr>
-            <th class="row-header">Set</th>
-            <!-- Following headers are rotated -->
-            <th *ngFor="let set of sets" class="diagonal-header sticky-header"><div><span> {{set.id}} </span></div></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let pokemon of pokemons">
-            <td class="sticky"> {{ pokemon.NAME }} </td>
-            <td *ngFor="let key of sets.length | forNumber">
-                <span *ngIf="key > -1 | checkDoubleObject: sets[key].id : pokemon.cards as index"> 
-                    <p-image [src]="pokemon.cards![index - 1].image + '/low.png'" alt="Image" width="25" [appDefaultImage]="env.assetsURL + '/default-card.png'" [preview]="true" />
+<div class="toto">
+  <table class="table table-header-rotated table-striped table-hover table-striped-column">
+    <thead>
+      <tr>
+        <th class="row-header">Set</th>
+        <!-- Following headers are rotated -->
+        @for (set of sets; track set) {
+          <th class="diagonal-header sticky-header"><div><span> {{set.id}} </span></div></th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (pokemon of pokemons; track pokemon) {
+        <tr>
+          <td class="sticky"> {{ pokemon.NAME }} </td>
+          @for (key of sets.length | forNumber; track key) {
+            <td>
+              @if (key > -1 | checkDoubleObject: sets[key].id : pokemon.cards; as index) {
+                <span>
+                  <p-image [src]="pokemon.cards![index - 1].image + '/low.png'" alt="Image" width="25" [appDefaultImage]="env.assetsURL + '/default-card.png'" [preview]="true" />
                 </span>
+              }
             </td>
+          }
+        </tr>
+      }
 
-          </tr>
-          
-        </tbody>
-      </table>
-    </div>
+    </tbody>
+  </table>
+</div>
