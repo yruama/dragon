@@ -1,9 +1,9 @@
-import { User } from "@type/user";
+import CoreGeneration from "../core/generation.core";
 import CoreUser from "../core/user.core";
+import Error_user from "@errors/user.json";
+import { User } from "@type/user";
 import _bcrypt from "bcrypt";
 import { app } from "../app";
-import CoreGeneration from "../core/generation.core";
-import Error_user from "@errors/user.json";
 
 export default class ClassUser {
 	private readonly coreUser: CoreUser;
@@ -70,7 +70,7 @@ export default class ClassUser {
 			user.PASSWORD = cryptedPassword;
 
 			await this.coreUser.add(user);
-			await this.coreGeneration.get(0);
+			// me rappel plus pk j'ai fait ca await this.coreGeneration.get(0);
 
 			return user;
 		} catch (error) {

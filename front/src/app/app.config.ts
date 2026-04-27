@@ -3,27 +3,23 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
+import Aura from '@primeuix/themes/aura';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { LoaderService } from './services/loader/loader.service';
 import { MessageService } from 'primeng/api';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-export function appInitializerFactory(translate: TranslateService) {
-  return () =>
-    new Promise<void>((resolve) => {
-      translate.use('fr').subscribe(() => resolve());
-    });
-}
-
 export const appConfig: ApplicationConfig = {
   providers: [
+    providePrimeNG({
+      ripple: true,
+      theme: {
+          preset: Aura
+      }
+    }),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimations(),
@@ -35,19 +31,5 @@ export const appConfig: ApplicationConfig = {
 
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
-
-    provideAppInitializer(() => {
-      const initializerFn = appInitializerFactory(inject(TranslateService));
-      return initializerFn();
-    }),
-
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }).providers!,
   ],
 };

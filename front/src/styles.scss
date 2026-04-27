@@ -1,6 +1,7 @@
-@import "./styles/fonts.scss";
-@import "./styles/variables.scss";
-@import "primeicons/primeicons.css";
+@use "./styles/fonts.scss";
+@use "./styles/variables.scss";
+@use "primeicons/primeicons.css";
+
 
 body {
 	font-family: glacial !important;
@@ -9,4 +10,21 @@ body {
 
 .p-component {
 	font-family: glacial !important;
+}
+
+:root {
+	--menu-color-0: #1e766b;
+	--menu-color-1: #2a9d8f;
+	--menu-color-2: #e9c46a;
+	--menu-color-3: #f4a261;
+	--menu-color-4: #e76f51;
+}
+
+
+:root {
+	--menu-color-0: #f6b339;
+	--menu-color-1: #da7b27;
+	--menu-color-2: #d7572b;
+	--menu-color-3: #c23028;
+	--menu-color-4: #77021d;
 }

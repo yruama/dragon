@@ -1,6 +1,6 @@
+import Error_user from "@errors/user.json";
 import { User } from "@type/user";
 import { knex } from "../app";
-import Error_user from "@errors/user.json";
 
 export default class CoreUser {
 	/**
@@ -32,6 +32,7 @@ export default class CoreUser {
 	 */
 	async add(user: User): Promise<number[]> {
 		try {
+			console.log("USER : ", user);
 			const userCreated = await knex("USER").insert({
 				EMAIL: user.EMAIL,
 				USERNAME: user.USERNAME,
@@ -56,7 +57,7 @@ export default class CoreUser {
 		try {
 			const user = await knex.select("*").from("USER").where("EMAIL", email)
 
-			if (user.length <= 0) throw new InternalError(Error_user.CREATE.ALREADY_EXISTS);
+			if (user.length > 0) throw new InternalError(Error_user.CREATE.ALREADY_EXISTS);
 			return true;
 		} catch (error) {
 			console.error("[CORE_USER.isExisting] : ", error);
