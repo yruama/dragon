@@ -4,6 +4,11 @@
 	"compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "design-system": [
+        "./dist/design-system"
+      ]
+    },
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "strict": true,
@@ -25,5 +30,13 @@
 		"strictInjectionParameters": true,
 		"strictInputAccessModifiers": true,
 		"strictTemplates": true
-	}
+  },
+  "references": [
+    {
+      "path": "./projects/design-system/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/design-system/tsconfig.spec.json"
+    }
+  ]
 }
