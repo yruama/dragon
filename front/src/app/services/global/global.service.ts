@@ -11,7 +11,6 @@ export class GlobalService {
 	assetsURL = environment.assetsURL;
 
 	appLoading = false;
-	theme = "lara-orange";
 	isDarkMode = true;
 
 	private userConnected = new BehaviorSubject<boolean>(localStorage.getItem('token') ? true : false);

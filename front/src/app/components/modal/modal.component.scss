@@ -1,0 +1,115 @@
+/* ── Dialog natif ── */
+.modal {
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: var(--border-width-thin) solid var(--border-default);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-xl);
+   position: fixed;
+  inset: 0;
+  margin: auto;
+
+  /* Taille par défaut (md) */
+  width: min(480px, 92vw);
+  max-height: 90dvh;
+  overflow: hidden;
+
+  /* ⚠ Pas de display: flex ici — le navigateur applique display:none
+     quand le dialog est fermé. On réapplique flex uniquement sur [open]. */
+}
+
+.modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal--sm { width: min(360px, 92vw); }
+.modal--md { width: min(480px, 92vw); }
+.modal--lg { width: min(680px, 92vw); }
+
+/* Fond assombri */
+.modal::backdrop {
+  background: rgba(4, 8, 26, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Animation d'entrée */
+.modal[open] {
+  animation: modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ── En-tête ── */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6) var(--space-4);
+  border-bottom: var(--border-width-thin) solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-snug);
+  margin: 0;
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: var(--transition-color);
+}
+
+.modal-close:hover {
+  background: rgba(94, 136, 220, 0.10);
+  color: var(--text-primary);
+}
+
+.modal-close:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ── Corps ── */
+.modal-body {
+  padding: var(--space-5) var(--space-6);
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ── Footer ── */
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6) var(--space-5);
+  border-top: var(--border-width-thin) solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+/* ── Thème clair ── */
+[data-theme="light"] .modal::backdrop {
+  background: rgba(15, 23, 60, 0.50);
+}

@@ -7,4 +7,5 @@ export interface User {
 	PASSWORD: string;
 	UUID?: string;
 	token?: string;
+	POWER: number;
 }

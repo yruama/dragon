@@ -25,8 +25,9 @@ export default class ClassUser {
 				if (_bcrypt.compareSync(user.PASSWORD, userData.PASSWORD)) {
 
 					const payload = {
-						email: userData.EMAIL,
-						id: userData.ID!
+						EMAIL: userData.EMAIL,
+						ID: userData.ID!,
+						POWER: userData.POWER
 					}
 
 					const options = {

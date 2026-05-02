@@ -1,0 +1,20 @@
+  <nav class="nav">
+    <div class="nav-logo">
+        <div class="nav-logo-dot"></div>
+        ✦ Spark ✦
+    </div>
+    <div class="nav-links">
+        @if (AuthGuardService.hadEnoughPower(5)) {
+            <span [routerLink]="['/database']" class="nav-link">Base de donnée</span>
+        }
+        
+        <span class="nav-link">Variables</span>
+        <span class="nav-link">Docs</span>
+    </div>
+     @if (isConnected) {
+        <button [routerLink]="['/users/sign-in']" class="btn btn-ghost">connecter ok</button>
+    } @else {
+        <button [routerLink]="['/users/sign-in']" class="btn btn-ghost">Se connecter</button>
+    }
+    
+</nav>

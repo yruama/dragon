@@ -1,0 +1,18 @@
+<div class="card card-spark">
+    <div class="card-title">Connexion</div>
+    <div class="card-desc">
+    <div class="form-group">
+        <label class="form-label form-label-req">Email</label>
+        <input [(ngModel)]="user.EMAIL" class="input" />
+      </div>
+
+    <div class="form-group">
+        <label class="form-label form-label-req">Password</label>
+        <input [(ngModel)]="user.PASSWORD" class="input" type="password" />
+      </div>
+    </div>
+    <div class="card-footer">
+        <span></span>
+        <button (click)="signIn()" [disabled]="buttonLoading" class="btn btn-spark btn-sm">Se connecter</button>
+    </div>
+</div>

@@ -2,12 +2,13 @@ import { Router, RouterOutlet } from "@angular/router";
 
 import { Component } from "@angular/core";
 import { GlobalService } from "./services/global/global.service";
+import { HeaderComponent } from "./components/header/header.component";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { LoaderService } from "./services/loader/loader.service";
 import { UserService } from "./services/user/user.service";
 
 @Component({
-	imports:[RouterOutlet, LoaderComponent],
+	imports:[RouterOutlet, LoaderComponent, HeaderComponent],
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],

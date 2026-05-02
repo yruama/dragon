@@ -1,0 +1,29 @@
+<div class="choices">
+    <div class="card card-glow tab">
+        <div class="card-title">Actions</div>
+        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+    </div>
+
+    <div class="card card-glow tab">
+        <div class="card-title">Vérités</div>
+        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+    </div>
+</div>
+
+<div class="list">
+
+</div>
+
+<button class="btn btn-spark" (click)="openModal()"> open </button>
+<app-modal #maModal title="Mon titre" size="lg" (closed)="onClose()">
+
+  <!-- Corps libre -->
+  <p>N'importe quel contenu ici</p>
+
+  <!-- Footer -->
+  <div modal-footer>
+    <button (click)="maModal.close()">Annuler</button>
+    <button (click)="add()">Sauvegarder</button>
+  </div>
+
+</app-modal>

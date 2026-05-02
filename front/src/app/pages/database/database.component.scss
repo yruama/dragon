@@ -1,0 +1,9 @@
+.choices {
+    margin: var(--space-4);
+    display: flex;
+    gap: var(--space-4);
+}
+
+.tab:hover {
+    cursor: pointer;
+}

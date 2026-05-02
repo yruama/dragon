@@ -1,0 +1,33 @@
+<dialog
+  #dialogRef
+  class="modal"
+  [class]="'modal modal--' + size"
+  (cancel)="onCancel($event)"
+>
+
+  <!-- En-tête -->
+  <div class="modal-header">
+    <h2 class="modal-title">{{ title }}</h2>
+    <button
+      class="modal-close"
+      type="button"
+      aria-label="Fermer"
+      (click)="close()"
+    >
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Contenu projeté (formulaire, texte, etc.) -->
+  <div class="modal-body">
+    <ng-content />
+  </div>
+
+  <!-- Footer projeté (boutons d'action) -->
+  <div class="modal-footer">
+    <ng-content select="[modal-footer]" />
+  </div>
+
+</dialog>
