@@ -1,0 +1,319 @@
+/* ============================================================
+   CELESTE / SPARK — Navigation
+   nav.css
+   ============================================================ */
+ 
+/* ----------------------------------------------------------
+   NAVBAR BASE
+   ---------------------------------------------------------- */
+ 
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+ 
+  height: var(--header-height);
+  padding: 0 var(--space-6);
+ 
+  background: rgba(7, 13, 36, 0.75);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+ 
+  border-bottom: var(--border-width-thin) solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+ 
+/* Variante : navbar dans une carte flottante (non sticky) */
+.nav-floating {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  border: var(--border-width-thin) solid var(--border-default);
+  margin: var(--space-4) var(--space-4) 0;
+  box-shadow: var(--shadow-md);
+}
+ 
+/* Variante : fond plein opaque */
+.nav-solid {
+  background: var(--bg-surface);
+  backdrop-filter: none;
+}
+ 
+/* Variante : complètement transparente (pour hero avec fond image) */
+.nav-transparent {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+ 
+/* ----------------------------------------------------------
+   LOGO
+   ---------------------------------------------------------- */
+ 
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  text-decoration: none;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-base);
+  letter-spacing: var(--tracking-snug);
+  flex-shrink: 0;
+}
+ 
+.nav-logo-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-celeste);
+  box-shadow: var(--shadow-glow-celeste-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+ 
+.nav-logo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-celeste-spark);
+  box-shadow: var(--shadow-glow-celeste-sm);
+  flex-shrink: 0;
+}
+ 
+.nav-logo-text {
+  line-height: var(--leading-none);
+}
+ 
+.nav-logo-sub {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+  display: block;
+  letter-spacing: var(--tracking-wide);
+}
+ 
+/* ----------------------------------------------------------
+   LIENS DE NAVIGATION
+   ---------------------------------------------------------- */
+ 
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  flex: 1;
+  justify-content: center;
+}
+ 
+.nav-link {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid transparent;
+  letter-spacing: var(--tracking-wide);
+  transition: var(--transition-color);
+  white-space: nowrap;
+}
+ 
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(94, 136, 220, 0.08);
+}
+ 
+.nav-link.active {
+  color: var(--color-celeste-300);
+  background: rgba(43, 144, 245, 0.10);
+  border-color: var(--border-subtle);
+}
+ 
+/* Lien avec badge (ex : "Nouveau") */
+.nav-link-badge {
+  position: relative;
+}
+ 
+.nav-link-badge::after {
+  content: 'New';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  font-size: 0.55rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  background: var(--gradient-spark);
+  color: var(--color-void-950);
+  padding: 1px 4px;
+  border-radius: var(--radius-full);
+  line-height: 1.6;
+}
+ 
+/* ----------------------------------------------------------
+   GROUPE D'ACTIONS (droite)
+   ---------------------------------------------------------- */
+ 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+ 
+/* Bouton icône dans la nav */
+.nav-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-color);
+  position: relative;
+}
+ 
+.nav-icon-btn:hover {
+  background: rgba(94, 136, 220, 0.10);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+ 
+/* Avatar utilisateur */
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-celeste);
+  border: 1.5px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-neutral-0);
+  cursor: pointer;
+  transition: var(--transition-shadow);
+}
+ 
+.nav-avatar:hover {
+  box-shadow: var(--shadow-glow-celeste-sm);
+  border-color: var(--color-celeste-400);
+}
+ 
+/* Séparateur vertical */
+.nav-divider {
+  width: var(--border-width-thin);
+  height: 20px;
+  background: var(--border-default);
+  flex-shrink: 0;
+}
+ 
+/* ----------------------------------------------------------
+   BARRE DE NAVIGATION MOBILE (burger)
+   ---------------------------------------------------------- */
+ 
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}
+ 
+.nav-burger-line {
+  width: 100%;
+  height: 1.5px;
+  background: var(--text-secondary);
+  border-radius: var(--radius-full);
+  transition: var(--transition-all);
+}
+ 
+/* ----------------------------------------------------------
+   MENU MOBILE (drawer)
+   ---------------------------------------------------------- */
+ 
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  background: var(--bg-surface);
+  z-index: var(--z-overlay);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transform: translateX(-100%);
+  transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+ 
+.nav-drawer.open {
+  transform: translateX(0);
+}
+ 
+.nav-drawer .nav-link {
+  font-size: var(--text-md);
+  padding: var(--space-3) var(--space-4);
+}
+ 
+/* ----------------------------------------------------------
+   BREADCRUMB
+   ---------------------------------------------------------- */
+ 
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  list-style: none;
+}
+ 
+.breadcrumb-item a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out-expo);
+}
+ 
+.breadcrumb-item a:hover {
+  color: var(--color-celeste-300);
+}
+ 
+.breadcrumb-item.active {
+  color: var(--text-secondary);
+}
+ 
+.breadcrumb-sep {
+  color: var(--border-strong);
+  font-size: var(--text-xs);
+}
+ 
+/* ----------------------------------------------------------
+   RESPONSIVE
+   ---------------------------------------------------------- */
+ 
+@media (max-width: 768px) {
+  .nav-links       { display: none; }
+  .nav-burger      { display: flex; }
+  .nav-actions > *:not(.nav-burger) { display: none; }
+  .nav-actions > .nav-avatar { display: flex; }
+}
+ 

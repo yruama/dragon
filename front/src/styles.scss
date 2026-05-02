@@ -1,29 +1,104 @@
-@use "./styles/fonts.scss";
-@use "./styles/variables.scss";
+/* ============================================================
+   CELESTE / SPARK — Thème principal
+   ============================================================ */
 
+/* -- 1. Tokens & variables (TOUJOURS en premier) */
+@import './styles/variables.scss';
+
+/* -- 2. Composants */
+@import './styles/buttons.scss';
+@import './styles/tags.scss';
+@import './styles/inputs.scss';
+@import './styles/content.scss';
+@import './styles/nav.scss';
+@import './styles/cards.scss';
+@import './styles/hero.scss';
+@import './styles/sections.scss';
+
+/* ============================================================
+   RESET MINIMAL
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%; /* = 16px base */
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+/* ============================================================
+   FOND STELLAIRE — Ambiance Celeste/Spark
+   ============================================================ */
 
 body {
-	font-family: glacial !important;
-	margin: 0;
+  background-color: var(--bg-base);
+  background-image:
+    var(--gradient-surface-glow),
+    radial-gradient(ellipse at 80% 80%, rgba(255,186,13,0.04) 0%, transparent 55%);
+  min-height: 100dvh;
 }
 
-.p-component {
-	font-family: glacial !important;
+/* ============================================================
+   SCROLLBAR PERSONNALISÉE
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-:root {
-	--menu-color-0: #1e766b;
-	--menu-color-1: #2a9d8f;
-	--menu-color-2: #e9c46a;
-	--menu-color-3: #f4a261;
-	--menu-color-4: #e76f51;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+}
 
-:root {
-	--menu-color-0: #f6b339;
-	--menu-color-1: #da7b27;
-	--menu-color-2: #d7572b;
-	--menu-color-3: #c23028;
-	--menu-color-4: #77021d;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* ============================================================
+   SÉLECTION DE TEXTE
+   ============================================================ */
+
+::selection {
+  background: rgba(43, 144, 245, 0.35);
+  color: var(--color-celeste-100);
+}
+
+/* ============================================================
+   FOCUS VISIBLE GLOBAL
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }

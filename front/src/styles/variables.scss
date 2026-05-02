@@ -1,46 +1,313 @@
+/* ============================================================
+   CELESTE / SPARK — Design Tokens
+   variables.css
+   ============================================================ */
+
 :root {
-  /* 🌌 Background */
-  --bg-primary: #0B0F1A;
-  --bg-secondary: #121829;
-  --bg-elevated: #1A2138;
 
-  /* ✨ Couleurs principales */
-  --color-primary: #5DA9FF;
-  --color-primary-glow: #9FD0FF;
+  /* ----------------------------------------------------------
+     COULEURS — Palette Celeste
+     ---------------------------------------------------------- */
 
-  --color-secondary: #A78BFA;
-  --color-accent: #22D3EE;
+  /* Celeste — Bleus sidéraux */
+  --color-celeste-50:  #eaf4ff;
+  --color-celeste-100: #c8e6ff;
+  --color-celeste-200: #94ceff;
+  --color-celeste-300: #55afff;
+  --color-celeste-400: #2b90f5;
+  --color-celeste-500: #0f70de;
+  --color-celeste-600: #0854b8;
+  --color-celeste-700: #063d90;
+  --color-celeste-800: #052c6a;
+  --color-celeste-900: #031a46;
 
-  /* 🌟 Effets lumineux */
-  --color-glow-soft: rgba(93, 169, 255, 0.15);
-  --color-glow-strong: rgba(167, 139, 250, 0.25);
+  /* Spark — Éclats dorés électriques */
+  --color-spark-50:  #fffbea;
+  --color-spark-100: #fff3c4;
+  --color-spark-200: #ffe680;
+  --color-spark-300: #ffd23f;
+  --color-spark-400: #ffba0d;
+  --color-spark-500: #f59e00;
+  --color-spark-600: #cc7a00;
+  --color-spark-700: #a05800;
+  --color-spark-800: #7a3d00;
+  --color-spark-900: #4d2200;
 
-  /* 🪐 Texte */
-  --text-primary: #E6ECFF;
-  --text-secondary: #AAB3CC;
-  --text-muted: #6B738D;
+  /* Espace — Fonds sombres stellaires */
+  --color-void-950: #04081a;
+  --color-void-900: #070d24;
+  --color-void-800: #0c1535;
+  --color-void-700: #111e4a;
+  --color-void-600: #182660;
 
-  /* 🚀 États */
-  --color-success: #34D399;
-  --color-warning: #FBBF24;
-  --color-danger: #F87171;
+  /* Neutrals */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f4f6fb;
+  --color-neutral-100: #e8ecf5;
+  --color-neutral-200: #cdd5e8;
+  --color-neutral-300: #a9b6d0;
+  --color-neutral-400: #7f93b2;
+  --color-neutral-500: #566f92;
+  --color-neutral-600: #3d5270;
+  --color-neutral-700: #293a52;
+  --color-neutral-800: #1a2639;
+  --color-neutral-900: #0e1620;
+  --color-neutral-950: #060b10;
 
-  /* 🌑 Bordures */
-  --border-subtle: #1F263D;
-  --border-strong: #2C3553;
+  /* États sémantiques */
+  --color-success-light: #d1f7e8;
+  --color-success:       #22c57a;
+  --color-success-dark:  #14845c;
 
-  /* 🔘 UI */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --color-warning-light: #fff4d0;
+  --color-warning:       #ffb830;
+  --color-warning-dark:  #b07000;
 
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  --color-danger-light:  #ffe5e5;
+  --color-danger:        #f04040;
+  --color-danger-dark:   #b00000;
 
-  /* 🌠 Ombres */
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 12px var(--color-glow-soft);
+  --color-info-light:    #ddeeff;
+  --color-info:          #3399ff;
+  --color-info-dark:     #0055cc;
+
+  /* ----------------------------------------------------------
+     COULEURS — Rôles sémantiques (thème par défaut : dark)
+     ---------------------------------------------------------- */
+
+  --bg-base:         var(--color-void-950);
+  --bg-surface:      var(--color-void-900);
+  --bg-raised:       var(--color-void-800);
+  --bg-overlay:      var(--color-void-700);
+
+  --border-subtle:   rgba(94, 136, 220, 0.15);
+  --border-default:  rgba(94, 136, 220, 0.30);
+  --border-strong:   rgba(94, 136, 220, 0.55);
+  --border-focus:    var(--color-celeste-400);
+
+  --text-primary:    var(--color-neutral-50);
+  --text-secondary:  var(--color-neutral-300);
+  --text-muted:      var(--color-neutral-500);
+  --text-disabled:   var(--color-neutral-700);
+  --text-inverse:    var(--color-void-950);
+  --text-on-spark:   var(--color-void-950);
+
+  --brand-primary:   var(--color-celeste-400);
+  --brand-accent:    var(--color-spark-400);
+  --brand-glow:      rgba(43, 144, 245, 0.35);
+  --spark-glow:      rgba(255, 186, 13, 0.35);
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHIE
+     ---------------------------------------------------------- */
+
+  --font-display: 'Sora', 'DM Sans', system-ui, sans-serif;
+  --font-body:    'Inter', 'DM Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs:   0.6875rem;  /* 11px */
+  --text-sm:   0.8125rem;  /* 13px */
+  --text-base: 0.9375rem;  /* 15px */
+  --text-md:   1.0625rem;  /* 17px */
+  --text-lg:   1.25rem;    /* 20px */
+  --text-xl:   1.5rem;     /* 24px */
+  --text-2xl:  1.875rem;   /* 30px */
+  --text-3xl:  2.25rem;    /* 36px */
+  --text-4xl:  3rem;       /* 48px */
+  --text-5xl:  3.75rem;    /* 60px */
+
+  --leading-none:    1;
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+  --leading-loose:   2;
+
+  --tracking-tight:  -0.04em;
+  --tracking-snug:   -0.02em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.08em;
+  --tracking-widest:  0.16em;
+
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-extrabold:800;
+
+  /* ----------------------------------------------------------
+     ESPACEMENTS — Échelle 4px
+     ---------------------------------------------------------- */
+
+  --space-0:    0;
+  --space-px:   1px;
+  --space-0-5:  0.125rem;  /* 2px  */
+  --space-1:    0.25rem;   /* 4px  */
+  --space-1-5:  0.375rem;  /* 6px  */
+  --space-2:    0.5rem;    /* 8px  */
+  --space-2-5:  0.625rem;  /* 10px */
+  --space-3:    0.75rem;   /* 12px */
+  --space-3-5:  0.875rem;  /* 14px */
+  --space-4:    1rem;      /* 16px */
+  --space-5:    1.25rem;   /* 20px */
+  --space-6:    1.5rem;    /* 24px */
+  --space-7:    1.75rem;   /* 28px */
+  --space-8:    2rem;      /* 32px */
+  --space-10:   2.5rem;    /* 40px */
+  --space-12:   3rem;      /* 48px */
+  --space-14:   3.5rem;    /* 56px */
+  --space-16:   4rem;      /* 64px */
+  --space-20:   5rem;      /* 80px */
+  --space-24:   6rem;      /* 96px */
+  --space-32:   8rem;      /* 128px */
+  --space-40:   10rem;     /* 160px */
+  --space-48:   12rem;     /* 192px */
+  --space-64:   16rem;     /* 256px */
+
+  /* ----------------------------------------------------------
+     PADDING — Raccourcis par contexte
+     ---------------------------------------------------------- */
+
+  --padding-xs:  var(--space-1) var(--space-2);      /* 4px 8px   */
+  --padding-sm:  var(--space-1-5) var(--space-3);    /* 6px 12px  */
+  --padding-md:  var(--space-2) var(--space-4);      /* 8px 16px  */
+  --padding-lg:  var(--space-3) var(--space-6);      /* 12px 24px */
+  --padding-xl:  var(--space-4) var(--space-8);      /* 16px 32px */
+
+  --padding-section-sm:  var(--space-8)  var(--space-6);
+  --padding-section-md:  var(--space-12) var(--space-10);
+  --padding-section-lg:  var(--space-16) var(--space-12);
+
+  /* ----------------------------------------------------------
+     MARGIN — Rythme vertical
+     ---------------------------------------------------------- */
+
+  --margin-stack-xs: 0 0 var(--space-2);
+  --margin-stack-sm: 0 0 var(--space-4);
+  --margin-stack-md: 0 0 var(--space-6);
+  --margin-stack-lg: 0 0 var(--space-10);
+  --margin-stack-xl: 0 0 var(--space-16);
+
+  /* ----------------------------------------------------------
+     BORDURES & RAYON
+     ---------------------------------------------------------- */
+
+  --radius-none:  0;
+  --radius-xs:    2px;
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --radius-2xl:   24px;
+  --radius-3xl:   32px;
+  --radius-full:  9999px;
+
+  --border-width-thin:    1px;
+  --border-width-default: 1.5px;
+  --border-width-thick:   2px;
+  --border-width-heavy:   3px;
+
+  /* ----------------------------------------------------------
+     OMBRES
+     ---------------------------------------------------------- */
+
+  --shadow-none:  none;
+  --shadow-xs:    0 1px 3px rgba(0,0,0,0.25);
+  --shadow-sm:    0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md:    0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg:    0 8px 32px rgba(0,0,0,0.5);
+  --shadow-xl:    0 16px 56px rgba(0,0,0,0.6);
+
+  --shadow-glow-celeste-sm:  0 0 12px rgba(43, 144, 245, 0.4);
+  --shadow-glow-celeste-md:  0 0 24px rgba(43, 144, 245, 0.5);
+  --shadow-glow-celeste-lg:  0 0 48px rgba(43, 144, 245, 0.4);
+
+  --shadow-glow-spark-sm:    0 0 12px rgba(255, 186, 13, 0.45);
+  --shadow-glow-spark-md:    0 0 24px rgba(255, 186, 13, 0.5);
+  --shadow-glow-spark-lg:    0 0 48px rgba(255, 186, 13, 0.4);
+
+  /* ----------------------------------------------------------
+     TRANSITIONS & ANIMATIONS
+     ---------------------------------------------------------- */
+
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:      cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-linear:      linear;
+
+  --duration-instant: 50ms;
+  --duration-fast:    100ms;
+  --duration-normal:  200ms;
+  --duration-slow:    350ms;
+  --duration-xslow:   600ms;
+
+  --transition-color:     color var(--duration-normal) var(--ease-out-expo),
+                          background-color var(--duration-normal) var(--ease-out-expo),
+                          border-color var(--duration-normal) var(--ease-out-expo);
+  --transition-transform: transform var(--duration-normal) var(--ease-out-expo);
+  --transition-shadow:    box-shadow var(--duration-normal) var(--ease-out-expo);
+  --transition-all:       all var(--duration-normal) var(--ease-out-expo);
+
+  /* ----------------------------------------------------------
+     LAYOUT
+     ---------------------------------------------------------- */
+
+  --container-xs:  360px;
+  --container-sm:  540px;
+  --container-md:  720px;
+  --container-lg:  960px;
+  --container-xl:  1200px;
+  --container-2xl: 1440px;
+
+  --sidebar-width:       240px;
+  --sidebar-width-sm:    64px;
+  --header-height:       64px;
+  --footer-height:       80px;
+
+  /* ----------------------------------------------------------
+     Z-INDEX
+     ---------------------------------------------------------- */
+
+  --z-below:    -1;
+  --z-base:      0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+
+}
+
+/* ----------------------------------------------------------
+   THÈME CLAIR (optionnel, override)
+   ---------------------------------------------------------- */
+[data-theme="light"] {
+  --bg-base:        var(--color-neutral-50);
+  --bg-surface:     var(--color-neutral-0);
+  --bg-raised:      var(--color-celeste-50);
+  --bg-overlay:     var(--color-celeste-100);
+
+  --border-subtle:  rgba(15, 112, 222, 0.10);
+  --border-default: rgba(15, 112, 222, 0.22);
+  --border-strong:  rgba(15, 112, 222, 0.45);
+  --border-focus:   var(--color-celeste-500);
+
+  --text-primary:   var(--color-void-900);
+  --text-secondary: var(--color-neutral-700);
+  --text-muted:     var(--color-neutral-500);
+  --text-disabled:  var(--color-neutral-300);
+  --text-inverse:   var(--color-neutral-0);
+
+  --brand-glow:     rgba(15, 112, 222, 0.20);
+  --spark-glow:     rgba(245, 158, 0, 0.25);
+
+  --shadow-xs: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.10);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
+  --shadow-xl: 0 16px 56px rgba(0,0,0,0.18);
 }

@@ -1,0 +1,309 @@
+/* ============================================================
+   CELESTE / SPARK — Buttons
+   buttons.css
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   BASE BUTTON
+   ---------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  font-family: var(--font-body);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-none);
+  white-space: nowrap;
+  text-decoration: none;
+
+  padding: var(--padding-md);
+  border-radius: var(--radius-sm);
+  border: var(--border-width-default) solid transparent;
+
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    var(--transition-color),
+    var(--transition-shadow),
+    var(--transition-transform);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icône seule dans le bouton */
+.btn .btn-icon {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+/* ----------------------------------------------------------
+   VARIANTES
+   ---------------------------------------------------------- */
+
+/* — Primary (Celeste) */
+.btn-primary {
+  background: var(--color-celeste-500);
+  color: var(--color-neutral-0);
+  border-color: transparent;
+  box-shadow: var(--shadow-sm), var(--shadow-glow-celeste-sm);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-md), var(--shadow-glow-celeste-md);
+  filter: brightness(1.08);
+}
+
+.btn-primary:active:not(:disabled) {
+  box-shadow: var(--shadow-xs), var(--shadow-glow-celeste-sm);
+  filter: brightness(0.96);
+}
+
+/* — Spark (accent doré) */
+.btn-spark {
+  background: var(--color-spark-500);
+  color: var(--text-on-spark);
+  border-color: transparent;
+  box-shadow: var(--shadow-sm), var(--shadow-glow-spark-sm);
+}
+
+.btn-spark:hover:not(:disabled) {
+  box-shadow: var(--shadow-md), var(--shadow-glow-spark-md);
+  filter: brightness(1.08);
+}
+
+.btn-spark:active:not(:disabled) {
+  box-shadow: var(--shadow-xs), var(--shadow-glow-spark-sm);
+  filter: brightness(0.96);
+}
+
+/* — Outline (contour celeste) */
+.btn-outline {
+  background: transparent;
+  color: var(--color-celeste-300);
+  border-color: var(--border-strong);
+  box-shadow: inset 0 0 0 0 var(--brand-glow);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: rgba(43, 144, 245, 0.10);
+  border-color: var(--color-celeste-400);
+  color: var(--color-celeste-200);
+  box-shadow: var(--shadow-glow-celeste-sm);
+}
+
+/* — Ghost (fond transparent) */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(94, 136, 220, 0.10);
+  color: var(--text-primary);
+}
+
+/* — Surface (fond de carte) */
+.btn-surface {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-surface:hover:not(:disabled) {
+  background: var(--bg-overlay);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+/* — Danger */
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-neutral-0);
+  border-color: transparent;
+  box-shadow: var(--shadow-sm), 0 0 12px rgba(240, 64, 64, 0.35);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: var(--color-danger-dark);
+  box-shadow: var(--shadow-md), 0 0 24px rgba(240, 64, 64, 0.45);
+}
+
+/* — Link */
+.btn-link {
+  background: transparent;
+  color: var(--color-celeste-300);
+  border-color: transparent;
+  padding-left: var(--space-1);
+  padding-right: var(--space-1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.btn-link:hover:not(:disabled) {
+  color: var(--color-celeste-200);
+}
+
+/* ----------------------------------------------------------
+   TAILLES
+   ---------------------------------------------------------- */
+
+.btn-xs {
+  padding: var(--padding-xs);
+  font-size: var(--text-xs);
+  border-radius: var(--radius-sm);
+  gap: var(--space-1);
+}
+
+.btn-sm {
+  padding: var(--padding-sm);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+}
+
+.btn-md {
+  padding: var(--padding-md);
+  font-size: var(--text-base);
+}
+
+.btn-lg {
+  padding: var(--padding-lg);
+  font-size: var(--text-md);
+  border-radius: var(--radius-lg);
+  gap: var(--space-3);
+}
+
+.btn-xl {
+  padding: var(--padding-xl);
+  font-size: var(--text-lg);
+  border-radius: var(--radius-xl);
+  gap: var(--space-3);
+  letter-spacing: var(--tracking-wider);
+}
+
+/* ----------------------------------------------------------
+   MODIFICATEURS
+   ---------------------------------------------------------- */
+
+/* Pleine largeur */
+.btn-block {
+  width: 100%;
+}
+
+/* Pilule (border-radius max) */
+.btn-pill {
+  border-radius: var(--radius-full);
+}
+
+/* Carré / icône seule */
+.btn-icon-only {
+  padding: var(--space-2);
+  aspect-ratio: 1;
+}
+
+.btn-icon-only.btn-xs { padding: var(--space-1-5); }
+.btn-icon-only.btn-sm { padding: var(--space-2);   }
+.btn-icon-only.btn-lg { padding: var(--space-3);   }
+.btn-icon-only.btn-xl { padding: var(--space-4);   }
+
+/* État de chargement */
+.btn-loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn-loading::after {
+  content: '';
+  width: 0.9em;
+  height: 0.9em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--radius-full);
+  animation: btn-spin 0.7s linear infinite;
+  margin-left: var(--space-2);
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ----------------------------------------------------------
+   GROUPE DE BOUTONS
+   ---------------------------------------------------------- */
+
+.btn-group {
+  display: inline-flex;
+  gap: 0;
+}
+
+.btn-group .btn {
+  border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.btn-group .btn:last-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.btn-group .btn:not(:last-child) {
+  border-right-width: 0;
+}
+
+.btn-group.btn-group-pill .btn:first-child {
+  border-radius: var(--radius-full) 0 0 var(--radius-full);
+}
+
+.btn-group.btn-group-pill .btn:last-child {
+  border-radius: 0 var(--radius-full) var(--radius-full) 0;
+}
+
+/* ----------------------------------------------------------
+   EFFET SHIMMER (decoration) — Celeste
+   ---------------------------------------------------------- */
+
+.btn-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.18) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position var(--duration-slow) var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.btn-shimmer:hover::before {
+  background-position: -200% 0;
+}

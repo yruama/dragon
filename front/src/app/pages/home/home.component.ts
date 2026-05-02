@@ -1,5 +1,3 @@
-import { ButtonComponent, ContentComponent } from 'projects/design-system/src/public-api';
-
 import { AddDataComponent } from 'src/app/components/forms/add-data.component';
 import { Component } from '@angular/core';
 import { HomeRoutingModule } from './home-routing.module';
@@ -9,7 +7,7 @@ import { HomeRoutingModule } from './home-routing.module';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     standalone: true,
-    imports: [HomeRoutingModule, ButtonComponent, ContentComponent, AddDataComponent]
+    imports: [HomeRoutingModule, AddDataComponent]
 })
 export class HomeComponent {
 
