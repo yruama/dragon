@@ -4,11 +4,10 @@ import { Component } from "@angular/core";
 import { GlobalService } from "./services/global/global.service";
 import { LoaderComponent } from "./components/loader/loader.component";
 import { LoaderService } from "./services/loader/loader.service";
-import { ToastModule } from 'primeng/toast';
 import { UserService } from "./services/user/user.service";
 
 @Component({
-	imports:[RouterOutlet, LoaderComponent, ToastModule],
+	imports:[RouterOutlet, LoaderComponent],
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],

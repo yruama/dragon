@@ -5,18 +5,13 @@ import fastify, { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequ
 import blippPlugin from "fastify-blipp";
 import { consoleErrorWithline } from "@core/utils.core";
 import cors from "@fastify/cors";
+// Import des routes en statique
+import dareRoutes from "./routes/dare.routes";
 import dotenv from "dotenv";
 import fastifyStatic from "@fastify/static";
-import generationRoutes from "./routes/generation.routes";
 import jwt from "@fastify/jwt";
 import path from "path";
-import pokelistRoutes from "./routes/pokelist.routes";
-// Import des routes en statique
-import pokemonRoutes from "./routes/pokemon.routes";
 import { setGlobals } from "./config/global";
-import start from "./scripts/getDataFromPokeapi";
-import testRoutes from "./routes/test.routes";
-import typeRoutes from "./routes/type.routes";
 import userRoutes from "./routes/user.routes";
 
 dotenv.config();
@@ -63,14 +58,15 @@ app.register(fastifyStatic, {
 });
 
 app.register(blippPlugin);
-app.register(pokemonRoutes as FastifyPluginAsync, { prefix: "api/v1/pokemon" });
+app.register(dareRoutes as FastifyPluginAsync, { prefix: "api/v1/dare" });
 app.register(userRoutes as FastifyPluginAsync, { prefix: "api/v1/user" });
-app.register(pokelistRoutes as FastifyPluginAsync, { prefix: "api/v1/pokelist" });
-app.register(generationRoutes as FastifyPluginAsync, { prefix: "api/v1/generation" });
-app.register(typeRoutes as FastifyPluginAsync, { prefix: "api/v1/type" });
-app.register(testRoutes as FastifyPluginAsync, { prefix: "api/v1/test" });
 app.register(cors, {
 	// put your options here
+});
+
+app.addHook('onRequest', (req, reply, done) => {
+  console.log('REQ:', req.method, req.url);
+  done();
 });
 
 (async function main(): Promise<void> {

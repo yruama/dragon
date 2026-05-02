@@ -1,0 +1,25 @@
+<form class="form" [formGroup]="form" (ngSubmit)="submit()">
+
+  <label class="label">Phrase</label>
+  <textarea
+    class="input textarea"
+    formControlName="PHRASE"
+    placeholder="Écris ton action ou vérité..."
+  ></textarea>
+
+  <label class="label">Type</label>
+  <select class="input" formControlName="TYPE">
+    <option *ngFor="let t of types" [value]="t">{{ t }}</option>
+  </select>
+
+  <label class="label">Catégorie (1 à 5)</label>
+  <input class="input" type="number" formControlName="CATEGORIE" min="1" max="5" />
+
+  <label class="label">Tags (séparés par des virgules)</label>
+  <input class="input" type="text" formControlName="TAGS" placeholder="angular, ui, fun" />
+
+  <button class="btn" type="submit" [disabled]="form.invalid">
+    Ajouter
+  </button>
+
+</form>

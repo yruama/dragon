@@ -1,1 +1,8 @@
-<p>button works!</p>
+<button
+  class="btn"
+  [class.btn-fill]="variant === 'fill'"
+  [class.btn-outline]="variant === 'outline'"
+  [disabled]="disabled"
+>
+  <ng-content></ng-content>
+</button>

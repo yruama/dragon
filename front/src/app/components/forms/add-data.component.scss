@@ -1,0 +1,98 @@
+/* =========================
+   FORM CONTAINER
+========================= */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 500px;
+  padding: var(--spacing-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* =========================
+   LABEL
+========================= */
+.label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: -6px;
+}
+
+/* =========================
+   INPUT BASE
+========================= */
+.input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Focus glow "étoile" */
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-glow-soft);
+}
+
+/* Hover subtil */
+.input:hover {
+  border-color: var(--border-strong);
+}
+
+/* Disabled */
+.input:disabled {
+  background: var(--bg-primary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* =========================
+   TEXTAREA
+========================= */
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* =========================
+   SELECT
+========================= */
+select.input {
+  cursor: pointer;
+}
+
+/* =========================
+   BUTTON (fallback si pas de composant)
+========================= */
+.btn {
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn:hover {
+  background: var(--color-primary-glow);
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}

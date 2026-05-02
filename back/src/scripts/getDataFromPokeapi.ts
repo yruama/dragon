@@ -7,7 +7,7 @@ import CoreEvolution from "../core/evolution.core";
 import CorePokemon from "../core/pokemon.core";
 import CoreShape from "../core/shape.core";
 import CoreTalent from "../core/talent.core";
-import CoreType from "../core/type.core";
+import CoreType from "../core/dare.core";
 import { Talent } from "../types/talent";
 /* eslint-disable */
 import axios from "axios";

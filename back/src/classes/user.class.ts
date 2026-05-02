@@ -1,4 +1,3 @@
-import CoreGeneration from "../core/generation.core";
 import CoreUser from "../core/user.core";
 import Error_user from "@errors/user.json";
 import { User } from "@type/user";
@@ -7,11 +6,9 @@ import { app } from "../app";
 
 export default class ClassUser {
 	private readonly coreUser: CoreUser;
-	private readonly coreGeneration: CoreGeneration;
 
 	constructor() {
 		this.coreUser = new CoreUser();
-		this.coreGeneration = new CoreGeneration();
 	}
 
 	/**

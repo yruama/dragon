@@ -27,8 +27,7 @@
               "src/assets"
             ],
             "styles": [
-                "src/styles.scss",
-                "node_modules/primeicons/primeicons.css",
+                "src/styles.scss"
             ],
             "scripts": [
               "node_modules/@fortawesome/fontawesome-free/js/all.min.js"

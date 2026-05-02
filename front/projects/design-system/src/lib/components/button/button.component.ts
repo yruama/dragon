@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+type ButtonVariant = 'fill' | 'outline';
 
 @Component({
-  selector: 'lib-button',
-  imports: [],
+  selector: 'spark-button',
   templateUrl: './button.component.html',
-  styleUrl: './button.component.css',
+  styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-
+  @Input() variant: ButtonVariant = 'fill';
+  @Input() disabled = false;
 }
