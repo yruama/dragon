@@ -310,10 +310,4 @@
    RESPONSIVE
    ---------------------------------------------------------- */
  
-@media (max-width: 768px) {
-  .nav-links       { display: none; }
-  .nav-burger      { display: flex; }
-  .nav-actions > *:not(.nav-burger) { display: none; }
-  .nav-actions > .nav-avatar { display: flex; }
-}
- 
+
