@@ -1,7 +1,7 @@
 export const environment = {
-	production: false,
-	environmentName: 'development',
-	apiURL: 'http://localhost:3001/api/v1',
-	assetsURL: 'http://localhost:3001/assets',
+	production: true,
+	environmentName: "production",
+	apiURL: "http://api.yruama.fr/api/v1",
+	assetsURL: "http://api.yruama.fr/assets",
 	tcgdexUrl: "https://api.tcgdex.net/v2"
 };
