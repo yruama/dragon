@@ -1,7 +1,7 @@
 export const environment = {
-	production: true,
-	environmentName: "production",
-	apiURL: "http://api.pokedata.fr/api/v1",
-	assetsURL: "http://api.pokedata.fr/assets",
+	production: false,
+	environmentName: 'development',
+	apiURL: 'http://localhost:3001/api/v1',
+	assetsURL: 'http://localhost:3001/assets',
 	tcgdexUrl: "https://api.tcgdex.net/v2"
 };
