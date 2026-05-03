@@ -1,0 +1,148 @@
+@if (state === 'settings') {
+    <form class="form">
+
+    <!-- ── CATÉGORIES ── -->
+    <div class="form-group">
+        <label class="form-label form-label-required">Catégories</label>
+        <select
+        class="select-multiple"
+        multiple
+        name="categories"
+        [(ngModel)]="settings.categories"
+        required
+        #categoriesCtrl="ngModel"
+        [class.input-error]="categoriesCtrl.invalid && categoriesCtrl.touched"
+        >
+        <option
+            *ngFor="let cat of categories"
+            [value]="cat.ID"
+            [style.color]="cat.COLOR"
+        >
+            {{ cat.NAME }}
+        </option>
+        </select>
+    </div>
+
+    <!-- ── DIFFICULTÉ ── -->
+    <div class="form-group">
+        <label class="form-label form-label-required">Difficulté</label>
+        <div class="level-grid">
+        <button
+            *ngFor="let l of level"
+            type="button"
+            class="level-card"
+            [class.level-card--active]="settings.level?.includes(l.ID!)"
+            [attr.data-level]="l.ID"
+            (click)="triggerLevel(l.ID!)"
+        >
+            <span class="level-card-label">{{ l.TITLE }}</span>
+            <span class="level-card-desc">{{ l.DESCRIPTION }}</span>
+        </button>
+        </div>
+        <!-- Champ caché pour la validation ngModel -->
+        <input
+        type="hidden"
+        name="level"
+        [(ngModel)]="settings.level"
+        required
+        #levelCtrl="ngModel"
+        />
+    </div>
+
+    <!-- ── NOMBRE DE JOUEURS ── -->
+    <div class="form-group">
+        <label class="form-label form-label-required">Nombre de joueurs</label>
+        <div class="player-count-row">
+        <button
+            type="button"
+            class="btn btn-surface count-btn"
+            (click)="decrementPlayers()"
+            [disabled]="settings.playerCount <= 2"
+        >−</button>
+
+        <input
+            class="input count-input"
+            type="number"
+            name="playerCount"
+            [(ngModel)]="settings.playerCount"
+            (ngModelChange)="onPlayerCountChange($event)"
+            [min]="2"
+            [max]="12"
+        />
+
+        <button
+            type="button"
+            class="btn btn-surface count-btn"
+            (click)="incrementPlayers()"
+            [disabled]="settings.playerCount >= 12"
+        >+</button>
+        </div>
+        <span class="form-hint">Entre 2 et 12 joueurs.</span>
+    </div>
+
+
+    <!-- -- Nombre questions -- -->
+    <div class="form-group">
+        <label class="form-label form-label-required">Nombre de questions</label>
+        <div class="player-count-row">
+        <button
+            type="button"
+            class="btn btn-surface count-btn"
+            (click)="settings.nbQuestion -= 1"
+            [disabled]="settings.nbQuestion == 0"
+        >−</button>
+
+        <input
+            class="input count-input"
+            type="number"
+            name="nbQuestion"
+            [(ngModel)]="settings.nbQuestion"
+            [min]="0"
+            [max]="100"
+        />
+
+        <button
+            type="button"
+            class="btn btn-surface count-btn"
+            (click)="settings.nbQuestion += 1"
+            [disabled]="settings.nbQuestion > 100"
+        >+</button>
+        </div>
+        <span class="form-hint">Entre 2 et 12 joueurs.</span>
+    </div>
+
+    <!-- ── PRÉNOMS ── -->
+    <div class="form-group" *ngIf="settings.playerCount >= 2">
+        <label class="form-label form-label-required">Prénoms des joueurs</label>
+        <div class="players-grid">
+        <div
+            class="player-input-wrap"
+            *ngFor="let player of players; let i = index"
+        >
+            <span class="player-index" [style.background]="playerColor(i)">
+            {{ i + 1 }}
+            </span>
+            <input
+            class="input"
+            type="text"
+            [name]="'player_' + i"
+            [(ngModel)]="players[i]"
+            [placeholder]="'Joueur ' + (i + 1)"
+            maxlength="24"
+            required
+            #playerCtrl="ngModel"
+            [class.input-error]="playerCtrl.invalid && playerCtrl.touched"
+            />
+        </div>
+        </div>
+    </div>
+
+    <!-- ── ACTIONS ── -->
+    <div class="form-actions form-actions-between">
+        <button (click)="onSubmit()" class="btn btn-primary btn-shimmer" type="submit">
+        Lancer la partie →
+        </button>
+    </div>
+
+    </form>
+}
