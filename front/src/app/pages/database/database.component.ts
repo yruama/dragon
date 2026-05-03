@@ -52,6 +52,12 @@ export class DatabaseComponent {
     } else if (this.currentTab === 1) {
       await this.TruthService.add(this.forms).then(() => { this.maModal.close() })
     }
+
+    this.forms = {
+      DESCRIPTION: '',
+      LEVEL: 0,
+      CATEGORIES: ''
+    }
   }
 
   async openModal(): Promise<void> {
