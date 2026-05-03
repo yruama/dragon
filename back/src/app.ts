@@ -84,7 +84,7 @@ app.addHook('onRequest', (req, reply, done) => {
 	try {
 		setGlobals();
 		consoleErrorWithline();
-		await app.listen({ port: 3001 });
+		await app.listen({ port: 3009 });
 		//start();
 		app.blipp();
 	} catch (err) {
