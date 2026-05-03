@@ -68,7 +68,6 @@ export default class ClassUser {
 			user.PASSWORD = cryptedPassword;
 
 			await this.coreUser.add(user);
-			// me rappel plus pk j'ai fait ca await this.coreGeneration.get(0);
 
 			return user;
 		} catch (error) {

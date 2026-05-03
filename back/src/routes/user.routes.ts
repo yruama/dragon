@@ -19,6 +19,7 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 
 	fastify.post("/sign-up", async (request: RequestType, reply: FastifyReply): Promise<void> => {
 		try {
+			console.log("??..")
 			const userData = await classUser.signUp(request.body.user);
 			await replySuccess(userData, reply, "post");
 		} catch (error) {

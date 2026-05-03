@@ -1,22 +1,22 @@
 <div class="choices">
     <div [ngClass]="{ 'active': currentTab === 0 }" (click)="changeTab(0)" class="card card-glow tab">
         <div class="card-title">Actions</div>
-        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+        <div class="card-desc">défis physiques ou amusants que le joueur doit réaliser (danser, faire une imitation, relever un petit challenge).</div>
     </div>
 
     <div [ngClass]="{ 'active': currentTab === 1 }" (click)="changeTab(1)" class="card card-glow tab">
         <div class="card-title">Vérités</div>
-        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+        <div class="card-desc">Questions personnelles ou gênantes auxquelles le joueur doit répondre honnêtement.</div>
     </div>
 
     <div [ngClass]="{ 'active': currentTab === 2 }" (click)="changeTab(2)" class="card card-glow tab">
         <div class="card-title">Catégories</div>
-        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+        <div class="card-desc">Thèmes de questions ou de défis (amour, amis, travail, drôle, embarrassant) pour varier le jeu.</div>
     </div>
 
     <div [ngClass]="{ 'active': currentTab === 3 }" (click)="changeTab(3)" class="card card-glow tab">
         <div class="card-title">Niveaux</div>
-        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+        <div class="card-desc">Intensité des actions ou des questions (soft, moyen, hardcore) pour adapter le jeu à l’ambiance du groupe.</div>
     </div>
 </div>
 
@@ -36,7 +36,7 @@
   @case (1) {
     <br>
     Listes des vérités (à venir)
-    <br><br>
+    <br><br><br>
   }
   @case (2) {
     <app-category></app-category>

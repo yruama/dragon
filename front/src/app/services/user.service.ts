@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { User } from "src/app/types/user";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { environment } from "src/environments/environment";
-import { Observable } from "rxjs";
+
 import { APIResult } from "src/app/types/utils.types";
+import { Injectable } from "@angular/core";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { Observable } from "rxjs";
+import { User } from "src/app/types/user";
+import { environment } from "src/environments/environment";
 
 @Injectable({
 	providedIn: "root"
@@ -15,12 +16,13 @@ export class UserService {
 		public jwtHelper: JwtHelperService
 	) { }
 
-	signUp(user: User): Observable<APIResult> {
+	signUp(user: User): Observable<User> {
 		const headers = new HttpHeaders({
 			"Content-Type": "application/json"
 		});
 
-		return this._http.post<APIResult>(`${environment.apiURL}/user/sign-up`, { user }, { headers });
+		console.log("coucou", `${environment.apiURL}/user/sign-up`)
+		return this._http.post<User>(`${environment.apiURL}/user/sign-up`, { user }, { headers });
 	}
 
 	signIn(user: User): Observable<APIResult> {
