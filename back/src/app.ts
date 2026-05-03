@@ -60,17 +60,19 @@ app.register(fastifyStatic, {
 	prefix: "/assets/"
 });
 
+app.register(cors, {
+	origin: 'https://spark.yruama.fr',
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+	credentials: true
+});
+
 app.register(blippPlugin);
 app.register(dareRoutes as FastifyPluginAsync, { prefix: "api/v1/dare" });
 app.register(truthRoutes as FastifyPluginAsync, { prefix: "api/v1/truth" });
 app.register(userRoutes as FastifyPluginAsync, { prefix: "api/v1/user" });
 app.register(categoryRoutes as FastifyPluginAsync, { prefix: "api/v1/category" });
 app.register(levelRoutes as FastifyPluginAsync, { prefix: "api/v1/level" });
-app.register(cors, {
-	origin: 'https://spark.yruama.fr',
-	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-	credentials: true
-});
+
 
 app.addHook('onRequest', (req, reply, done) => {
   console.log('REQ:', req.method, req.url);
