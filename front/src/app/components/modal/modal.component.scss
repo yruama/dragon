@@ -113,3 +113,10 @@
 [data-theme="light"] .modal::backdrop {
   background: rgba(15, 23, 60, 0.50);
 }
+
+/* Mobile */
+@media (max-width: 768px) {
+    dialog {
+        min-height: 95vh;
+    }
+}

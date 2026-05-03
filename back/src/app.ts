@@ -61,7 +61,10 @@ app.register(fastifyStatic, {
 });
 
 app.register(cors, {
-	origin: 'https://spark.yruama.fr',
+	origin: [
+      'https://spark.yruama.fr',
+      'http://localhost:4200'
+    ],
 	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 	credentials: true
 });
