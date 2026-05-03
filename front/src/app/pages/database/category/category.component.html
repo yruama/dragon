@@ -1,0 +1,17 @@
+<div class="bloc">
+    @if (categories) {
+        @for (item of categories; track $index) {
+
+            <div class="tag-group">
+                <span
+                    class="tag"
+                    [ngStyle]="item.COLOR | tagStyle"
+                >
+                    <span class="tag-dot"></span>
+                    {{ item.NAME }}
+                </span>
+                </div>
+
+        }
+    }
+</div>

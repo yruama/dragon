@@ -1,0 +1,12 @@
+.bloc {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .bloc {
+    flex-direction: column;
+  }
+}

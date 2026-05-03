@@ -6,10 +6,10 @@ export default class CoreDare {
 	async add(dare: Dare): Promise<number[]> {
 		try {
 			const dareCreated = await knex("DARE").insert({
-				PHRASE: dare.PHRASE,
-				TYPE: dare.TYPE,
-				CATEGORIE: dare.CATEGORIE,
-				TAGS: JSON.stringify(dare.TAGS)
+				DESCRIPTION: dare.DESCRIPTION,
+				CATEGORIES: JSON.stringify(dare.CATEGORIES),
+				LEVEL: dare.LEVEL,
+				CREATOR_ID: dare.CREATOR_ID
 			});
 
 			return dareCreated;

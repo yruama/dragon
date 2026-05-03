@@ -1,29 +1,112 @@
 <div class="choices">
-    <div class="card card-glow tab">
+    <div [ngClass]="{ 'active': currentTab === 0 }" (click)="changeTab(0)" class="card card-glow tab">
         <div class="card-title">Actions</div>
         <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
     </div>
 
-    <div class="card card-glow tab">
+    <div [ngClass]="{ 'active': currentTab === 1 }" (click)="changeTab(1)" class="card card-glow tab">
         <div class="card-title">Vérités</div>
+        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+    </div>
+
+    <div [ngClass]="{ 'active': currentTab === 2 }" (click)="changeTab(2)" class="card card-glow tab">
+        <div class="card-title">Catégories</div>
+        <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
+    </div>
+
+    <div [ngClass]="{ 'active': currentTab === 3 }" (click)="changeTab(3)" class="card card-glow tab">
+        <div class="card-title">Niveaux</div>
         <div class="card-desc">Naviguez dans les couches de données avec une interface stellaire conçue pour la clarté.</div>
     </div>
 </div>
 
-<div class="list">
-
+<div class="choices-mobile">
+  <button (click)="changeTab(0)" [ngClass]="{ 'active': currentTab === 0 }" class="btn btn-outline">Actions</button>
+  <button (click)="changeTab(1)" [ngClass]="{ 'active': currentTab === 1 }" class="btn btn-outline">Vérités</button>
+  <button (click)="changeTab(2)" [ngClass]="{ 'active': currentTab === 2 }" class="btn btn-outline">Catégories</button>
+  <button (click)="changeTab(3)" [ngClass]="{ 'active': currentTab === 3 }" class="btn btn-outline">Niveaux</button>
 </div>
 
-<button class="btn btn-spark" (click)="openModal()"> open </button>
-<app-modal #maModal title="Mon titre" size="lg" (closed)="onClose()">
+@switch (currentTab) {
+  @case (0) {
+    <p>Cas A</p>
+  }
+  @case (1) {
+    <p>Cas B</p>
+  }
+  @case (2) {
+    <app-category></app-category>
+  }
+  @case (3) {
+    <app-level></app-level>
+  }
+  @default {
+    <p>Default</p>
+  }
+}
+
+@if (currentTab <= 1 ) { <button class="btn btn-spark" (click)="openModal()"> Ajouter une donnée </button> }
+
+
+<app-modal #maModal
+  [title]="currentTab === 0 ? 'Ajouter une Action' :
+           currentTab === 1 ? 'Ajouter une Vérité' : 
+           ''"
+           size="lg" (closed)="onClose()">
 
   <!-- Corps libre -->
-  <p>N'importe quel contenu ici</p>
+  <div class="form">
+
+    <!-- ── DESCRIPTION ── -->
+    <div class="form-group">
+      <label class="form-label form-label-required">Description</label>
+      <textarea
+        [(ngModel)]="forms.DESCRIPTION"
+        class="textarea"
+        rows="4"
+        placeholder="Décris la question ou l'action…"
+      ></textarea>
+    </div>
+
+    <!-- ── LEVEL ── -->
+    <div class="form-group">
+      <label class="form-label form-label-required">Rôle</label>
+      <div class="select-wrapper">
+        <select [(ngModel)]="forms.LEVEL" class="select select-md">
+          @for (item of level; track $index) {
+            <option [ngValue]="item.DIFFICULTY">{{ item.TITLE }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <!-- ── CATEGORIES ── -->
+    <div class="form-group">
+      <label class="form-label form-label-required">Catégories</label>
+      <select
+        class="select-multiple"
+        multiple
+        (change)="onCategoriesChange($event)"
+      >
+        <option
+          *ngFor="let cat of categories"
+          [value]="cat.ID"
+        >
+          {{ cat.NAME }}
+        </option>
+      </select>
+
+      <span class="form-hint">
+        Ctrl + clic (Windows) ou ⌘ + clic (Mac) pour sélection multiple.
+      </span>
+    </div>
+
+  </div>
 
   <!-- Footer -->
   <div modal-footer>
-    <button (click)="maModal.close()">Annuler</button>
-    <button (click)="add()">Sauvegarder</button>
+    <button class="btn btn-danger" style="margin-right: 1rem;" (click)="maModal.close()">Annuler</button>
+    <button class="btn btn-spark" (click)="add()">Ajouter</button>
   </div>
 
 </app-modal>

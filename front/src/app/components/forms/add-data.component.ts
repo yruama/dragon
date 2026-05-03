@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { DataService } from 'src/app/services/data/data.service';
+import { DareService } from 'src/app/services/dare.service';
 
 type TypeItem = 'ACTION' | 'VERITE';
 
@@ -19,7 +19,7 @@ export class AddDataComponent {
   types: TypeItem[] = ['ACTION', 'VERITE'];
 
   constructor(private fb: FormBuilder,
-              private dataService: DataService
+              private dareService: DareService
   ) {
     this.form = this.fb.group({
       PHRASE: ['', [Validators.required, Validators.maxLength(500)]],
@@ -40,6 +40,6 @@ export class AddDataComponent {
     };
 
     console.log(value);
-    await this.dataService.add(value);
+    await this.dareService.add(value);
   }
 }

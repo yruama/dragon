@@ -3,8 +3,8 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { AuthGuardService } from './services/auth-guard/auth-guard.service';
-import { LoaderService } from './services/loader/loader.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { LoaderService } from './services/loader.service';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';

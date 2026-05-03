@@ -1,0 +1,16 @@
+.bloc {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: var(--space-4);
+}
+
+.tag-group {
+    margin: var(--space-1);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .bloc {
+       justify-content: center;
+  }
+}

@@ -1,0 +1,12 @@
+<div class="bloc">
+    @if (level) {
+        @for (item of level; track $index) {
+
+            <div class="card card-glow">
+                <div class="card-title">{{ item.DIFFICULTY }}  ✦  {{ item.TITLE }} </div>
+                <div class="card-desc"> {{ item.DESCRIPTION }} </div>
+            </div>
+
+        }
+    }
+</div>

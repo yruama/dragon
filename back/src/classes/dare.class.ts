@@ -16,7 +16,7 @@ export default class DareClass {
 
 			return true;
 		} catch (error) {
-			console.error("[CLASS_POKELIST.add] : ", error);
+			console.error("[DareClass.add] : ", error);
 			throw error;
 		}
 	}

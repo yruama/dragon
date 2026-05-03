@@ -1,11 +1,11 @@
 import { Router, RouterOutlet } from "@angular/router";
 
 import { Component } from "@angular/core";
-import { GlobalService } from "./services/global/global.service";
+import { GlobalService } from "./services/global.service";
 import { HeaderComponent } from "./components/header/header.component";
 import { LoaderComponent } from "./components/loader/loader.component";
-import { LoaderService } from "./services/loader/loader.service";
-import { UserService } from "./services/user/user.service";
+import { LoaderService } from "./services/loader.service";
+import { UserService } from "./services/user.service";
 
 @Component({
 	imports:[RouterOutlet, LoaderComponent, HeaderComponent],

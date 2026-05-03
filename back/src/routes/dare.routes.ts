@@ -6,11 +6,10 @@ import DareClass from "src/classes/dare.class";
 import { FastifyReply } from "fastify";
 import { RequestRouteOptions } from "fastify/types/request";
 
-const dataClass = new DareClass();
+const dareClass = new DareClass();
 
 
 async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOptions): Promise<void> {
-	console.log("???")
 
 	fastify.get("/", async (request: RequestType, reply: FastifyReply) => {
 		try {
@@ -19,19 +18,18 @@ async function routes(fastify: FastifyInstanceDecorated, options: RequestRouteOp
 			const max = request.query.limit ? parseInt(request.query.max) : null;
 			const language = request.headers['accept-language'] || 'fr-FR';
 
-			const data = await dataClass.getWithPagination(offset, limit, max, language);
-			await replySuccess(data, reply, "get");
+			const dare = await dareClass.getWithPagination(offset, limit, max, language);
+			await replySuccess(dare, reply, "get");
 		} catch (error) {
 			await replyError(error, reply);
 		}
 	});
 
-	//fastify.post("/", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
-	fastify.post("/", async (request: RequestType, reply: FastifyReply) => {
+	fastify.post("/", { onRequest: [fastify.authenticate] }, async (request: RequestType, reply: FastifyReply) => {
 		try {
-			console.log("BODY : ", request.body)
-			const data = await dataClass.add(request.body.data);
-			await replySuccess(data, reply, "post");
+			request.body.dare.CREATOR_ID = request.user.ID
+			const dare = await dareClass.add(request.body.dare);
+			await replySuccess(dare, reply, "post");
 		} catch (error) {
 			await replyError(error, reply);
 		}

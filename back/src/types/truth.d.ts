@@ -1,9 +1,9 @@
 export interface Truth {
 	ID?: number;
-	PHRASE: string;
-	TYPE: number;
-	CATEGORIE: number;
-	TAGS: string;
+	DESCRIPTION: string;
+	LEVEL: number;
+	CATEGORIES: string;
+	CREATOR_ID: number;
 	LIKE_COUNT?: number;
 	DISLIKE_COUNT?: number;
 	VIEW_COUNT?: number;

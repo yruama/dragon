@@ -1,6 +1,6 @@
-import { AuthGuardService } from 'src/app/services/auth-guard/auth-guard.service';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
 import { Component } from '@angular/core';
-import { GlobalService } from 'src/app/services/global/global.service';
+import { GlobalService } from 'src/app/services/global.service';
 import { RouterModule } from '@angular/router';
 
 @Component({

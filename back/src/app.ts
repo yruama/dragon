@@ -3,6 +3,7 @@ import * as Knex from "knex";
 import fastify, { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequest } from "fastify";
 
 import blippPlugin from "fastify-blipp";
+import categoryRoutes from "./routes/category.routes";
 import { consoleErrorWithline } from "@core/utils.core";
 import cors from "@fastify/cors";
 // Import des routes en statique
@@ -10,8 +11,10 @@ import dareRoutes from "./routes/dare.routes";
 import dotenv from "dotenv";
 import fastifyStatic from "@fastify/static";
 import jwt from "@fastify/jwt";
+import levelRoutes from "./routes/level.routes";
 import path from "path";
 import { setGlobals } from "./config/global";
+import truthRoutes from "./routes/truth.routes";
 import userRoutes from "./routes/user.routes";
 
 dotenv.config();
@@ -59,7 +62,10 @@ app.register(fastifyStatic, {
 
 app.register(blippPlugin);
 app.register(dareRoutes as FastifyPluginAsync, { prefix: "api/v1/dare" });
+app.register(truthRoutes as FastifyPluginAsync, { prefix: "api/v1/truth" });
 app.register(userRoutes as FastifyPluginAsync, { prefix: "api/v1/user" });
+app.register(categoryRoutes as FastifyPluginAsync, { prefix: "api/v1/category" });
+app.register(levelRoutes as FastifyPluginAsync, { prefix: "api/v1/level" });
 app.register(cors, {
 	// put your options here
 });

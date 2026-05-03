@@ -6,10 +6,10 @@ export default class CoreTruth {
 	async add(truth: Truth): Promise<number[]> {
 		try {
 			const truthCreated = await knex("TRUTH").insert({
-				PHRASE: truth.PHRASE,
-				TYPE: truth.TYPE,
-				CATEGORIE: truth.CATEGORIE,
-				TAGS: JSON.stringify(truth.TAGS)
+				DESCRIPTION: truth.DESCRIPTION,
+				CATEGORIES: JSON.stringify(truth.CATEGORIES),
+				LEVEL: truth.LEVEL,
+				CREATOR_ID: truth.CREATOR_ID
 			});
 
 			return truthCreated;

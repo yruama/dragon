@@ -1,16 +1,15 @@
-import { Router, RouterLink } from '@angular/router';
-
-import { AuthGuardService } from 'src/app/services/auth-guard/auth-guard.service';
+import { AuthGuardService } from 'src/app/services/auth-guard.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
-import { GlobalService } from 'src/app/services/global/global.service';
+import { GlobalService } from 'src/app/services/global.service';
+import { Router } from '@angular/router';
 import { User } from 'src/app/types/user';
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })

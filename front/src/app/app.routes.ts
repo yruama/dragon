@@ -1,4 +1,4 @@
-import { AuthGuardService } from './services/auth-guard/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
