@@ -27,5 +27,10 @@ export const routes: Routes = [
     path: 'users/sign-in',
     loadComponent: () =>
       import('./pages/users/auth/sign-in/sign-in.component').then(m => m.SignInComponent)
+  },
+  {
+    path: 'games/truthordare',
+    loadComponent: () =>
+      import('./pages/games/truthordare/truthordare.component').then(m => m.TruthordareComponent)
   }
 ];
