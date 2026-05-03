@@ -67,7 +67,9 @@ app.register(userRoutes as FastifyPluginAsync, { prefix: "api/v1/user" });
 app.register(categoryRoutes as FastifyPluginAsync, { prefix: "api/v1/category" });
 app.register(levelRoutes as FastifyPluginAsync, { prefix: "api/v1/level" });
 app.register(cors, {
-	// put your options here
+	origin: 'https://spark.yruama.fr',
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+	credentials: true
 });
 
 app.addHook('onRequest', (req, reply, done) => {
